@@ -4,6 +4,7 @@
  */
 package com.skyline.model.core;
 
+import com.skyline.model.utils.AbstractEntity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author tomassellden
  */
-public class Member {
+public class Member extends AbstractEntity {
 
     private String name;
     private Date date;
@@ -33,5 +34,9 @@ public class Member {
 
     public Date getDate(Date date) {
         return date;
+    }
+
+    public List<Member> getFavoriteMembers() {
+        return favoriteMembers;
     }
 }

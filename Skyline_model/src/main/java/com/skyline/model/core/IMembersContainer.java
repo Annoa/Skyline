@@ -4,13 +4,14 @@
  */
 package com.skyline.model.core;
 
+import com.skyline.model.utils.IDAO;
 import java.util.List;
 
 /**
  *
  * @author tomassellden
  */
-public interface IMembersContainer {
+public interface IMembersContainer extends IDAO<Member, Long> {
     
     public Member getMember(String name);
     
