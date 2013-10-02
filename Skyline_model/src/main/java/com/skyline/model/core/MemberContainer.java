@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.skyline.skyline.model;
+package com.skyline.model.core;
 
+import com.skyline.model.core.Member;
+import com.skyline.model.core.IMembersContainer;
 import java.util.ArrayList;
 import java.util.List;
 
