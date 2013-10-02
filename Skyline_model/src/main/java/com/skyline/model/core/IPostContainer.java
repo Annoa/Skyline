@@ -5,13 +5,14 @@
 package com.skyline.model.core;
 
 import com.skyline.model.core.Member;
+import com.skyline.skyline.model.IDAO;
 import java.util.List;
 
 /**
  * interface to PostContainer
  * @author tomassellden
  */
-public interface IPostContainer {
+public interface IPostContainer extends IDAO<Post, Long>{
     
     public List<Member> getPostByMember(Member member);
     
