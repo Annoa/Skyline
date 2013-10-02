@@ -5,7 +5,7 @@
 package com.skyline.model.core;
 
 import com.skyline.model.core.Member;
-import com.skyline.skyline.model.IDAO;
+import com.skyline.model.utils.IDAO;
 import java.util.List;
 
 /**
