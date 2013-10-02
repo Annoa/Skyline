@@ -11,7 +11,7 @@ import java.util.Random;
  */
 
 
-public abstract class AbstractEntity{
+public abstract class AbstractEntity implements IEntity<Long>{
 //Implementa serializeable? (som i IEntity)
     private final Long id;
    
