@@ -1,4 +1,4 @@
-package com.skyline.skyline.model;
+package com.skyline.model.utils;
 
 import java.io.Serializable;
 
