@@ -19,6 +19,7 @@ public class Member extends AbstractEntity {
     private String name;
     private Date date;
     private List<Member> favoriteMembers = new ArrayList<Member>();
+    private List<Post> postByOneMember = new ArrayList<Post>();
 
     public Member() {
     }
@@ -38,5 +39,17 @@ public class Member extends AbstractEntity {
 
     public List<Member> getFavoriteMembers() {
         return favoriteMembers;
+    }
+
+    public void addFavoriteMembers(Member member) {
+        favoriteMembers.add(member);
+    }
+
+    public void addPostToMember(Post post) {
+        postByOneMember.add(post);
+    }
+    
+    public List<Post> getPostByMember() {
+        return postByOneMember;
     }
 }

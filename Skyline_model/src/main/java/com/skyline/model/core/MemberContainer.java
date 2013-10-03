@@ -14,6 +14,9 @@ import java.util.List;
  */
 public class MemberContainer extends AbstractDAO<Member, Long> implements IMembersContainer {
 
+    public static IMembersContainer newInstance() {
+        return new MemberContainer();
+    }
     /**
      *
      * @param name

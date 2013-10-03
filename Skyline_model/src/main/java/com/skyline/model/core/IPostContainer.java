@@ -4,7 +4,6 @@
  */
 package com.skyline.model.core;
 
-import com.skyline.model.core.Member;
 import com.skyline.model.utils.IDAO;
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
  */
 public interface IPostContainer extends IDAO<Post, Long>{
     
-    public List<Member> getPostByMember(Member member);
+    public List<Post> getPostByMember(Member member);
     
-    public List<Member> getPostByFavoriteMember(Member member);
+    public List<Post> getPostByFavoriteMember(Member member);
 }

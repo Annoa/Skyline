@@ -5,6 +5,7 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractDAO;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,15 +13,28 @@ import java.util.List;
  *
  * @author Anno
  */
-public class PostContainer extends AbstractDAO
-        <Post, Long> implements IPostContainer {
+public class PostContainer extends AbstractDAO<Post, Long> implements IPostContainer {
 
-    public List<Member> getPostByMember(Member member) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static IPostContainer newInstance() {
+        return new PostContainer();
     }
 
-    public List<Member> getPostByFavoriteMember(Member member) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Override
+    public List<Post> getPostByMember(Member member) {
+        List<Post> membersPost = new ArrayList<Post>(member.getPostByMember());
+        return membersPost;
+
     }
-    
+
+    @Override
+    public List<Post> getPostByFavoriteMember(Member member) {
+        List<Post> favoriteMembersPost = new ArrayList<Post>();
+        for (Member m : member.getFavoriteMembers()) {
+            for (Post p : m.getPostByMember())
+            favoriteMembersPost.add(p);
+        }
+        return favoriteMembersPost;
+
+
+    }
 }
