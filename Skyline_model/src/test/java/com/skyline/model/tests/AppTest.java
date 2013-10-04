@@ -1,4 +1,4 @@
-package com.skyline.skyline.model;
+package com.skyline.model.tests;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

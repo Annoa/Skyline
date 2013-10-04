@@ -5,7 +5,6 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractDAO;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

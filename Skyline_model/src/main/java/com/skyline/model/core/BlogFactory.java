@@ -36,7 +36,7 @@ public class BlogFactory {
         
         Post post = new Post("First post", b, null, null);
         tomas.addPostToMember(post);
-        blog.getPostContainer().getPostByMember(tomas);
+        
         blog.getPostContainer().add(post);
         blog.getPostContainer().add(new Post("Second Post", b, null, null));
         
