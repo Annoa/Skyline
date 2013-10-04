@@ -25,20 +25,24 @@ public class BlogFactory {
     private static void addTestData(Blog blog) {
         
         BodyText b = new BodyText("I am awesome!");
+        BodyText b2 = new BodyText("ooooh yeeeah");
+        BodyText b3 = new BodyText("Annnoa did this");
+        BodyText b4 = new BodyText("Antsiee did this");
         
         Member tomas = new Member("Tomas");
         Member anno = new Member("Anno");
         Member anton = new Member("Anton");
-        Member krabban = new Member("krabban");
+        Member krabban = new Member("Krabban");
         
         tomas.addFavoriteMembers(anno);
         tomas.addFavoriteMembers(krabban);
+        tomas.addFavoriteMembers(anton);
+        anton.addFavoriteMembers(krabban);
         
-        Post post = new Post("First post", b, null, null);
-        tomas.addPostToMember(post);
-        
-        blog.getPostContainer().add(post);
-        blog.getPostContainer().add(new Post("Second Post", b, null, null));
+        blog.getPostContainer().add(new Post(tomas, "First Post", b, null, null));
+        blog.getPostContainer().add(new Post(tomas, "Second Post", b2, null, null));
+        blog.getPostContainer().add(new Post(anno, "Third Post", b2, null, null));
+        blog.getPostContainer().add(new Post(anton, "Fouth Post", b3, null, null));
         
         blog.getMemberContainer().add(tomas);
         blog.getMemberContainer().add(anno);

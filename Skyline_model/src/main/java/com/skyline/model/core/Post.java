@@ -22,10 +22,12 @@ public class Post extends AbstractEntity{
     private PostVideo postVideo;
     private int upVotes;
     private int downVotes;
+    private Member member;
     public Post(){
     }
     //TODO Är dåligt för databasen att ha med nulls?
-    public Post(String title, BodyText b, PostPicture pP, PostVideo pV){
+    public Post(Member member, String title, BodyText b, PostPicture pP, PostVideo pV){
+        this.member = member;
         date = new Date();
         this.title = title;
         if(b!=null){
@@ -60,5 +62,8 @@ public class Post extends AbstractEntity{
     }
     public int getDownVotes(){
         return downVotes;
+    }
+    public Member getMember() {
+        return member;
     }
 }

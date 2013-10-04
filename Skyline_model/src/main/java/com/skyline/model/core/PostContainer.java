@@ -20,21 +20,21 @@ public class PostContainer extends AbstractDAO<Post, Long> implements IPostConta
     }
 
     @Override
-    public List<Post> getPostByMember(Member member) {
-        return member.getPostByMember();
+    public Member getMemberByPost(Post post) {
+        return post.getMember();
         
 
     }
 
     @Override
-    public List<Post> getPostByFavoriteMember(Member member) {
-        List<Post> favoriteMembersPost = new ArrayList<Post>();
-        for (Member m : member.getFavoriteMembers()) {
-            for (Post p : m.getPostByMember())
-            favoriteMembersPost.add(p);
+    public List<Post> getAllPostByMember(Post post) {
+        List<Post> getAllPostByMember = new ArrayList<Post>();
+        Member m = post.getMember();
+        for (Post p : getRange(getCount())) {
+            if (p.getMember().equals(m)) {
+                getAllPostByMember.add(p);
+            }
         }
-        return favoriteMembersPost;
-
-
+        return getAllPostByMember;
     }
 }

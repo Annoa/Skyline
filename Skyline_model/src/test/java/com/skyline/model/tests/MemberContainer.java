@@ -31,11 +31,23 @@ public class MemberContainer {
         List<Member> allMembers = member.getMemberContainer().getRange(count);
         assertTrue(allMembers.size() == 4);
     }
-    
+
     @Test
     public void getFavoriteFriendsOfTomas() {
         Member m = member.getMemberContainer().getMember("Tomas");
         List<Member> tomasFavoriteFriends = m.getFavoriteMembers();
-        assertTrue(tomasFavoriteFriends.size() == 2);
+        assertTrue(tomasFavoriteFriends.size() == 3);
+    }
+
+    @Test
+    public void getFavoriteFriendsByIntersection() {
+        Member anton = member.getMemberContainer().getMember("Anton");
+        Member tomas = member.getMemberContainer().getMember("Tomas");
+        List<Member> commonFriends = member.getMemberContainer().
+                getFavoritesMemberByIntersection(tomas, anton);
+        assertTrue(commonFriends.size() == 1);
+        Member cf = commonFriends.get(0);
+        assertTrue(cf.getName().equals("Krabban"));
+
     }
 }

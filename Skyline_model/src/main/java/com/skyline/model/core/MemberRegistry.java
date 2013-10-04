@@ -11,10 +11,10 @@ import java.util.List;
  *
  * @author tomassellden
  */
-public class MemberContainer extends AbstractDAO<Member, Long> implements IMembersContainer {
+public class MemberRegistry extends AbstractDAO<Member, Long> implements IMembersRegistry {
 
-    public static IMembersContainer newInstance() {
-        return new MemberContainer();
+    public static IMembersRegistry newInstance() {
+        return new MemberRegistry();
     }
     /**
      *
@@ -35,7 +35,7 @@ public class MemberContainer extends AbstractDAO<Member, Long> implements IMembe
      * @param memberOne
      * @param memberTwo
      * @return a List containing common favoritesmembers or null if they don´t
-     * have any common favoritemembers∫
+     * have any common favoritemembers
      */
     public List<Member> getFavoritesMemberByIntersection(Member memberOne, Member memberTwo) {
 

@@ -19,30 +19,38 @@ import org.junit.Test;
  */
 public class TestPostContainer {
     
-    private IBlog blog;
+    
     private IBlog post;
     
     @Before
     public void before() {
-        blog = BlogFactory.getBlog(true);
         post = BlogFactory.getBlog(true);
         
     }
     
     @Test
     public void getAllPost() {
-        int count = blog.getPostContainer().getCount();
+        int count = post.getPostContainer().getCount();
         System.out.println("count = " + count);
-        List<Post> allPost = blog.getPostContainer().getRange(count);
-        assertTrue(allPost.size() == 2);
+        List<Post> allPost = post.getPostContainer().getRange(count);
+        assertTrue(allPost.size() == 4);
         
     }
     @Test 
     public void getAllPostByTomas() {
+        Post TomasPost = null;
         Member m = post.getMemberContainer().getMember("Tomas");
-        List<Post> postByTomas = blog.getPostContainer().getPostByMember(m);
-        System.out.println("count = " + postByTomas.size());
-        assertTrue(postByTomas.size() == 1);
+        int count = post.getPostContainer().getCount();
+        List<Post> allPost = post.getPostContainer().getRange(count);
+        for (Post p : allPost) {
+            if (p.getMember().equals(m)) {
+                TomasPost = p;
+                break;
+            }
+        }
+        List<Post> postFromTomas = post.getPostContainer().getAllPostByMember(TomasPost);
+        System.out.println("postFromTomas= " + postFromTomas.size());
+        assertTrue(postFromTomas.size() == 2);
     }
     
 }

@@ -13,7 +13,7 @@ public interface IBlog {
      * 
      * @return a member
      */
-    public IMembersContainer getMemberContainer();
+    public IMembersRegistry getMemberContainer();
     
     public IPostContainer getPostContainer();
 

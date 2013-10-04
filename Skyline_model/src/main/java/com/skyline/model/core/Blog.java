@@ -11,7 +11,7 @@ package com.skyline.model.core;
 public class Blog implements IBlog {
 
     private final IPostContainer postContainer = PostContainer.newInstance();
-    private final IMembersContainer membersContainer = MemberContainer.newInstance();
+    private final IMembersRegistry membersContainer = MemberRegistry.newInstance();
 
     public Blog() {
     }
@@ -22,7 +22,7 @@ public class Blog implements IBlog {
     }
 
     @Override
-    public IMembersContainer getMemberContainer() {
+    public IMembersRegistry getMemberContainer() {
         return membersContainer;
     }
 }

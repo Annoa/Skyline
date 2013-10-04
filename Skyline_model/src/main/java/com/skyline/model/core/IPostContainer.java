@@ -11,9 +11,11 @@ import java.util.List;
  * interface to PostContainer
  * @author tomassellden
  */
-public interface IPostContainer extends IDAO<Post, Long>{
+public interface IPostContainer extends IDAO<Post, Long> {
     
-    public List<Post> getPostByMember(Member member);
+    public Member getMemberByPost(Post post);
+        
     
-    public List<Post> getPostByFavoriteMember(Member member);
+    public List<Post> getAllPostByMember(Post post);
+    
 }
