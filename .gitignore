@@ -5,3 +5,4 @@
 *.war
 *.ear
 /Skyline_model/target/
+/skyline_rest/target/
