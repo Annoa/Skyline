@@ -21,8 +21,8 @@ public class PostContainer extends AbstractDAO<Post, Long> implements IPostConta
 
     @Override
     public List<Post> getPostByMember(Member member) {
-        List<Post> membersPost = new ArrayList<Post>(member.getPostByMember());
-        return membersPost;
+        return member.getPostByMember();
+        
 
     }
 
