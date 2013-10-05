@@ -1,0 +1,8 @@
+cURL-tests for the HTTP-calls to the blog-model (via PostBoxResource) 
+
+1.
+Getting all posts
+curl -v http://localhost:8080/skyline_rest/rs/posts
+//OK!
+
+2.
