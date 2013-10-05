@@ -8,9 +8,12 @@ import com.skyline.model.core.Post;
 import com.skyline.model.utils.IDAO;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
@@ -51,5 +54,22 @@ public class PostBoxResource {
         return Response.ok(ge).build();
     }
     
+    //TODO
+    //Byta ut ID mot annan unik identifierare (typ sträng av membernamn+datum)
+    //Risk att det svämmar över av IDn annars
+    @GET
+    @Path("{id}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response find(@PathParam("id") Long id){
+        log.log(Level.INFO, "Find" + id);
+        try {
+            Post p = postBox.find(id);
+            PostProxy pp = new PostProxy(p);
+            return Response.ok(pp).build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
 

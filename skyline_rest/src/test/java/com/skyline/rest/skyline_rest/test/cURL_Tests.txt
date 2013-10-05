@@ -6,3 +6,5 @@ curl -v http://localhost:8080/skyline_rest/rs/posts
 //OK!
 
 2.
+Get a specific post by its id
+curl -v http://localhost:8080/skyline_rest/rs/posts/{idNummer}

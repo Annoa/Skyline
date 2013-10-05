@@ -33,6 +33,11 @@ public class PostProxy {
     }
 
     @XmlElement(required = true)
+    public Long getId() {
+        return post.getId();
+    }
+    
+    @XmlElement(required = true)
     public Member getMember() {
         return post.getMember();
     }
