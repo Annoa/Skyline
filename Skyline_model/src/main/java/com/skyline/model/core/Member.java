@@ -17,14 +17,14 @@ import java.util.List;
 public class Member extends AbstractEntity {
 
     private String name;
-    private Date date;
+    private Date signUpDate;
     private List<Member> favoriteMembers = new ArrayList<Member>();
 
     public Member() {
     }
 
-    public Member(String name) { //Date date
-        //this.date = date;
+    public Member(String name) {
+        signUpDate = new Date();
         this.name = name;
     }
 
@@ -32,8 +32,8 @@ public class Member extends AbstractEntity {
         return name;
     }
 
-    public Date getDate(Date date) {
-        return date;
+    public Date getDate() {
+        return signUpDate;
     }
 
     public List<Member> getFavoriteMembers() {
