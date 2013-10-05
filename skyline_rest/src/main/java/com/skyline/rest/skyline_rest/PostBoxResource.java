@@ -19,7 +19,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 /**
- *
+ * Wrapping the blog-model and handling calls towards it.
+ * 
  * @author Epoxy
  */
 
