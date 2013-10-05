@@ -48,8 +48,9 @@ public class TestPostContainer {
                 break;
             }
         }
+        System.out.println("tomasPost = " + TomasPost.toString());
         List<Post> postFromTomas = post.getPostContainer().getAllPostByMember(TomasPost);
-        System.out.println("postFromTomas= " + postFromTomas.size());
+        
         assertTrue(postFromTomas.size() == 2);
     }
     

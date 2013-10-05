@@ -43,4 +43,8 @@ public class Member extends AbstractEntity {
     public void addFavoriteMembers(Member member) {
         favoriteMembers.add(member);
     }
+    
+    public String toString() {
+        return "Member = { id = " + getId() + " name = " + name + "}";
+    }
 }

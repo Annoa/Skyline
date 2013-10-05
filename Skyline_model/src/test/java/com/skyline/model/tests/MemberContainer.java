@@ -35,6 +35,7 @@ public class MemberContainer {
     @Test
     public void getFavoriteFriendsOfTomas() {
         Member m = member.getMemberContainer().getMember("Tomas");
+        System.out.println("member m is equal to" + m.toString());
         List<Member> tomasFavoriteFriends = m.getFavoriteMembers();
         assertTrue(tomasFavoriteFriends.size() == 3);
     }
