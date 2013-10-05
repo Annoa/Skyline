@@ -13,10 +13,10 @@ import java.util.List;
  *
  * @author Anno
  */
-public class PostContainer extends AbstractDAO<Post, Long> implements IPostContainer {
+public class PostRegistry extends AbstractDAO<Post, Long> implements IPostRegistry {
 
-    public static IPostContainer newInstance() {
-        return new PostContainer();
+    public static IPostRegistry newInstance() {
+        return new PostRegistry();
     }
 
     @Override

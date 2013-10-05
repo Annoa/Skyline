@@ -11,7 +11,7 @@ import java.util.List;
  * interface to PostContainer
  * @author tomassellden
  */
-public interface IPostContainer extends IDAO<Post, Long> {
+public interface IPostRegistry extends IDAO<Post, Long> {
     
     public Member getMemberByPost(Post post);
         
