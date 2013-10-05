@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author tomassellden
  */
-@XmlRootElement(name = "Product")
+@XmlRootElement(name = "Post")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class PostProxy {
 
