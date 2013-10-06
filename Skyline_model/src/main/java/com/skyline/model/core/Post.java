@@ -45,6 +45,24 @@ public class Post extends AbstractEntity {
         upVotes = 0;
         downVotes = 0;
     }
+    
+     public Post(Long id, Member member, String title, BodyText b, PostPicture pP, PostVideo pV) {
+        super(id);
+        this.member = member;
+        date = new Date();
+        this.title = title;
+        if (b != null) {
+            bodyText = b;
+        }
+        if (pP != null) {
+            postPicture = pP;
+        }
+        if (pV != null) {
+            postVideo = pV;
+        }
+        upVotes = 0;
+        downVotes = 0;
+    }
 
     public Date getDate() {
         return date;

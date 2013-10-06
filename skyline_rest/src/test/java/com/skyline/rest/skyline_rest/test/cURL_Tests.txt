@@ -4,9 +4,22 @@ cURL-tests for the HTTP-calls to the blog-model (via PostBoxResource)
 Getting all posts
 curl -v http://localhost:8080/skyline_rest/rs/posts
 //OK!
-
+# asking for json
 curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts
 
 2.
 Get a specific post by its id
 curl -v http://localhost:8080/skyline_rest/rs/posts/{idNummer}
+
+# asking for json
+curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts/{idNummer}
+
+# *** POST (create) ***
+curl -v -X POST http://localhost:8080/skyline_rest/rs/posts/ --data "id={idNumberFromAMember}&title=PostByTomasSelllden&BodyText=ThisIsTheEnd!!!!!!!&PostVideo=null"
+
+# *** DELETE (delete) ***
+curl -v -X DELETE http://localhost:8080/skyline_rest/rs/posts/{idNumber}
+
+# *** PUT (update) ***
+# Sending JSON, probably need other id last
+curl -v -X PUT http://localhost:8080/skyline_rest/rs/posts/{idNumber} --data "memberId={idNumberFromAMember}&title=itWorksToUpdateAPost&BodyText=updatedPost&PostVideo=null"

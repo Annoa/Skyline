@@ -57,7 +57,7 @@ public class PostProxy {
         return post.getBodyText();
     }
 
-    @XmlElement(name = "postPicsture")
+    @XmlElement(name = "postPicture")
     public PostPicture getPostPicture() {
         return post.getPostPicture();
     }
