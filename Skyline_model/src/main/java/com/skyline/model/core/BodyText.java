@@ -6,15 +6,21 @@ package com.skyline.model.core;
 
 /**
  * Class containing a text.
- * 
+ *
  * @author Epoxy
  */
-public class BodyText{
+public class BodyText {
+
     private String text;
-    public BodyText(String text){
+
+    public BodyText() {
+    }
+
+    public BodyText(String text) {
         this.text = text;
     }
-    public String getBreadText(){
+
+    public String getBreadText() {
         return text;
     }
 }

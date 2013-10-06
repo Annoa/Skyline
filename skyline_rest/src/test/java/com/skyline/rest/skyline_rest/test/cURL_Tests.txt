@@ -5,6 +5,8 @@ Getting all posts
 curl -v http://localhost:8080/skyline_rest/rs/posts
 //OK!
 
+curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts
+
 2.
 Get a specific post by its id
 curl -v http://localhost:8080/skyline_rest/rs/posts/{idNummer}

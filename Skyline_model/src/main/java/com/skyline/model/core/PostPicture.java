@@ -6,15 +6,21 @@ package com.skyline.model.core;
 
 /**
  * Class containing a picture.
- * 
+ *
  * @author Epoxy
  */
 public class PostPicture {
+
     private byte[] picture;
-    PostPicture(byte[] picture){
+
+    public PostPicture() {
+    }
+
+    PostPicture(byte[] picture) {
         this.picture = picture;
     }
-    public byte[] getPicture(){
+
+    public byte[] getPicture() {
         return picture;
     }
 }
