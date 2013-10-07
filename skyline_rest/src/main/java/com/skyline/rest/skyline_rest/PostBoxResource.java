@@ -1,9 +1,11 @@
 package com.skyline.rest.skyline_rest;
 
 import com.skyline.model.core.BodyText;
+import com.skyline.model.core.IPostRegistry;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
 import com.skyline.model.core.PostPicture;
+import com.skyline.model.core.PostRegistry;
 import com.skyline.model.core.PostVideo;
 import com.skyline.model.utils.IDAO;
 import java.net.URI;
@@ -171,7 +173,34 @@ public class PostBoxResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getCount() {
         Integer i = new Integer(postBox.getCount());
-        PrimitiveJSONWrapper<Integer> pj= new PrimitiveJSONWrapper<Integer>(i);
+        PrimitiveJSONWrapper<Integer> pj = new PrimitiveJSONWrapper<Integer>(i);
         return Response.ok(pj).build();
+    }
+    /**
+     * 
+     * @param memberId id of a member
+     * @return GenericEntity<List<PostProxy>> list of all post a member have done
+     */
+    @GET
+    @Path("postByMember")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getPostByMember(@QueryParam("memberId") Long memberId) {
+        Member m = memberBox.find(memberId);
+        //IPostRegistry postRegistry = new PostRegistry();
+        List<Post> tmpPost = postBox.getRange(0, postBox.getCount());
+        List<PostProxy> postList = new ArrayList<PostProxy>();
+        for (Post p : tmpPost) {
+            System.out.println(" " + p.toString());
+            System.out.println(" " + p.getMember().getId() +  " = " + memberId);
+            if (p.getMember().getId().equals(memberId)) {
+                System.out.println(" " + p.getMember().getId() +  " = " + memberId);
+                postList.add(new PostProxy(p));
+            }
+        }
+        
+        GenericEntity<List<PostProxy>> ge = new GenericEntity<List<PostProxy>>(postList) {
+        };
+        return Response.ok(ge).build();
+
     }
 }

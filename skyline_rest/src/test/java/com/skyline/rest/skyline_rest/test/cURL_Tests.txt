@@ -30,3 +30,6 @@ curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/pos
 # Get primitive type
 curl -v http://localhost:8080/skyline_rest/rs/posts/count
 curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts/count
+
+# get all post by a member
+curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/posts/postByMember?memberId={memberId}"
