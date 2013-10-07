@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface ICommentRegistry {
    
-    public List<Post> getAllCommentsOnPost(Post post);
+    public List<Comment> getAllCommentsOnPost(Post post);
     
    // public List<Post> getChildComments(Comment parent);
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public class CommentRegistry extends AbstractDAO<Comment, Long>
     implements ICommentRegistry {
 
-    public List<Post> getAllCommentsOnPost(Post post) {
+    public List<Comment> getAllCommentsOnPost(Post post) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 /*

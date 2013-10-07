@@ -14,39 +14,62 @@ import java.util.Date;
  */
 public class Comment extends AbstractEntity{
     
-    private Post rootPost;
-    private Comment rootComment;
-    private BodyText commentText;
+    private Post post;
+    private Comment parentComment;
+    private String commentText;
     private Date commentDate;
+    private Member author;
+    private int upVote;
+    private int downVote;
     
     public Comment(){
         
     }
     
-    public Comment(Post rootPost, Comment previousComment, BodyText commentText) {
-        this.rootPost = rootPost;
-        if(previousComment != null) {
-            this.rootComment = previousComment;
-        }
+    /**
+     * @param parentComment == null, if top-level 
+     * @param Gabriel 
+     */
+    public Comment(Post post, Comment parentComment, String commentText, 
+            Member author) {
+        this.post = post;     
+        this.parentComment = parentComment; 
         this.commentText = commentText;
-        commentDate = new Date();
+        this.commentDate = new Date();
+        this.author = author;
+        this.upVote=0;
+        this.downVote=0;
+    }
+
+    //TODO: Constructor with ID for database-constructing
+    //TODO: getter for voting system 
+    //TODO: Cleanup.
+   
+    
+    public Post getPost() {
+        return post;
     }
     
-    public Post getRootPost(){
-        return rootPost;
+    public Comment getParentComment() {
+        return parentComment;
     }
     
-    public BodyText getBodyText(){
+    public String getCommentText(){
         return commentText;
     }
-    
     public Date getCommentDate(){
         return commentDate;
     }
+    public Member getAuthor() {
+        return author;
+    }
+
     
+    @Override
     public String toString(){
-        return "Comment = \n{ RootPost = " + rootPost 
+        return "Comment = \n{ @Post = " + post 
                 + " \nDate = " + commentDate 
-                + "\nText = " + commentText;
+                + "\nText = " + commentText + 
+                "\nwritten by = "+ author;
     }
 }
