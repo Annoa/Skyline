@@ -20,6 +20,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -44,7 +45,7 @@ public class PostBoxResource {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAll() {
-        List postList = postBox.getRange(postBox.getCount());
+        List postList = postBox.getRange(0, postBox.getCount());
         List<PostProxy> wrappedPostList = new ArrayList();
         for (int i = 0; i < postList.size(); i++) {
             Post p = (Post) postList.get(i);
@@ -130,7 +131,7 @@ public class PostBoxResource {
     public Response update(@PathParam("Id") Long id,
             @FormParam("memberId") Long idMember,
             @FormParam("title") String title,
-            @FormParam("BodyText") String bt, 
+            @FormParam("BodyText") String bt,
             @FormParam("PostVideo") String pv) {
         //@FormParam("PostPicture") byte[] char pp,
         Member mWhoWroteThePost = memberBox.find(idMember);
@@ -142,10 +143,35 @@ public class PostBoxResource {
             pvv = null;
         }
         try {
-            postBox.update(new Post(id, mWhoWroteThePost, title, btt , null, null));
+            postBox.update(new Post(id, mWhoWroteThePost, title, btt, null, null));
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GET
+    @Path("range")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getRange(@QueryParam("first") int first,
+            @QueryParam("last") int last) {
+        List<Post> tmpPosts = postBox.getRange(first, last);
+        List<PostProxy> postList = new ArrayList<PostProxy>();
+        for (Post post : tmpPosts) {
+            postList.add(new PostProxy(post));
+        }
+        GenericEntity<List<PostProxy>> ge = new GenericEntity<List<PostProxy>>(postList) {
+        };
+        return Response.ok(ge).build();
+    }
+
+    @GET
+    @Path("count")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getCount() {
+        Integer i = new Integer(postBox.getCount());
+        PrimitiveJSONWrapper<Integer> pj= new PrimitiveJSONWrapper<Integer>(i);
+        return Response.ok(pj).build();
     }
 }

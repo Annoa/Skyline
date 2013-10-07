@@ -59,9 +59,9 @@ public abstract class AbstractDAO<T extends IEntity<K>, K> implements IDAO<T, K>
     }
 
     @Override
-    public List<T> getRange(int nItems) {
+    public List<T> getRange(int first, int nItems) {
         // From inclusive, to exclusive
-        return elems.subList(0, nItems);
+        return elems.subList(first, nItems);
     }
 
     @Override

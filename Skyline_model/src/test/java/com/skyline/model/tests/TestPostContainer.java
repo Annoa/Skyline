@@ -32,7 +32,7 @@ public class TestPostContainer {
     public void getAllPost() {
         int count = post.getPostContainer().getCount();
         System.out.println("count = " + count);
-        List<Post> allPost = post.getPostContainer().getRange(count);
+        List<Post> allPost = post.getPostContainer().getRange(0, count);
         assertTrue(allPost.size() == 4);
         
     }
@@ -41,7 +41,7 @@ public class TestPostContainer {
         Post TomasPost = null;
         Member m = post.getMemberContainer().getMember("Tomas");
         int count = post.getPostContainer().getCount();
-        List<Post> allPost = post.getPostContainer().getRange(count);
+        List<Post> allPost = post.getPostContainer().getRange(0, count);
         for (Post p : allPost) {
             if (p.getMember().equals(m)) {
                 TomasPost = p;
