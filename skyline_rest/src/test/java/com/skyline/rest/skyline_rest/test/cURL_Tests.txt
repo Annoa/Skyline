@@ -33,3 +33,15 @@ curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/post
 
 # get all post by a member
 curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/posts/postByMember?memberId={memberId}"
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+cURL-tests for the HTTP-calls to the blog-model (via MemberResource) 
+
+1.
+Getting all posts
+curl -v http://localhost:8080/skyline_rest/rs/members
+//OK!
+# asking for json
+curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/members

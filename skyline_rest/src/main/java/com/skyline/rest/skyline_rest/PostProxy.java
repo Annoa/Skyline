@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * * Need this because translation from XML to JSON
  * @author tomassellden
  */
 @XmlRootElement(name = "Post")

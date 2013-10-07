@@ -1,11 +1,9 @@
 package com.skyline.rest.skyline_rest;
 
 import com.skyline.model.core.BodyText;
-import com.skyline.model.core.IPostRegistry;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
 import com.skyline.model.core.PostPicture;
-import com.skyline.model.core.PostRegistry;
 import com.skyline.model.core.PostVideo;
 import com.skyline.model.utils.IDAO;
 import java.net.URI;
@@ -201,6 +199,5 @@ public class PostBoxResource {
         GenericEntity<List<PostProxy>> ge = new GenericEntity<List<PostProxy>>(postList) {
         };
         return Response.ok(ge).build();
-
     }
 }

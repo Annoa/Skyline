@@ -15,7 +15,7 @@ import org.junit.Test;
 
 /**
  *
- * @author tomassellden
+ * @author hajo modified by tomassellden
  */
 public class PostProxtTest {
     
