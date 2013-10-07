@@ -4,6 +4,7 @@
  */
 package com.skyline.model.core;
 
+import com.skyline.model.utils.AbstractEntity;
 import java.util.Date;
 
 /**
@@ -11,10 +12,10 @@ import java.util.Date;
  * 
  * @author Epoxy
  */
-public class Comment {
+public class Comment extends AbstractEntity{
     
     private Post rootPost;
-    private Comment previuosComment;
+    private Comment rootComment;
     private BodyText commentText;
     private Date commentDate;
     
@@ -25,7 +26,7 @@ public class Comment {
     public Comment(Post rootPost, Comment previousComment, BodyText commentText) {
         this.rootPost = rootPost;
         if(previousComment != null) {
-            this.previuosComment = previousComment;
+            this.rootComment = previousComment;
         }
         this.commentText = commentText;
         commentDate = new Date();
