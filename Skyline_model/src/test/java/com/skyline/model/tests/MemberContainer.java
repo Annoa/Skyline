@@ -28,7 +28,7 @@ public class MemberContainer {
     @Test
     public void getAllMembers() {
         int count = member.getMemberContainer().getCount();
-        List<Member> allMembers = member.getMemberContainer().getRange(count);
+        List<Member> allMembers = member.getMemberContainer().getRange(0, count);
         assertTrue(allMembers.size() == 4);
     }
 

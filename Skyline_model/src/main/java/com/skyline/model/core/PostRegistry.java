@@ -30,7 +30,7 @@ public class PostRegistry extends AbstractDAO<Post, Long> implements IPostRegist
     public List<Post> getAllPostByMember(Post post) {
         List<Post> getAllPostByMember = new ArrayList<Post>();
         Member m = post.getMember();
-        for (Post p : getRange(getCount())) {
+        for (Post p : getRange(0, getCount())) {
             if (p.getMember().equals(m)) {
                 getAllPostByMember.add(p);
             }

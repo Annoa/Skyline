@@ -22,7 +22,7 @@ public class MemberRegistry extends AbstractDAO<Member, Long> implements IMember
      * @return member if found otherwise it returns null
      */
     public Member getMember(String name) {
-        for (Member m : getRange(getCount())) {
+        for (Member m : getRange(0, getCount())) {
             if (m.getName().equals(name)) {
                 return m;
             }

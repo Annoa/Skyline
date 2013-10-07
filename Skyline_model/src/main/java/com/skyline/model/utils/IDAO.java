@@ -16,7 +16,7 @@ public interface IDAO<T, K> {
 
     public T find(K id);
 
-    public List<T> getRange(int nItems);
+    public List<T> getRange(int first, int nItems);
 
     public int getCount();
 }
