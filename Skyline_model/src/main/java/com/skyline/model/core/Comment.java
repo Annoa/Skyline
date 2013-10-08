@@ -19,8 +19,7 @@ public class Comment extends AbstractEntity{
     private String commentText;
     private Date commentDate;
     private Member author;
-    private int upVote;
-    private int downVote;
+    private VotingSystem votes;
     
     public Comment(){
         
@@ -37,8 +36,17 @@ public class Comment extends AbstractEntity{
         this.commentText = commentText;
         this.commentDate = new Date();
         this.author = author;
-        this.upVote=0;
-        this.downVote=0;
+        this.votes = new VotingSystem();
+    }
+    
+        public Comment(Post post, Comment parentComment, String commentText, 
+                Date date, Member author, VotingSystem votes) {
+        this.post = post;     
+        this.parentComment = parentComment; 
+        this.commentText = commentText;
+        this.commentDate = date;
+        this.author = author;
+        this.votes = votes;
     }
 
     //TODO: Constructor with ID for database-constructing
@@ -63,7 +71,9 @@ public class Comment extends AbstractEntity{
     public Member getAuthor() {
         return author;
     }
-
+    public VotingSystem getVotes(){
+        return votes;
+    }
     
     @Override
     public String toString(){
