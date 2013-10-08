@@ -61,11 +61,11 @@ public class TestCommentContainer {
         //Votingsystem. needs .compare and .equals
         assertTrue(cC.getVotes().getUpVote()==0);
         assertTrue(cC.getVotes().getDownVote()==0);
-//        assertTrue(cC.getVotes().equals(new VotingSystem(0,0)));
+        assertTrue(cC.getVotes().equals(new VotingSystem()));
         
         //String standardtesting. this is obvious.
         assertTrue(cC.getCommentText().equals(cT));
-        assertTrue(!(cC.getCommentText()==cT));
+        assertTrue(!(cC.getCommentText()==new String(cT)));
         
         assertTrue(cC.getAuthor().equals(m));
         

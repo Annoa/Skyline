@@ -8,7 +8,7 @@ package com.skyline.model.core;
  *
  * @author Gabriel
  */
-public class VotingSystem {
+public class VotingSystem implements Comparable<Object> {
     
     private int upVote;
     private int downVote;
@@ -35,10 +35,34 @@ public class VotingSystem {
     }
     
     @Override
+    public boolean equals(Object o){
+        if (o instanceof VotingSystem){
+            VotingSystem vS = (VotingSystem)o;
+            return this.getValue() == vS.getValue();
+        }
+        return false;
+    }
+    
+    @Override
     public String toString(){
         return "Votes = \n{ upVotes = " + upVote 
                 + " \ndownVotes = " + downVote 
                 + "\nvalue = " + upVote+downVote;
     }
-    
+
+    /**
+     * 
+     * @return 1 if self is greater
+     */
+    public int compareTo(Object o) {
+        if (o instanceof VotingSystem){
+            if(this.equals(o))
+                return 0;
+            VotingSystem vs = (VotingSystem)o;
+            if(this.getValue()>vs.getValue())
+            return 1;
+        }
+        return -1;
+    }
+     
 }
