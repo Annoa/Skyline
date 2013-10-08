@@ -75,3 +75,11 @@ curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/mem
 curl -v http://localhost:8080/skyline_rest/rs/members/count
 curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/members/count
 
+8.
+# Query parameters. NOTE: Must quote URI. Will get list (with possible 0 elements)
+curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/members/favoriteMembers?memberId={memberId}"
+
+9.
+
+# Query parameters. NOTE: Must quote URI. Will get list (with possible 0 elements)
+curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/members/commonFavoriteMembers?memberId={memberId}&memberId2={memberId}"

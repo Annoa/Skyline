@@ -105,20 +105,23 @@ public class MemberResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
+
     @GET
     @Path("range")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getRange(@QueryParam("first") int first, 
+    public Response getRange(@QueryParam("first") int first,
             @QueryParam("last") int last) {
         List<Member> tmpList = memberBox.getRange(first, last);
         List<MemberProxy> memberList = new ArrayList<MemberProxy>();
-        for ( Member m : tmpList) {
+        for (Member m : tmpList) {
             memberList.add(new MemberProxy(m));
         }
-        GenericEntity<List<MemberProxy>> ge = new GenericEntity<List<MemberProxy>>(memberList){};
+        GenericEntity<List<MemberProxy>> ge = new GenericEntity<List<MemberProxy>>(memberList) {
+        };
         return Response.ok(ge).build();
     }
+
     @GET
     @Path("count")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -126,5 +129,38 @@ public class MemberResource {
         Integer i = new Integer(memberBox.getCount());
         PrimitiveJSONWrapper<Integer> pj = new PrimitiveJSONWrapper<Integer>(i);
         return Response.ok(pj).build();
+    }
+
+    @GET
+    @Path("favoriteMembers")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getFavoriteMembers(@QueryParam("memberId") Long memberId) {
+        Member member = memberBox.find(memberId);
+        List<Member> tmpList = member.getFavoriteMembers();
+        List<MemberProxy> favoriteMembers = new ArrayList<MemberProxy>();
+        for (Member m : tmpList) {
+            favoriteMembers.add(new MemberProxy(m));
+        }
+        GenericEntity<List<MemberProxy>> ge = new GenericEntity<List<MemberProxy>>(favoriteMembers) {
+        };
+        return Response.ok(ge).build();
+    }
+
+    @GET
+    @Path("commonFavoriteMembers")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getCommonFriends(@QueryParam("memberId") Long memberId,
+            @QueryParam("memberId2") long memberId2) {
+        Member member1 = memberBox.find(memberId);
+        Member member2 = memberBox.find(memberId2);
+        List<Member> tmpCommonFriends = member1.getFavoriteMembers();
+        tmpCommonFriends.retainAll(member2.getFavoriteMembers());
+        List<MemberProxy> commonFriends = new ArrayList<MemberProxy>();
+        for (Member m : tmpCommonFriends) {
+            commonFriends.add(new MemberProxy(m));
+        }
+        GenericEntity<List<MemberProxy>> ge = new GenericEntity<List<MemberProxy>>(commonFriends) {
+        };
+        return Response.ok(ge).build();
     }
 }
