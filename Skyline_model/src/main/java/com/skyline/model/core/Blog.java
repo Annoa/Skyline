@@ -11,8 +11,11 @@ package com.skyline.model.core;
 public class Blog implements IBlog {
 
     private final IPostRegistry postContainer = PostRegistry.newInstance();
-    private final IMembersRegistry membersContainer = MemberRegistry.newInstance();
-
+    private final IMembersRegistry membersContainer = 
+            MemberRegistry.newInstance();
+    private final ICommentContainer commentContainer = 
+            CommentContainer.newInstance();
+    
     public Blog() {
     }
 

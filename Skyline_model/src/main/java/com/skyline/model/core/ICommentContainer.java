@@ -11,9 +11,9 @@ import java.util.List;
  *
  * @author User
  */
-public interface ICommentRegistry {
+public interface ICommentContainer {
    
     public List<Comment> getAllCommentsOnPost(Post post);
     
-   // public List<Post> getChildComments(Comment parent);
+   // public List<Comment> getChildComments(Comment parent);
 }
