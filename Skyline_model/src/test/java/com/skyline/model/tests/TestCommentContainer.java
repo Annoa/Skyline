@@ -22,24 +22,37 @@ import org.junit.Test;
  */
 public class TestCommentContainer {
     
-    private IBlog comment;
+    private IBlog blog;
     
     @Before
     public void before() {
-        comment = BlogFactory.getBlog(true);
+        blog = BlogFactory.getBlog(true);
     }
     
     @Test
     public void getAllComments() {
-        int count = comment.getCommentContainer().getCount();
-        System.out.println("count = " + count);
-        List<Comment> allComments = comment.getCommentContainer().getRange(0, count);
+        int count = blog.getCommentContainer().getCount();
+        List<Comment> allComments = blog.getCommentContainer().getRange(0, count);
         assertTrue(allComments.size() == 4);
     }
+    
+    @Test
+    public void getAllCommentsByAnton() {
+        int count = blog.getCommentContainer().getCount();
+        List<Comment> allComments = blog.getCommentContainer().getRange(0, count);
+        List<Comment> antonComments = new ArrayList<Comment>();
+        Member m = blog.getMemberContainer().getMember("Anton");
+        for (Comment c : allComments)
+            if(c.getAuthor().equals(m))
+                antonComments.add(c);
+        assertTrue(antonComments.size() == 2);
+    }
+    
+    
     @Test
     public void getAllChildComments(){
-        int count = comment.getCommentContainer().getCount();
-        List<Comment> allComments = comment.getCommentContainer().getRange(0, count);
+        int count = blog.getCommentContainer().getCount();
+        List<Comment> allComments = blog.getCommentContainer().getRange(0, count);
         List<Comment> childComments = new ArrayList<Comment>();
         for (Comment c : allComments)
             if(c.getParentComment()==null)
