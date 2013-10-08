@@ -28,6 +28,11 @@ public class Member extends AbstractEntity {
         this.name = name;
     }
 
+    public Member(Long id, String name) {
+        super(id);
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
@@ -43,7 +48,7 @@ public class Member extends AbstractEntity {
     public void addFavoriteMembers(Member member) {
         favoriteMembers.add(member);
     }
-    
+
     public String toString() {
         return "Member = { id = " + getId() + " name = " + name + "}";
     }

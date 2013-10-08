@@ -40,8 +40,29 @@ curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/pos
 cURL-tests for the HTTP-calls to the blog-model (via MemberResource) 
 
 1.
-Getting all posts
+Getting all members
 curl -v http://localhost:8080/skyline_rest/rs/members
 //OK!
 # asking for json
 curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/members
+
+2.
+Get a specific post by its id
+curl -v http://localhost:8080/skyline_rest/rs/members/{idNummer}
+
+# asking for json
+curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/members/{idNummer}
+
+3.
+# *** POST (create) ***
+curl -v -X POST http://localhost:8080/skyline_rest/rs/members/ --data "name=newMember"
+
+4.
+    # *** DELETE (delete) ***
+curl -v -X DELETE http://localhost:8080/skyline_rest/rs/members/{idNumber}
+
+5.
+# *** PUT (update) ***
+# Sending JSON, probably need other id last
+curl -v -X PUT http://localhost:8080/skyline_rest/rs/members/{idNumber} --data "name=changedName"
+
