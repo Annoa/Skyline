@@ -69,11 +69,11 @@ public class PostProxy {
 
     @XmlElement(name = "upVotes")
     public int getUpVotes() {
-        return post.getUpVotes();
+        return post.getVotes().getUpVote();
     }
 
     @XmlElement(name = "downVotes")
     public int getDownVotes() {
-        return post.getDownVotes();
+        return post.getVotes().getDownVote();
     }
 }
