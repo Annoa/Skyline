@@ -19,6 +19,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -103,5 +104,27 @@ public class MemberResource {
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
+    }
+    @GET
+    @Path("range")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getRange(@QueryParam("first") int first, 
+            @QueryParam("last") int last) {
+        List<Member> tmpList = memberBox.getRange(first, last);
+        List<MemberProxy> memberList = new ArrayList<MemberProxy>();
+        for ( Member m : tmpList) {
+            memberList.add(new MemberProxy(m));
+        }
+        GenericEntity<List<MemberProxy>> ge = new GenericEntity<List<MemberProxy>>(memberList){};
+        return Response.ok(ge).build();
+    }
+    @GET
+    @Path("count")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getCount() {
+        Integer i = new Integer(memberBox.getCount());
+        PrimitiveJSONWrapper<Integer> pj = new PrimitiveJSONWrapper<Integer>(i);
+        return Response.ok(pj).build();
     }
 }
