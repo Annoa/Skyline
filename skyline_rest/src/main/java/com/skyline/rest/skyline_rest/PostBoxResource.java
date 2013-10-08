@@ -143,7 +143,7 @@ public class PostBoxResource {
             pvv = null;
         }
         try {
-            postBox.update(new Post(id, mWhoWroteThePost, title, btt, null, null));
+            postBox.update(new Post(id, mWhoWroteThePost, title, btt, null, null, null));
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
