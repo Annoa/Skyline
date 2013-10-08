@@ -16,6 +16,8 @@ public interface IBlog {
     public IMembersRegistry getMemberContainer();
     
     public IPostRegistry getPostContainer();
+    
+    public ICommentContainer getCommentContainer();
 
     
 }

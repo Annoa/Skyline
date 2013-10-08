@@ -39,8 +39,9 @@ public class Comment extends AbstractEntity{
         this.votes = new VotingSystem();
     }
     
-        public Comment(Post post, Comment parentComment, String commentText, 
+        public Comment(Long id, Post post, Comment parentComment, String commentText, 
                 Date date, Member author, VotingSystem votes) {
+        super(id);
         this.post = post;     
         this.parentComment = parentComment; 
         this.commentText = commentText;

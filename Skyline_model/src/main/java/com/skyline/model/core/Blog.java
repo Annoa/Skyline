@@ -28,4 +28,11 @@ public class Blog implements IBlog {
     public IMembersRegistry getMemberContainer() {
         return membersContainer;
     }
+    
+    @Override
+    public ICommentContainer getCommentContainer(){
+        return commentContainer;
+    }
+    
+    
 }

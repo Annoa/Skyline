@@ -15,14 +15,9 @@ import java.util.List;
 public class CommentContainer extends AbstractDAO<Comment, Long>
     implements ICommentContainer {
 
-    
-    
     public static CommentContainer newInstance(){
         return new CommentContainer();
     }
-    
-    
-    
     
     public List<Comment> getAllCommentsOnPost(Post post) {
         List<Comment> comments = new ArrayList<Comment>();
@@ -33,9 +28,10 @@ public class CommentContainer extends AbstractDAO<Comment, Long>
         }
         return comments;
     }
-/*
+
+    /*
     public List<Post> getChildComments(Comment parent) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-  */
+    */
 }
