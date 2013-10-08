@@ -38,16 +38,31 @@ public class BlogFactory {
         tomas.addFavoriteMembers(krabban);
         tomas.addFavoriteMembers(anton);
         anton.addFavoriteMembers(krabban);
+  
         
-        blog.getPostContainer().add(new Post(tomas, "First Post", b, null, null));
-        blog.getPostContainer().add(new Post(tomas, "Second Post", b2, null, null));
-        blog.getPostContainer().add(new Post(anno, "Third Post", b2, null, null));
-        blog.getPostContainer().add(new Post(anton, "Fouth Post", b3, null, null));
+        Post firstPost = new Post(tomas, "First Post", b, null, null);
+        Post secondPost = new Post(tomas, "Second Post", b2, null, null);
+        Post thirdPost = new Post(anno, "Third Post", b2, null, null);
+        Post forthPost = new Post(anton, "Fouth Post", b3, null, null);
+        
+        
+        
+        blog.getPostContainer().add(firstPost);
+        blog.getPostContainer().add(secondPost);
+        blog.getPostContainer().add(thirdPost);
+        blog.getPostContainer().add(forthPost);
         
         blog.getMemberContainer().add(tomas);
         blog.getMemberContainer().add(anno);
         blog.getMemberContainer().add(krabban);
         blog.getMemberContainer().add(anton);
+        
+        blog.getCommentContainer().add(new Comment(firstPost, null, "firstComment", anton));
+        Comment c = new Comment(firstPost, null, "secondComment", anno);
+        blog.getCommentContainer().add(c);
+        blog.getCommentContainer().add(new Comment(firstPost, c, "firstChildCommentatSecondComment", anton));
+        blog.getCommentContainer().add(new Comment(firstPost, c, "secondChildCommentatSecondComment", krabban));
+        
         
         
     }

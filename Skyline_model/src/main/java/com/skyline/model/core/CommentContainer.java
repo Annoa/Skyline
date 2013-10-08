@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author User
+ * @author Gabriel
  */
 public class CommentContainer extends AbstractDAO<Comment, Long>
     implements ICommentContainer {

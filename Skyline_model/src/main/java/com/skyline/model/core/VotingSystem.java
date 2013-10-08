@@ -6,18 +6,18 @@ package com.skyline.model.core;
 
 /**
  *
- * @author User
+ * @author Gabriel
  */
 public class VotingSystem {
     
     private int upVote;
     private int downVote;
     
-    VotingSystem(){
+    public VotingSystem(){
         this(0,0);
     }
     
-    VotingSystem(int up, int down){
+    public VotingSystem(int up, int down){
         this.upVote = up;
         this.downVote = down;
     }
@@ -28,6 +28,10 @@ public class VotingSystem {
     
     public int getDownVote(){
         return downVote;
+    }
+    
+    public int getValue(){
+        return upVote+downVote;
     }
     
     @Override
