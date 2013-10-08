@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Class representing a comment of a post. 
  * 
- * @author Epoxy
+ * @author Gabriel
  */
 public class Comment extends AbstractEntity{
     

@@ -21,47 +21,34 @@ public class Post extends AbstractEntity {
     private BodyText bodyText;
     private PostPicture postPicture;
     private PostVideo postVideo;
-    private int upVotes;
-    private int downVotes;
+    private VotingSystem votes;
     private Member member;
 
     public Post() {
     }
     //TODO Är dåligt för databasen att ha med nulls?
 
-    public Post(Member member, String title, BodyText b, PostPicture pP, PostVideo pV) {
+    public Post(Member member, String title, BodyText b, PostPicture pP, 
+            PostVideo pV) {
         this.member = member;
-        date = new Date();
+        this.date = new Date();
         this.title = title;
-        if (b != null) {
-            bodyText = b;
-        }
-        if (pP != null) {
-            postPicture = pP;
-        }
-        if (pV != null) {
-            postVideo = pV;
-        }
-        upVotes = 0;
-        downVotes = 0;
+        this.bodyText = b;
+        this.postPicture = pP;
+        this.postVideo = pV;
+        this.votes = new VotingSystem();
     }
-    
-     public Post(Long id, Member member, String title, BodyText b, PostPicture pP, PostVideo pV) {
+
+    public Post(Long id, Member member, String title, BodyText b, 
+            PostPicture pP, PostVideo pV, VotingSystem vS) {
         super(id);
         this.member = member;
-        date = new Date();
+        this.date = new Date();
         this.title = title;
-        if (b != null) {
-            bodyText = b;
-        }
-        if (pP != null) {
-            postPicture = pP;
-        }
-        if (pV != null) {
-            postVideo = pV;
-        }
-        upVotes = 0;
-        downVotes = 0;
+        this.bodyText = b;
+        this.postPicture = pP;
+        this.postVideo = pV;
+        this.votes = vS;
     }
 
     public Date getDate() {
@@ -84,21 +71,17 @@ public class Post extends AbstractEntity {
         return postVideo;
     }
 
-    public int getUpVotes() {
-        return upVotes;
-    }
-
-    public int getDownVotes() {
-        return downVotes;
+    public VotingSystem getVotes() {
+        return votes;
     }
 
     public Member getMember() {
         return member;
     }
-    
+
+    @Override
     public String toString() {
-        return "Post = { id = " + getId() + " date = " + date.toString() 
-                + " breadtext = " + bodyText.getBreadText() + " upvotes = " +
-                upVotes + " downVotes = " + downVotes + "}";
+        return "Post = { id = " + getId() + " date = " + date.toString()
+                + " breadtext = " + bodyText.getBreadText() + " "+votes;
     }
 }

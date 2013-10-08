@@ -5,13 +5,14 @@
 package com.skyline.model.core;
 
 
+import com.skyline.model.utils.IDAO;
 import java.util.List;
 
 /**
  *
- * @author User
+ * @author Gabriel
  */
-public interface ICommentContainer {
+public interface ICommentContainer extends IDAO<Comment,Long> {
    
     public List<Comment> getAllCommentsOnPost(Post post);
     
