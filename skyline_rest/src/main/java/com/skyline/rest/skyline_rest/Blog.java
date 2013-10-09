@@ -6,6 +6,7 @@ package com.skyline.rest.skyline_rest;
 
 import com.skyline.model.core.BlogFactory;
 import com.skyline.model.core.IBlog;
+import com.skyline.model.core.ICommentContainer;
 import com.skyline.model.core.IMembersRegistry;
 import com.skyline.model.core.IPostRegistry;
 
@@ -28,5 +29,9 @@ public enum Blog {
 
     public IPostRegistry getPostContainer() {
         return blog.getPostContainer();
+    }
+    
+    public ICommentContainer getCommentContainer() {
+        return blog.getCommentContainer();
     }
 }
