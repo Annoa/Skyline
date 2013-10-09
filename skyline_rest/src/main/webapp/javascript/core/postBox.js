@@ -12,7 +12,7 @@ PostBox.prototype = (function (){
             return $.getJSON(this.baseUri);
         },
 
-        add: function( product ){
+        add: function( post ){
             return $.ajax({
                 type: 'POST',
                 url: this.baseUri,
