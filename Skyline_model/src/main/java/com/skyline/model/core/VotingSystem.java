@@ -31,7 +31,7 @@ public class VotingSystem implements Comparable<Object> {
     }
     
     public int getValue(){
-        return upVote+downVote;
+        return upVote-downVote;
     }
     
     @Override
@@ -47,7 +47,7 @@ public class VotingSystem implements Comparable<Object> {
     public String toString(){
         return "Votes = \n{ upVotes = " + upVote 
                 + " \ndownVotes = " + downVote 
-                + "\nvalue = " + upVote+downVote;
+                + "\nvalue = " + (upVote-downVote);
     }
 
     /**
