@@ -179,6 +179,7 @@ public class PostBoxResource {
      * @param memberId id of a member
      * @return GenericEntity<List<PostProxy>> list of all post a member have done
      */
+    //TODO fixa så att man vet när en siffra betyder member och när den betyder post
     @GET
     @Path("postByMember")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
