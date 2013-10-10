@@ -22,7 +22,7 @@ public class Comment extends AbstractEntity{
     private VotingSystem votes;
     
     public Comment(){
-        
+        super();
     }
     
     /**

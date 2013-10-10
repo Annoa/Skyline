@@ -23,16 +23,7 @@ public class CommentProxy {
     
     private Comment comment;
     
-    public CommentProxy(){
-        comment.getAuthor();
-        comment.getCommentDate();
-        comment.getCommentText();
-        comment.getId();
-        comment.getParentComment();
-        comment.getPost();
-        comment.getVotes().getUpVote();
-        comment.getVotes().getDownVote();
-        
+    public CommentProxy(){        
     }
     
     public CommentProxy(Comment comment){
