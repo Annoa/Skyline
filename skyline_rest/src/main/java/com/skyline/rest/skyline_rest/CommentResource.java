@@ -3,10 +3,9 @@ package com.skyline.rest.skyline_rest;
 import com.skyline.model.core.Comment;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
-import com.skyline.model.core.VotingSystem;
 import com.skyline.model.utils.IDAO;
+import java.net.URI;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
@@ -22,6 +21,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 /**
  *
@@ -34,6 +34,7 @@ public class CommentResource {
     private IDAO<Comment, Long> comments = Blog.INSTANCE.getCommentContainer();
     private IDAO<Member, Long> members = Blog.INSTANCE.getMembersRegistry();
     private IDAO<Post, Long> posts = Blog.INSTANCE.getPostContainer();
+    private UriInfo uriInfo;
 
     //TODO: Is it FormParam or PathParam?
     @GET
@@ -73,16 +74,23 @@ public class CommentResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addComment(@FormParam("pId") Long postId,
-            @FormParam("aId") Long authorId,
-            @FormParam("pcId") Long parentCommentId,
+    public Response addComment(@PathParam("pId") Long postId,
+            @QueryParam("aId") Long authorId,
+            @QueryParam("pcId") Long parentCommentId,
             @FormParam("text") String text) {
         Post p = posts.find(postId);
         Member m = members.find(authorId);
         Comment pC = comments.find(parentCommentId);
-        comments.add(new Comment(p, pC, text, m));
-        return Response.ok().build();
-
+        if (p != null && m != null) {
+            Comment c = new Comment(p, pC, text, m);
+            comments.add(c);
+            try {
+                URI uri = uriInfo.getAbsolutePathBuilder().path(c.getId().toString()).build();
+                return Response.ok(uri).build();
+            } catch (IllegalArgumentException ie) {
+            }
+        }
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
 
     @DELETE
@@ -97,29 +105,24 @@ public class CommentResource {
         }
     }
 
+    //TODO: If we implement votingsystem, add a method or add params. (method preferred)
     @PUT
     @Path("{Id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response update(@PathParam("Id") Long id,
-                @FormParam("postId") Long postId,
-                @FormParam("parentId") Long parentId,
-                @FormParam("memberId") Long memberId,
-                @FormParam("date") Long date,
-                @FormParam("upVote") int upVote,
-                @FormParam("downVote") int downVote,
-                @FormParam("text") String text) {
-        try {
-            Member postAuthor = members.find(memberId);
-            Post p = posts.find(postId);
-            Comment cp = comments.find(parentId);
-            Date d = new Date(date);
-            comments.update(new Comment(id, p, cp, text, d, postAuthor, 
-                    new VotingSystem(upVote, downVote)));
-            return Response.ok().build();
-        } catch (IllegalArgumentException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            @FormParam("text") String text) {
+        Comment c = comments.find(id);
+        if (c != null) {
+            try {
+                comments.update(new Comment(id, c.getPost(),
+                        c.getParentComment(), text, c.getCommentDate(),
+                        c.getAuthor(), c.getVotes()));
+                return Response.ok().build();
+            } catch (IllegalArgumentException e) {
+            }
         }
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
 
     @GET
