@@ -5,4 +5,7 @@
 
 $(function() {
     console.log("walls javascript körs");
+    skyline.getPostBox();
+    console.log("walls javascript körs222222");
+    
 });
