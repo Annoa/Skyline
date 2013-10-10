@@ -30,7 +30,7 @@ public class CommentContainer extends AbstractDAO<Comment, Long>
     }
 
     /*
-    public List<Post> getChildComments(Comment parent) {
+    public List<Comment> getChildComments(Comment parent) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     */
