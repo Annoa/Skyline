@@ -11,6 +11,7 @@ var skyline = (function(){
     
     return {
         getPostBox : function(){
+            console.log("inside getPostBox");
             return posts;
         },
         //getMember..
