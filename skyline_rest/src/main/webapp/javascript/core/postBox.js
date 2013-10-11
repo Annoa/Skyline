@@ -33,7 +33,8 @@ PostBox.prototype = (function (){
         
         getRange: function ( fst, max ){
                             //TODO
-            return $.getJSON(this.baseUri + "/range?fst=" + fst + "&max=" + max);
+                            console.log("HAJ");
+            return $.getJSON(this.baseUri + "/range?first=" + fst + "&last=" + max);
         },
 
         getCount: function(){
