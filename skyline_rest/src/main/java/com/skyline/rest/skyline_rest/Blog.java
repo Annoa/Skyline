@@ -7,8 +7,8 @@ package com.skyline.rest.skyline_rest;
 import com.skyline.model.core.BlogFactory;
 import com.skyline.model.core.IBlog;
 import com.skyline.model.core.ICommentContainer;
-import com.skyline.model.core.IMembersRegistry;
-import com.skyline.model.core.IPostRegistry;
+import com.skyline.model.core.IMemberRegistry;
+import com.skyline.model.core.IPostContainer;
 
 /**
  *
@@ -23,11 +23,11 @@ public enum Blog {
         blog = BlogFactory.getBlog(true);
     }
 
-    public IMembersRegistry getMembersRegistry() {
+    public IMemberRegistry getMembersRegistry() {
         return blog.getMemberContainer();
     }
 
-    public IPostRegistry getPostContainer() {
+    public IPostContainer getPostContainer() {
         return blog.getPostContainer();
     }
     

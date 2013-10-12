@@ -4,11 +4,15 @@
  */
 package com.skyline.model.core;
 
+import java.io.Serializable;
+import javax.persistence.Embeddable;
+
 /**
  *
  * @author Gabriel
  */
-public class VotingSystem implements Comparable<Object> {
+@Embeddable
+public class VotingSystem implements Comparable<Object>, Serializable {
     
     private int upVote;
     private int downVote;

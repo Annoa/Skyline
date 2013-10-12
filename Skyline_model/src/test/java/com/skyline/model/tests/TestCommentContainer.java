@@ -55,7 +55,7 @@ public class TestCommentContainer {
         List<Comment> allComments = blog.getCommentContainer().getRange(0, count);
         List<Comment> childComments = new ArrayList<Comment>();
         for (Comment c : allComments)
-            if(c.getParentComment()==null)
+            if(c.getChildComment()==null)
                 childComments.add(c);
         assertTrue(childComments.size() == 2);
     }
@@ -70,7 +70,7 @@ public class TestCommentContainer {
         Comment cC = new Comment(p, c, cT, m);
         assertTrue(p.equals(cC.getPost()));
         assertTrue(m.equals(cC.getAuthor()));
-        assertTrue(c.equals(cC.getParentComment()));
+        assertTrue(c.equals(cC.getChildComment()));
         //Votingsystem. needs .compare and .equals
         assertTrue(cC.getVotes().getUpVote()==0);
         assertTrue(cC.getVotes().getDownVote()==0);

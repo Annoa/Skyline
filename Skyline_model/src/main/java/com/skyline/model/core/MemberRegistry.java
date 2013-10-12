@@ -11,10 +11,10 @@ import java.util.List;
  *
  * @author tomassellden
  */
-public class MemberRegistry extends AbstractDAO<Member, Long> implements IMembersRegistry {
+public class MemberRegistry extends AbstractDAO<Member, Long> implements IMemberRegistry {
 
-    public static IMembersRegistry newInstance() {
-        return new MemberRegistry();
+    public MemberRegistry(String puName) {
+        super(Member.class, puName);
     }
     /**
      *

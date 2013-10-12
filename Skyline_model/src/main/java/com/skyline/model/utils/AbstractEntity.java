@@ -1,23 +1,29 @@
 package com.skyline.model.utils;
 import java.util.Objects;
 import java.util.Random;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 /**
  * Base class for all entities (later to be stored in database), 
  * Product, Order, etc
  * @author hajo
  * 
- * @modified by epoxy
+ * @modified by anno
  */
 
-
-public abstract class AbstractEntity implements IEntity<Long>{
-//Implementa serializeable? (som i IEntity)
-    private final Long id;
+@MappedSuperclass
+public abstract class AbstractEntity{
+    
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Id
+    @Column(nullable=false)
+    private Long id;
    
     protected AbstractEntity(){
-        // This is for now, later database will generate
-        this.id = new Long(new Random().nextInt(1000));
     }
     
     protected AbstractEntity(Long id){
@@ -30,8 +36,8 @@ public abstract class AbstractEntity implements IEntity<Long>{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 71 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.id);
         return hash;
     }
 

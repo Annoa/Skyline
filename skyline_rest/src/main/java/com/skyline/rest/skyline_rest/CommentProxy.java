@@ -28,7 +28,7 @@ public class CommentProxy {
         comment.getCommentDate();
         comment.getCommentText();
         comment.getId();
-        comment.getParentComment();
+        comment.getChildComment();
         comment.getPost();
         comment.getVotes().getUpVote();
         comment.getVotes().getDownVote();
@@ -62,7 +62,7 @@ public class CommentProxy {
     //TODO: default value?
     @XmlElement(required = false)
     public Comment getParentComment() {
-        return comment.getParentComment();
+        return comment.getChildComment();
     }
     
     @XmlElement(name = "commentText")

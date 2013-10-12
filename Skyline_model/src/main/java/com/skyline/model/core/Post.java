@@ -5,50 +5,71 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractEntity;
+import java.awt.Image;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 
 /**
  * Class representing a post containing one or many contents such as body text,
  * picture and video.
  *
- * @author Epoxy
+ * @author Epoxy and Anno
  */
-//@Entity
-public class Post extends AbstractEntity {
+@Entity
+public class Post extends AbstractEntity implements Serializable {
 
+    @Temporal(TemporalType.DATE)
     private Date date;
+    @Column(nullable=false)
     private String title;
-    private BodyText bodyText;
-    private PostPicture postPicture;
-    private PostVideo postVideo;
+    @Column(nullable=true)
+    private String bodyText;
+    @Basic(fetch=FetchType.LAZY)
+    @Lob
+    private byte[] postPicture;
+    @Column(nullable=true)
+    private String postVideo;
+    @Embedded
     private VotingSystem votes;
-    private Member member;
+//    private Member member;
+    @OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL, mappedBy="post")
+    private List<Comment> comments;
 
     public Post() {
     }
     //TODO Är dåligt för databasen att ha med nulls?
 
-    public Post(Member member, String title, BodyText b, PostPicture pP, 
-            PostVideo pV) {
-        this.member = member;
+    public Post(String title, String b, byte[] picture, 
+            String video) {
         this.date = new Date();
         this.title = title;
         this.bodyText = b;
-        this.postPicture = pP;
-        this.postVideo = pV;
+        this.postPicture = picture;
+        this.postVideo = video;
         this.votes = new VotingSystem();
     }
 
-    public Post(Long id, Member member, String title, BodyText b, 
-            PostPicture pP, PostVideo pV, VotingSystem vS) {
+    public Post(Long id, String title, String bodyText, 
+            byte[] picture, String video, VotingSystem votingSystem) {
         super(id);
-        this.member = member;
         this.date = new Date();
         this.title = title;
-        this.bodyText = b;
-        this.postPicture = pP;
-        this.postVideo = pV;
-        this.votes = vS;
+        this.bodyText = bodyText;
+        this.postPicture = picture;
+        this.postVideo = video;
+        this.votes = votingSystem;
     }
 
     public Date getDate() {
@@ -59,29 +80,29 @@ public class Post extends AbstractEntity {
         return title;
     }
 
-    public BodyText getBodyText() {
+    public String getBodyText() {
         return bodyText;
     }
 
-    public PostPicture getPostPicture() {
+    public byte[] getPostPicture() {
         return postPicture;
     }
 
-    public PostVideo getPostVideo() {
+    public String getPostVideo() {
         return postVideo;
     }
 
     public VotingSystem getVotes() {
         return votes;
     }
-
-    public Member getMember() {
-        return member;
+    
+    public boolean addComment() {
+        return false;
     }
 
     @Override
     public String toString() {
         return "Post = { id = " + getId() + " date = " + date.toString()
-                + " breadtext = " + bodyText.getBreadText() + " "+votes;
+                + " breadtext = " + bodyText + " "+votes;
     }
 }

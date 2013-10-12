@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author tomassellden
  */
-public interface IMembersRegistry extends IDAO<Member, Long> {
+public interface IMemberRegistry extends IDAO<Member, Long> {
     
     public Member getMember(String name);
     
