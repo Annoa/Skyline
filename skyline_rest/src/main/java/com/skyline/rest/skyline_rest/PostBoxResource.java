@@ -79,8 +79,8 @@ public class PostBoxResource {
      *
      * @param idMember Long to find the member who wrote the post
      * @param title String
-     * @param bt String the bodyText
-     * @param pv String url to videoLink
+     * @param bodyText String the bodyText
+     * @param postVideo String url to videoLink
      * @return
      */
     @POST
@@ -88,16 +88,17 @@ public class PostBoxResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addPost(@FormParam("id") Long idMember,
             @FormParam("title") String title,
-            @FormParam("BodyText") String bt,
-            @FormParam("PostVideo") String pv) {
+            @FormParam("BodyText") String bodyText,
+            @FormParam("PostVideo") String postVideo) {
         //@FormParam("PostPicture") byte[] char pp,
         Member mWhoWroteThePost = memberBox.find(idMember);
-        if (!pv.equals("null")) {
-            pvv = new PostVideo(pv);
+        PostVideo pvv;
+        if (!postVideo.equals("null")) {
+            pvv = new PostVideo(postVideo);
         } else {
             pvv = null;
         }
-        Post p = new Post(title, "text", null, "videoLink");
+        Post p = new Post(mWhoWroteThePost, title, bodyText, null, pvv);
         try {
             postBox.add(p);
             URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf("title")).build(p);

@@ -34,10 +34,10 @@ public class PostProxy {
         return post.getId();
     }
     
-    @XmlElement(required = true)
-    public Member getMember() {
-        return post.getMember();
-    }
+//    @XmlElement(required = true)
+//    public Member getMember() {
+//        return post.getMember();
+//    }
 
     @XmlElement(required = true)
     public String getTitle() {
@@ -50,17 +50,17 @@ public class PostProxy {
     }
 
     @XmlElement(name = "bodyText")
-    public BodyText getBodyText() {
+    public String getBodyText() {
         return post.getBodyText();
     }
 
     @XmlElement(name = "postPicture")
-    public PostPicture getPostPicture() {
+    public byte[] getPostPicture() {
         return post.getPostPicture();
     }
 
     @XmlElement(name = "postVideo")
-    public PostVideo getPostVideo() {
+    public String getPostVideo() {
         return post.getPostVideo();
     }
 
