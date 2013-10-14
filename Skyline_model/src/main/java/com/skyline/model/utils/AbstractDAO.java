@@ -19,6 +19,10 @@ import javax.persistence.criteria.Root;
 public abstract class AbstractDAO<T, K> implements IDAO<T, K> {
 
     private EntityManagerFactory emf;
+
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
     private final Class<T> clazz;
 
     public AbstractDAO(Class<T> clazz, String puName) {

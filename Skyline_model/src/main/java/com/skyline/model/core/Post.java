@@ -5,7 +5,6 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractEntity;
-import java.awt.Image;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +14,7 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -31,29 +31,30 @@ import javax.persistence.TemporalType;
 public class Post extends AbstractEntity implements Serializable {
 
     @Temporal(TemporalType.DATE)
-    private Date date;
+    @Column(nullable=false)
+    private Date createDate;
     @Column(nullable=false)
     private String title;
     @Column(nullable=true)
     private String bodyText;
     @Basic(fetch=FetchType.LAZY)
+    @Column(nullable=true)
     @Lob
     private byte[] postPicture;
     @Column(nullable=true)
     private String postVideo;
     @Embedded
     private VotingSystem votes;
-//    private Member member;
-    @OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL, mappedBy="post")
+    @OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
+    @JoinColumn
     private List<Comment> comments;
 
     public Post() {
     }
-    //TODO Är dåligt för databasen att ha med nulls?
 
     public Post(String title, String b, byte[] picture, 
             String video) {
-        this.date = new Date();
+        this.createDate = new Date();
         this.title = title;
         this.bodyText = b;
         this.postPicture = picture;
@@ -64,7 +65,7 @@ public class Post extends AbstractEntity implements Serializable {
     public Post(Long id, String title, String bodyText, 
             byte[] picture, String video, VotingSystem votingSystem) {
         super(id);
-        this.date = new Date();
+        this.createDate = new Date();
         this.title = title;
         this.bodyText = bodyText;
         this.postPicture = picture;
@@ -73,7 +74,7 @@ public class Post extends AbstractEntity implements Serializable {
     }
 
     public Date getDate() {
-        return date;
+        return createDate;
     }
 
     public String getTitle() {
@@ -96,13 +97,21 @@ public class Post extends AbstractEntity implements Serializable {
         return votes;
     }
     
-    public boolean addComment() {
-        return false;
+    public List<Comment> getComments() {
+        return comments;
+    }
+    
+    public boolean addComment(Comment comment) {
+        return this.comments.add(comment);
+    }
+    
+    public boolean removeComment(Comment comment) {
+        return this.comments.remove(comment);
     }
 
     @Override
     public String toString() {
-        return "Post = { id = " + getId() + " date = " + date.toString()
+        return "Post = { id = " + getId() + " date = " + createDate.toString()
                 + " breadtext = " + bodyText + " "+votes;
     }
 }

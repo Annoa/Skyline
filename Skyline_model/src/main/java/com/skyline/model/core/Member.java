@@ -5,15 +5,15 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractEntity;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,21 +29,33 @@ public class Member extends AbstractEntity {
     private String name;
     @Temporal(TemporalType.DATE)
     private Date signUpDate;
-    @OneToMany
-    @JoinColumn
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(
+            name="FAV_MEM",
+            joinColumns={@JoinColumn(name="MEM_ID", referencedColumnName="ID")},
+            inverseJoinColumns={@JoinColumn(name="FAVMEM_ID", referencedColumnName="ID")})
     private Set<Member> favoriteMembers;
-    @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL})
+    @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
     @JoinColumn
     private Set<Post> posts;
-    @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL})
+    @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
     @JoinColumn
     private Set<Comment> comments;
 
     public Member() {
     }
+    
+    public Member(String name) {
+        this.signUpDate = new Date();
+        this.name = name;
+        this.posts = new HashSet<Post>();
+        this.comments = new HashSet<Comment>();
+        this.favoriteMembers = new HashSet<Member>();
+    }
 
     public Member(Long id, String name) {
         super(id);
+        this.signUpDate = new Date();
         this.name = name;
         this.posts = new HashSet<Post>();
         this.comments = new HashSet<Comment>();

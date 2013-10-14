@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
  * @author Gabriel
  */
 @Entity
-public class Comment extends AbstractEntity {
+public class Comment extends AbstractEntity implements Comparable<Comment>{
 
 //    private Post post;
     @OneToOne(cascade = CascadeType.ALL)
@@ -85,5 +85,10 @@ public class Comment extends AbstractEntity {
     public String toString() {
         return "Comment = \n{ \nDate = " + commentDate
                 + "\nText = " + commentText + "}";
+    }
+    
+    @Override
+    public int compareTo(Comment another) {
+        return this.votes.compareTo(another.getVotes());
     }
 }

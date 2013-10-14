@@ -6,6 +6,7 @@ package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractDAO;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  * A container for accessing posts of different kinds
@@ -13,6 +14,8 @@ import java.util.List;
  * @author Anno
  */
 public class PostContainer extends AbstractDAO<Post, Long> implements IPostContainer {
+    
+    
     
     public PostContainer(String puName) {
         super(Post.class, puName);
@@ -38,6 +41,9 @@ public class PostContainer extends AbstractDAO<Post, Long> implements IPostConta
 //    }
 
     public List<Post> getPostsByVotes(int amount) {
+//        EntityManager em = super.getEntityManager();
+//        TypedQuery query = em.c
+//        
         return null;
     }
 

@@ -1,27 +1,24 @@
-///*
-// * To change this template, choose Tools | Templates
-// * and open the template in the editor.
-// */
-//package com.skyline.model.core;
-//
-///**
-// *
-// * @author tomassellden
-// */
-//public class BlogFactory {
-//
-//    
-//    private BlogFactory() {
-//    }
-//    
-//    public static IBlog getBlog(boolean testdata) {
-//        Blog blog = new Blog();
-//        if (testdata) {
-//            addTestData(blog);
-//        }
-//        return blog;
-//    }
-//    
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.skyline.model.core;
+
+/**
+ *
+ * @author tomassellden
+ */
+public class BlogFactory {
+
+    
+    private BlogFactory() {
+    }
+    
+    public static IBlog getBlog(String persistenceUnitName) {
+        return new Blog(persistenceUnitName);
+    
+    }
+    
 //    private static void addTestData(Blog blog) {
 //        
 //        BodyText b = new BodyText("I am awesome!");
@@ -66,5 +63,5 @@
 //        
 //        
 //    }
-//
-//}
+
+}
