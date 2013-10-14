@@ -2,6 +2,7 @@ package com.skyline.rest.skyline_rest;
 
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
+import com.skyline.model.core.VotingSystem;
 import com.skyline.model.utils.IDAO;
 import java.net.URI;
 import java.util.ArrayList;
@@ -86,19 +87,25 @@ public class PostBoxResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addPost(@FormParam("id") Long idMember,
+    public Response addPost(
             @FormParam("title") String title,
             @FormParam("BodyText") String bodyText,
+            @FormParam("PostPicture") byte[] postPicture,
             @FormParam("PostVideo") String postVideo) {
-        //@FormParam("PostPicture") byte[] char pp,
-        Member mWhoWroteThePost = memberBox.find(idMember);
-        PostVideo pvv;
-        if (!postVideo.equals("null")) {
-            pvv = new PostVideo(postVideo);
+//        Member mWhoWroteThePost = memberBox.find(idMember);
+        byte[] postPic;
+        if (postPicture!=null) {
+            postPic = postPicture;
         } else {
-            pvv = null;
+            postPic = new byte[0];
         }
-        Post p = new Post(mWhoWroteThePost, title, bodyText, null, pvv);
+        String postVid;
+        if (postVideo!=null) {
+            postVid = postVideo;
+        } else {
+            postVid = "No video";
+        }
+        Post p = new Post(title, bodyText, postPic, postVid);
         try {
             postBox.add(p);
             URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf("title")).build(p);
@@ -125,21 +132,27 @@ public class PostBoxResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response update(@PathParam("Id") Long id,
-            @FormParam("memberId") Long idMember,
             @FormParam("title") String title,
-            @FormParam("BodyText") String bt,
-            @FormParam("PostVideo") String pv) {
-        //@FormParam("PostPicture") byte[] char pp,
-        Member mWhoWroteThePost = memberBox.find(idMember);
-        BodyText btt = new BodyText(bt);
-        PostVideo pvv;
-        if (!pv.equals("null")) {
-            pvv = new PostVideo(pv);
+            @FormParam("BodyText") String bodyText,
+            @FormParam("PostPicture") byte[] postPicture,
+            @FormParam("PostVideo") String postVideo) {
+//        Member mWhoWroteThePost = memberBox.find(idMember);
+        byte[] postPic;
+        if (postPicture!=null) {
+            postPic = postPicture;
         } else {
-            pvv = null;
+            postPic = new byte[0];
         }
+        String postVid;
+        if (postVideo!=null) {
+            postVid = postVideo;
+        } else {
+            postVid = "No video";
+        }
+        Post tempPost = postBox.find(id);
+        VotingSystem voteSys = tempPost.getVotes();
         try {
-            postBox.update(new Post(id, mWhoWroteThePost, title, btt, null, null, null));
+            postBox.update(new Post(id, title, bodyText, postPic, postVid, voteSys));
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -175,26 +188,26 @@ public class PostBoxResource {
      * @param memberId id of a member
      * @return GenericEntity<List<PostProxy>> list of all post a member have done
      */
-    //TODO fixa så att man vet när en siffra betyder member och när den betyder post
-    @GET
-    @Path("postByMember")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getPostByMember(@QueryParam("memberId") Long memberId) {
-        Member m = memberBox.find(memberId);
-        //IPostRegistry postRegistry = new PostRegistry();
-        List<Post> tmpPost = postBox.getRange(0, postBox.getCount());
-        List<PostProxy> postList = new ArrayList<PostProxy>();
-        for (Post p : tmpPost) {
-            System.out.println(" " + p.toString());
-            System.out.println(" " + p.getMember().getId() +  " = " + memberId);
-            if (p.getMember().getId().equals(memberId)) {
-                System.out.println(" " + p.getMember().getId() +  " = " + memberId);
-                postList.add(new PostProxy(p));
-            }
-        }
-        
-        GenericEntity<List<PostProxy>> ge = new GenericEntity<List<PostProxy>>(postList) {
-        };
-        return Response.ok(ge).build();
-    }
+//    //TODO fixa så att man vet när en siffra betyder member och när den betyder post
+//    @GET
+//    @Path("postByMember")
+//    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+//    public Response getPostByMember(@QueryParam("memberId") Long memberId) {
+//        Member m = memberBox.find(memberId);
+//        //IPostRegistry postRegistry = new PostRegistry();
+//        List<Post> tmpPost = postBox.getRange(0, postBox.getCount());
+//        List<PostProxy> postList = new ArrayList<PostProxy>();
+//        for (Post p : tmpPost) {
+//            System.out.println(" " + p.toString());
+//            System.out.println(" " + p.getMember().getId() +  " = " + memberId);
+//            if (p.getMember().getId().equals(memberId)) {
+//                System.out.println(" " + p.getMember().getId() +  " = " + memberId);
+//                postList.add(new PostProxy(p));
+//            }
+//        }
+//        
+//        GenericEntity<List<PostProxy>> ge = new GenericEntity<List<PostProxy>>(postList) {
+//        };
+//        return Response.ok(ge).build();
+//    }
 }

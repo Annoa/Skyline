@@ -4,7 +4,6 @@
  */
 package com.skyline.rest.skyline_rest.test;
 
-import com.skyline.model.core.BodyText;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
 import com.skyline.rest.skyline_rest.PostProxy;
@@ -19,13 +18,13 @@ import org.junit.Test;
  */
 public class PostProxtTest {
     
-    @Test
-    public void testMarchalPostProxy() throws JAXBException {
-        JAXBContext jc = JAXBContext.newInstance(PostProxy.class);
-        Member m = new Member("member");
-        BodyText bt = new BodyText("test post");
-        PostProxy pp = new PostProxy(new Post(m, "testTitle", bt, null, null));
-        Marshaller marshaller = jc.createMarshaller();
-        marshaller.marshal(pp, System.out);
-    }
+//    @Test
+//    public void testMarchalPostProxy() throws JAXBException {
+//        JAXBContext jc = JAXBContext.newInstance(PostProxy.class);
+//        Member m = new Member("member");
+//        BodyText bt = new BodyText("test post");
+//        PostProxy pp = new PostProxy(new Post(m, "testTitle", "test text", null, null));
+//        Marshaller marshaller = jc.createMarshaller();
+//        marshaller.marshal(pp, System.out);
+//    }
 }
