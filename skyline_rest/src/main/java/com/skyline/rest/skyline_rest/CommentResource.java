@@ -40,7 +40,7 @@ public class CommentResource {
     @GET
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getAllOnPost(@FormParam("postId") Long postId) {
+    public Response getAllOnPost(@QueryParam("postId") Long postId) {
         Post p = posts.find(postId);
         List<Comment> cList = p.getComments();
         List<CommentProxy> wrappedComments = new ArrayList();
@@ -73,11 +73,18 @@ public class CommentResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addComment(@QueryParam("pcId") Long parentCommentId,
+    public Response addComment(@QueryParam("authorId") Long authorId,
+            @QueryParam("postId") Long postId,
             @FormParam("text") String text) {
-        Comment pC = comments.find(parentCommentId);
-        Comment c = new Comment(pC, text);
+        Member auth = members.find(authorId);
+        Post post = posts.find(postId);
+        //TODO: Fix this constructor.
+        Comment c = new Comment(null, text);
         comments.add(c);
+        post.addComment(c);
+        posts.update(post);
+        auth.addComment(c);
+        members.update(auth);
         try {
             URI uri = uriInfo.getAbsolutePathBuilder().path(c.getId().toString()).build();
             return Response.ok(uri).build();
@@ -104,11 +111,11 @@ public class CommentResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response update(@PathParam("Id") Long commentId,
-            @FormParam("text") String text) { 
+            @FormParam("text") String text) {
         Comment c = comments.find(commentId);
         if (c != null) {
             try {
-                comments.update(new Comment(commentId, c.getChildComment(), 
+                comments.update(new Comment(commentId, c.getChildComment(),
                         text, c.getCommentDate(), c.getVotes()));
                 return Response.ok().build();
             } catch (IllegalArgumentException e) {
