@@ -104,7 +104,7 @@ public class CommentResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response update(@PathParam("Id") Long commentId,
-            @FormParam("text") String text) {
+            @FormParam("text") String text) { 
         Comment c = comments.find(commentId);
         if (c != null) {
             try {
