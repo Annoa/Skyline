@@ -1,10 +1,7 @@
 package com.skyline.rest.skyline_rest;
 
-import com.skyline.model.core.BodyText;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
-import com.skyline.model.core.PostPicture;
-import com.skyline.model.core.PostVideo;
 import com.skyline.model.utils.IDAO;
 import java.net.URI;
 import java.util.ArrayList;
@@ -95,14 +92,12 @@ public class PostBoxResource {
             @FormParam("PostVideo") String pv) {
         //@FormParam("PostPicture") byte[] char pp,
         Member mWhoWroteThePost = memberBox.find(idMember);
-        BodyText btt = new BodyText(bt);
-        PostVideo pvv;
         if (!pv.equals("null")) {
             pvv = new PostVideo(pv);
         } else {
             pvv = null;
         }
-        Post p = new Post(mWhoWroteThePost, title, btt, null, pvv);
+        Post p = new Post(title, "text", null, "videoLink");
         try {
             postBox.add(p);
             URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf("title")).build(p);

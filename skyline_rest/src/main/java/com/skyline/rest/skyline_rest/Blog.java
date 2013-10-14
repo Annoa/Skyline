@@ -20,7 +20,7 @@ public enum Blog {
     private final IBlog blog;
 
     private Blog() {
-        blog = BlogFactory.getBlog(true);
+        blog = BlogFactory.getBlog("skyline_pu");
     }
 
     public IMemberRegistry getMembersRegistry() {

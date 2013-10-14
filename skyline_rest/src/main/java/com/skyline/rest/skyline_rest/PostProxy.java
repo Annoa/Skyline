@@ -4,11 +4,8 @@
  */
 package com.skyline.rest.skyline_rest;
 
-import com.skyline.model.core.BodyText;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
-import com.skyline.model.core.PostPicture;
-import com.skyline.model.core.PostVideo;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
