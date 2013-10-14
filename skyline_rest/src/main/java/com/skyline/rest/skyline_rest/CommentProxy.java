@@ -23,9 +23,6 @@ public class CommentProxy {
     
     private Comment comment;
     
-<<<<<<< HEAD
-    public CommentProxy(){        
-=======
     public CommentProxy(){
         comment.getAuthor();
         comment.getCommentDate();
@@ -35,8 +32,6 @@ public class CommentProxy {
         comment.getPost();
         comment.getVotes().getUpVote();
         comment.getVotes().getDownVote();
-        
->>>>>>> database
     }
     
     public CommentProxy(Comment comment){
