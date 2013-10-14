@@ -11,6 +11,7 @@ import javax.persistence.Embeddable;
  *
  * @author Gabriel
  */
+@Embeddable
 public class VotingSystem implements Comparable<Object>, Serializable {
     
     private int upVote;
