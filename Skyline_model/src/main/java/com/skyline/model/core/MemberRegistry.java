@@ -5,9 +5,14 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractDAO;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
+import javax.persistence.PreRemove;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
@@ -26,8 +31,7 @@ public class MemberRegistry extends AbstractDAO<Member, Long> implements IMember
      */
     public Member getMember(String name) {
         EntityManager em = super.getEntityManager();
-        TypedQuery<Member> query = em.createQuery
-                ("select m from Member m where m.name = :name", Member.class);
+        TypedQuery<Member> query = em.createQuery("select m from Member m where m.name = :name", Member.class);
         query.setParameter("name", name);
         return query.getSingleResult();
     }
@@ -40,19 +44,8 @@ public class MemberRegistry extends AbstractDAO<Member, Long> implements IMember
      * have any common favoritemembers
      */
     public Set<Member> getMutualFavorites(Member memberOne, Member memberTwo) {
-//        EntityManager em = super.getEntityManager();
-//        TypedQuery<Member> query = em.createQuery
-//                ("select m from Member m", Member.class);
-//        
-//        
-//        Set<Member> commonFavoritesMember = memberOne.getFavoriteMembers();
-//        commonFavoritesMember.retainAll(memberTwo.getFavoriteMembers());
-//        return commonFavoritesMember;
-        return null;
-    }
-
-    public Set<Member> getFavorites(Member member) {
-        return member.getFavoriteMembers();
-
+        Set<Member> firstFavorites = memberOne.getFavoriteMembers();        
+        firstFavorites.retainAll(memberTwo.getFavoriteMembers());
+        return firstFavorites;
     }
 }

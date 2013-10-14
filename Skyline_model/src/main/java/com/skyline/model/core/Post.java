@@ -62,10 +62,10 @@ public class Post extends AbstractEntity implements Serializable {
         this.votes = new VotingSystem();
     }
 
-    public Post(Long id, String title, String bodyText, 
+    public Post(Long id, Date date, String title, String bodyText, 
             byte[] picture, String video, VotingSystem votingSystem) {
         super(id);
-        this.createDate = new Date();
+        this.createDate = date;
         this.title = title;
         this.bodyText = bodyText;
         this.postPicture = picture;

@@ -5,8 +5,14 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractDAO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
 
 /**
  * A container for accessing posts of different kinds
@@ -21,33 +27,39 @@ public class PostContainer extends AbstractDAO<Post, Long> implements IPostConta
         super(Post.class, puName);
     }
 
-//    @Override
-//    public Member getMemberByPost(Post post) {
-//        return post.getMember();
-//        
-//
-//    }
-
-//    @Override
-//    public List<Post> getAllPostByMember(Post post) {
-//        List<Post> getAllPostByMember = new ArrayList<Post>();
-//        Member m = post.getMember();
-//        for (Post p : getRange(0, getCount())) {
-//            if (p.getMember().equals(m)) {
-//                getAllPostByMember.add(p);
-//            }
-//        }
-//        return getAllPostByMember;
-//    }
-
-    public List<Post> getPostsByVotes(int amount) {
-//        EntityManager em = super.getEntityManager();
-//        TypedQuery query = em.c
-//        
-        return null;
+    public List<Post> getRangeByVotes(int start, int amount) {
+        EntityManager em = super.getEntityManager();
+        TypedQuery<Object[]> query = em.createQuery
+                ("select a, a.votes.upVote - a.votes.downVote AS b "
+                + "from Post a order by b DESC", Object[].class);
+        List<Object[]> result = query.getResultList();
+        List<Post> postList = new ArrayList<Post>();
+        for (Object[] obj : result) {
+            postList.add((Post) obj[0]);
+        }
+        return postList.subList(start, amount > postList.size() 
+                ? postList.size() : amount);
     }
 
-    public List<Post> getPostsByTime(int amount) {
+    public List<Post> getRangeByTime(int start, int amount) {
+        EntityManager em = super.getEntityManager();
+        TypedQuery<Post> query = em.createQuery
+                ("select p from Post p order by p.createDate DESC", Post.class);
+        List<Post> result = query.getResultList();
+        return result.subList(start, amount > result.size() 
+                ? result.size() : amount);
+    }
+
+    public Member getAuthor(Post post) {
+        EntityManager em = super.getEntityManager();
+        TypedQuery<Member> query = em.createQuery
+                ("select m from Member m where :post MEMBER OF m.posts", Member.class);
+        query.setParameter("post", post);
+        
+        return query.getSingleResult();
+    }
+
+    public List<Post> getPostsOfMemberByVotes(Member member) {
         return null;
     }
 }

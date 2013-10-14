@@ -28,7 +28,7 @@ public class Blog implements IBlog {
     }
 
     @Override
-    public IMemberRegistry getMemberContainer() {
+    public IMemberRegistry getMemberRegistry() {
         return memberRegistry;
     }
     
