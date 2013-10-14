@@ -24,14 +24,6 @@ public class CommentProxy {
     private Comment comment;
     
     public CommentProxy(){
-//        comment.getAuthor();
-        comment.getCommentDate();
-        comment.getCommentText();
-        comment.getId();
-        comment.getChildComment();
-//        comment.getPost();
-        comment.getVotes().getUpVote();
-        comment.getVotes().getDownVote();
     }
     
     public CommentProxy(Comment comment){
@@ -43,20 +35,11 @@ public class CommentProxy {
         return comment.getId();
     }
     
-//    @XmlElement(required = true)
-//    public Post getPost() {
-//        return comment.getPost();
-//    }
-    
     @XmlElement(required = true)
     public Date getCommentDate(){
         return comment.getCommentDate();
     }
     
-//    @XmlElement(required = true)
-//    public Member getAuthor() {
-//        return comment.getAuthor();
-//    }
 
     //TODO: default value?
     @XmlElement(required = false)
@@ -64,17 +47,18 @@ public class CommentProxy {
         return comment.getChildComment();
     }
     
-    @XmlElement(name = "commentText")
+    
+    @XmlElement(required = true, name = "commentText")
     public String getCommentText(){
         return comment.getCommentText();
     }
 
-    @XmlElement(name = "upVotes")
+    @XmlElement(required = true, name = "upVotes")
     public int getUpVotes(){
         return comment.getVotes().getUpVote();
     }
     
-    @XmlElement(name = "downVotes")
+    @XmlElement(required = true, name = "downVotes")
     public int getDownVotes(){
         return comment.getVotes().getDownVote();
     }
