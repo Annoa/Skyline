@@ -13,9 +13,9 @@ public interface IBlog {
      * 
      * @return a member
      */
-    public IMembersRegistry getMemberContainer();
+    public IMemberRegistry getMemberContainer();
     
-    public IPostRegistry getPostContainer();
+    public IPostContainer getPostContainer();
     
     public ICommentContainer getCommentContainer();
 

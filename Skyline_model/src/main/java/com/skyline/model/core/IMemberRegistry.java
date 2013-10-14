@@ -5,17 +5,17 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.IDAO;
-import java.util.List;
+import java.util.Set;
 
 /**
  *
  * @author tomassellden
  */
-public interface IMembersRegistry extends IDAO<Member, Long> {
+public interface IMemberRegistry extends IDAO<Member, Long> {
     
     public Member getMember(String name);
     
-    public List<Member> getFavoritesMemberByIntersection(Member memberOne, Member memberTwo);
+    public Set<Member> getMutualFavorites(Member memberOne, Member memberTwo);
     
-    public List<Member> getFavoritesMember(Member member);
+    public Set<Member> getFavorites(Member member);
 }

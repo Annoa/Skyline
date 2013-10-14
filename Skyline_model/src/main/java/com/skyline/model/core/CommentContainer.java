@@ -5,7 +5,6 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractDAO;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,19 +13,20 @@ import java.util.List;
  */
 public class CommentContainer extends AbstractDAO<Comment, Long>
     implements ICommentContainer {
-
-    public static CommentContainer newInstance(){
-        return new CommentContainer();
+    
+    public CommentContainer(String puName) {
+        super(Comment.class, puName);
     }
     
     public List<Comment> getAllCommentsOnPost(Post post) {
-        List<Comment> comments = new ArrayList<Comment>();
-        for (Comment c : getRange(0, getCount())){
-            if(c.getPost().equals(post)){
-                comments.add(c);
-            }
-        }
-        return comments;
+//        List<Comment> comments = new ArrayList<Comment>();
+//        for (Comment c : getRange(0, getCount())){
+//            if(c.getPost().equals(post)){
+//                comments.add(c);
+//            }
+//        }
+//        return comments;
+        return null;
     }
 
     /*

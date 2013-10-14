@@ -5,28 +5,31 @@
 package com.skyline.model.core;
 
 /**
- *
- * @author tomassellden
+ * The main container for the blog.
+ * Contains all other containers.
+ * 
+ * @author anno
  */
 public class Blog implements IBlog {
-
-    private final IPostRegistry postContainer = PostRegistry.newInstance();
-    private final IMembersRegistry membersContainer = 
-            MemberRegistry.newInstance();
-    private final ICommentContainer commentContainer = 
-            CommentContainer.newInstance();
     
-    public Blog() {
+    private IPostContainer postContainer;
+    private IMemberRegistry memberRegistry;
+    private ICommentContainer commentContainer;
+
+    public Blog(String persistanceUnitName) {
+        this.postContainer = new PostContainer(persistanceUnitName);
+        this.commentContainer = new CommentContainer(persistanceUnitName);
+        this.memberRegistry = new MemberRegistry(persistanceUnitName);
     }
 
     @Override
-    public IPostRegistry getPostContainer() {
+    public IPostContainer getPostContainer() {
         return postContainer;
     }
 
     @Override
-    public IMembersRegistry getMemberContainer() {
-        return membersContainer;
+    public IMemberRegistry getMemberContainer() {
+        return memberRegistry;
     }
     
     @Override
