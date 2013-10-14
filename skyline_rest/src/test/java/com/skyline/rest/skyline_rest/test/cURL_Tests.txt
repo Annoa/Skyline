@@ -83,3 +83,49 @@ curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/mem
 
 # Query parameters. NOTE: Must quote URI. Will get list (with possible 0 elements)
 curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/members/commonFavoriteMembers?memberId={memberId}&memberId2={memberId}"
+
+
+#_______________________________________________
+# Comments
+
+1.
+Getting all comments
+curl -v http://localhost:8080/skyline_rest/rs/posts/comments
+//OK!
+# asking for json
+curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts/comments
+
+2.
+Get a specific comment by its id
+curl -v http://localhost:8080/skyline_rest/rs/posts/comments{idNummer}
+
+# asking for json
+curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts/comments/{idNummer}
+
+3.
+# *** POST (create) ***
+curl -v -X POST http://localhost:8080/skyline_rest/rs/posts/comments/?authorID={authorid}&postId={postid} --data "text=Jensa, wat do jah do bratta?"
+
+4.
+    # *** DELETE (delete) ***
+curl -v -X DELETE http://localhost:8080/skyline_rest/rs/posts/comments/{idNumber}
+
+5.
+# *** PUT (update) ***
+# Sending JSON, probably need other id last
+curl -v -X PUT http://localhost:8080/skyline_rest/rs/posts/comments/{idNumber} --data "text=altered comment"
+
+6.
+# Query parameters. NOTE: Must quote URI. Will get list (with possible 0 elements)
+curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/posts/comments/range?first=0&last=2"
+
+7.
+# Get primitive type
+curl -v http://localhost:8080/skyline_rest/rs/posts/comments/count
+curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts/comments/count
+
+8. 
+# Get all comments on post
+
+curl -v http://localhost:8080/skyline_rest/rs/posts/comments/?postId={postId}
+curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts/comments/?postId={postId}
