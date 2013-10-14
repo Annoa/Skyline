@@ -90,22 +90,22 @@ public class PostBoxResource {
     public Response addPost(
             @FormParam("title") String title,
             @FormParam("BodyText") String bodyText,
-            @FormParam("PostPicture") byte[] postPicture,
+            //@FormParam("PostPicture") byte[] postPicture,
             @FormParam("PostVideo") String postVideo) {
 //        Member mWhoWroteThePost = memberBox.find(idMember);
-        byte[] postPic;
+       /* byte[] postPic;
         if (postPicture!=null) {
             postPic = postPicture;
         } else {
             postPic = new byte[0];
-        }
+        }*/
         String postVid;
         if (postVideo!=null) {
             postVid = postVideo;
         } else {
             postVid = "No video";
         }
-        Post p = new Post(title, bodyText, postPic, postVid);
+        Post p = new Post(title, bodyText, null, postVid);
         try {
             postBox.add(p);
             URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf("title")).build(p);
@@ -134,15 +134,15 @@ public class PostBoxResource {
     public Response update(@PathParam("Id") Long id,
             @FormParam("title") String title,
             @FormParam("BodyText") String bodyText,
-            @FormParam("PostPicture") byte[] postPicture,
+           // @FormParam("PostPicture") byte[] postPicture,
             @FormParam("PostVideo") String postVideo) {
 //        Member mWhoWroteThePost = memberBox.find(idMember);
-        byte[] postPic;
+        /*byte[] postPic;
         if (postPicture!=null) {
             postPic = postPicture;
         } else {
             postPic = new byte[0];
-        }
+        }*/
         String postVid;
         if (postVideo!=null) {
             postVid = postVideo;
@@ -152,7 +152,7 @@ public class PostBoxResource {
         Post tempPost = postBox.find(id);
         VotingSystem voteSys = tempPost.getVotes();
         try {
-            postBox.update(new Post(id, title, bodyText, postPic, postVid, voteSys));
+            postBox.update(new Post(id, title, bodyText, null, postVid, voteSys));
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
