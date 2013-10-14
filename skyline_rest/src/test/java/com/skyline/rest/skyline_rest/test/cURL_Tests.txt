@@ -6,19 +6,24 @@ curl -v http://localhost:8080/skyline_rest/rs/posts
 //OK!
 # asking for json
 curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts
+//OK!
 
 2.
 Get a specific post by its id
 curl -v http://localhost:8080/skyline_rest/rs/posts/{idNummer}
+//OK!
 
 # asking for json
 curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts/{idNummer}
+//OK!
 
 # *** POST (create) ***
-curl -v -X POST http://localhost:8080/skyline_rest/rs/posts/ --data "id={idNumberFromAMember}&title=PostByTomasSelllden&BodyText=ThisIsTheEnd!!!!!!!&PostVideo=null"
+curl -v -X POST http://localhost:8080/skyline_rest/rs/posts/ --data "title=PostByTomasSelllden&BodyText=ThisIsTheEnd!!!!!!!&PostVideo=www.video.com"
+//OK!
 
 # *** DELETE (delete) ***
 curl -v -X DELETE http://localhost:8080/skyline_rest/rs/posts/{idNumber}
+//OK!
 
 # *** PUT (update) ***
 # Sending JSON, probably need other id last
