@@ -4,7 +4,6 @@
  */
 package com.skyline.rest.skyline_rest.test;
 
-import com.skyline.model.core.BodyText;
 import com.skyline.model.core.Comment;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
@@ -24,9 +23,7 @@ public class TestCommentProxy {
     @Test
     public void testMarchalCommentProxy() throws JAXBException {
         JAXBContext jc = JAXBContext.newInstance(CommentProxy.class);
-        Member a = new Member("Jensa");
-        Post p = new Post(a, "post title", new BodyText("lorem lala."), null, null);
-        Comment c = new Comment(p, null, "I just commented myself", a);
+        Comment c = new Comment(null, "I just commented myself");
         CommentProxy cp = new CommentProxy(c);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.marshal(cp, System.out);

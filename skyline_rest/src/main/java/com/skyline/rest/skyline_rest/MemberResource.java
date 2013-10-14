@@ -10,6 +10,7 @@ import com.skyline.model.utils.IDAO;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -136,7 +137,7 @@ public class MemberResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getFavoriteMembers(@QueryParam("memberId") Long memberId) {
         Member member = memberBox.find(memberId);
-        List<Member> tmpList = member.getFavoriteMembers();
+        Set<Member> tmpList = member.getFavoriteMembers();
         List<MemberProxy> favoriteMembers = new ArrayList<MemberProxy>();
         for (Member m : tmpList) {
             favoriteMembers.add(new MemberProxy(m));
@@ -153,7 +154,7 @@ public class MemberResource {
             @QueryParam("memberId2") long memberId2) {
         Member member1 = memberBox.find(memberId);
         Member member2 = memberBox.find(memberId2);
-        List<Member> tmpCommonFriends = member1.getFavoriteMembers();
+        Set<Member> tmpCommonFriends = member1.getFavoriteMembers();
         tmpCommonFriends.retainAll(member2.getFavoriteMembers());
         List<MemberProxy> commonFriends = new ArrayList<MemberProxy>();
         for (Member m : tmpCommonFriends) {
