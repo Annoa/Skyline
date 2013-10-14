@@ -6,23 +6,30 @@ curl -v http://localhost:8080/skyline_rest/rs/posts
 //OK!
 # asking for json
 curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts
+//OK!
 
 2.
 Get a specific post by its id
 curl -v http://localhost:8080/skyline_rest/rs/posts/{idNummer}
+//OK!
 
 # asking for json
 curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts/{idNummer}
+//OK!
 
 # *** POST (create) ***
-curl -v -X POST http://localhost:8080/skyline_rest/rs/posts/ --data "id={idNumberFromAMember}&title=PostByTomasSelllden&BodyText=ThisIsTheEnd!!!!!!!&PostVideo=null"
+curl -v -X POST http://localhost:8080/skyline_rest/rs/posts/ --data "title=Post Title example&BodyText=This is a text. Bla bla bla...&PostVideo=www.video.com"
+//OK!
 
 # *** DELETE (delete) ***
 curl -v -X DELETE http://localhost:8080/skyline_rest/rs/posts/{idNumber}
+//OK!
 
 # *** PUT (update) ***
 # Sending JSON, probably need other id last
-curl -v -X PUT http://localhost:8080/skyline_rest/rs/posts/{idNumber} --data "memberId={idNumberFromAMember}&title=itWorksToUpdateAPost&BodyText=updatedPost&PostVideo=null"
+curl -v -X PUT http://localhost:8080/skyline_rest/rs/posts/{idNumber} --data "title=Updated Title&BodyText=updated text"
+//OK!
+(optional add on: &PostVideo=null)
 
 # Query parameters. NOTE: Must quote URI. Will get list (with possible 0 elements)
 curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/posts/range?first=0&last=2"
