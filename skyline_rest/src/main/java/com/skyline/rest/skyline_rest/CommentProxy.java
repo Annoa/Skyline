@@ -24,12 +24,12 @@ public class CommentProxy {
     private Comment comment;
     
     public CommentProxy(){
-        comment.getAuthor();
+//        comment.getAuthor();
         comment.getCommentDate();
         comment.getCommentText();
         comment.getId();
         comment.getChildComment();
-        comment.getPost();
+//        comment.getPost();
         comment.getVotes().getUpVote();
         comment.getVotes().getDownVote();
     }
@@ -43,20 +43,20 @@ public class CommentProxy {
         return comment.getId();
     }
     
-    @XmlElement(required = true)
-    public Post getPost() {
-        return comment.getPost();
-    }
+//    @XmlElement(required = true)
+//    public Post getPost() {
+//        return comment.getPost();
+//    }
     
     @XmlElement(required = true)
     public Date getCommentDate(){
         return comment.getCommentDate();
     }
     
-    @XmlElement(required = true)
-    public Member getAuthor() {
-        return comment.getAuthor();
-    }
+//    @XmlElement(required = true)
+//    public Member getAuthor() {
+//        return comment.getAuthor();
+//    }
 
     //TODO: default value?
     @XmlElement(required = false)
