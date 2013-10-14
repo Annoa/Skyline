@@ -20,7 +20,7 @@ public interface IPostContainer extends IDAO<Post, Long> {
     
     public Member getAuthor(Post post);
     
-    public List<Post> getPostsOfMemberByVotes(Member member);
+    public List<Post> getPostsOfMemberByVotes(Member member, int start, int amount);
     
     public List<Post> getRangeByVotes(int start, int amount);
     

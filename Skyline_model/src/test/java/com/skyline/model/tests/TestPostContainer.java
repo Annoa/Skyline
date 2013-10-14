@@ -95,81 +95,46 @@ public class TestPostContainer {
         
     }
     
-//    @Test
-//    public void testAdd() {
-//        IMemberRegistry mr = blog.getMemberRegistry();
-//        Member tomas = new Member("Tomas");
-//        mr.add(tomas);
-//        assertTrue(mr.getCount() == 1);
-//        mr.remove(tomas.getId());
-//        assertTrue(mr.getCount() == 0);
-//    }
-//    
-//    @Test
-//    public void testGetByName() {
-//        IMemberRegistry mr = blog.getMemberRegistry();
-//        Member tomas = new Member("Tomas");
-//        mr.add(tomas);
-//        assertTrue(mr.getCount() == 1);
-//        mr.remove(mr.getMember("Tomas").getId());
-//        assertTrue(mr.getCount() == 0);
-//    }
-//    
-//    @Test
-//    public void testFavorites() {
-//        IMemberRegistry mr = blog.getMemberRegistry();
-//        Member tomas = new Member("Tomas");
-//        Member anton = new Member("Anton");
-//        Member anno = new Member("Anno");
-//        mr.add(tomas);
-//        mr.add(anton);
-//        mr.add(anno);
-//        
-//        anno.addFavoriteMember(tomas);
-//        anno.addFavoriteMember(anton);
-//        anno = mr.update(anno);
-//        tomas.addFavoriteMember(anton);
-//        tomas = mr.update(tomas);
-//        
-//        assertEquals(2, anno.getFavoriteMembers().size());
-//        assertEquals(1, tomas.getFavoriteMembers().size());
-//        
-//        Set<Member> result = mr.getMutualFavorites(anno, tomas);
-//        assertEquals(1, result.size());
-//        assertEquals(true, result.contains(anton));
-//        
-//        mr.remove(tomas.getId());
-//        mr.remove(anton.getId());
-//        mr.remove(anno.getId());
-//        assertEquals(null, mr.find(tomas.getId()));
-//        assertEquals(null, mr.find(anno.getId()));
-//        assertEquals(null, mr.find(anton.getId()));
-//        
-//    }
-
-//    @Test
-//    public void getAllMembers() {
-//        int count = blog.getMemberRegistry().getCount();
-//        List<Member> allMembers = blog.getMemberRegistry().getRange(0, count);
-//        assertTrue(allMembers.size() == 4);
-//    }
-
-//    @Test
-//    public void getFavoriteFriendsOfTomas() {
-//        Member m = blog.getMemberRegistry().getMember("Tomas");
-//        System.out.println("member m is equal to" + m.toString());
-//        List<Member> tomasFavoriteFriends = m.getFavoriteMembers();
-//        assertTrue(tomasFavoriteFriends.size() == 3);
-//    }
-//
-//    @Test
-//    public void getFavoriteFriendsByIntersection() {
-//        Member anton = blog.getMemberRegistry().getMember("Anton");
-//        Member tomas = blog.getMemberRegistry().getMember("Tomas");
-//        List<Member> commonFriends = blog.getMemberRegistry().getMutualFriendsberByIntersection(tomas, anton);
-//        assertTrue(commonFriends.size() == 1);
-//        Member cf = commonFriends.get(0);
-//        assertTrue(cf.getName().equals("Krabban"));
-//
-//    }
+    @Test
+    public void testGetAuthorPostRange() {
+        IPostContainer pc = blog.getPostContainer();
+        IMemberRegistry mr = blog.getMemberRegistry();
+        
+        Post post1 = new Post("Post", "Tester", null, null);
+        Post post2 = new Post("Post", "Tester", null, null);
+        Post post3 = new Post("Post", "Tester", null, null);
+        pc.add(post1);
+        pc.add(post2);
+        pc.add(post3);
+        
+        Member mem = new Member("Tomas");
+        mr.add(mem);
+        mem.addPost(post1);
+        mem.addPost(post2);
+        mem.addPost(post3);
+        mr.update(mem);
+        
+        post1 = pc.update(new Post(post1.getId(), post1.getDate(),
+                post1.getTitle(),
+                post1.getBodyText(), post1.getPostPicture(), 
+                post1.getPostVideo(), new VotingSystem(50, 50)));
+        post2 = pc.update(new Post(post2.getId(), post2.getDate(),
+                post2.getTitle(),
+                post2.getBodyText(), post2.getPostPicture(), 
+                post2.getPostVideo(), new VotingSystem(150, 0)));
+        post3 = pc.update(new Post(post3.getId(), post3.getDate(),
+                post3.getTitle(),
+                post3.getBodyText(), post3.getPostPicture(), 
+                post3.getPostVideo(), new VotingSystem(50, 0)));
+        
+        List<Post> result = pc.getPostsOfMemberByVotes(mem, 0, 50);
+        assertTrue(result.get(0).getId() == post2.getId());
+        assertTrue(result.get(1).getId() == post3.getId());
+        assertTrue(result.get(2).getId() == post1.getId());
+        
+        mr.remove(mem.getId());
+        assertTrue(pc.getCount() == 0);
+        assertTrue(mr.getCount() == 0);
+        
+    }
 }

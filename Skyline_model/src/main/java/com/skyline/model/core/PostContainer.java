@@ -59,7 +59,20 @@ public class PostContainer extends AbstractDAO<Post, Long> implements IPostConta
         return query.getSingleResult();
     }
 
-    public List<Post> getPostsOfMemberByVotes(Member member) {
-        return null;
+    public List<Post> getPostsOfMemberByVotes(Member member, int start, int amount) {
+        EntityManager em = super.getEntityManager();
+        TypedQuery<Object[]> query = em.createQuery
+                ("select p, p.votes.upVote - p.votes.downVote AS b from "
+                + "Member a JOIN a.posts p where a.id = :id"
+                + " order by b DESC", Object[].class);
+        query.setParameter("id", member.getId());
+        
+        List<Object[]> result = query.getResultList();
+        List<Post> postList = new ArrayList<Post>();
+        for (Object[] obj : result) {
+            postList.add((Post) obj[0]);
+        }
+        return postList.subList(start, amount > postList.size() 
+                ? postList.size() : amount);
     }
 }
