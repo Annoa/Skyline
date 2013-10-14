@@ -33,10 +33,12 @@ curl -v -X PUT http://localhost:8080/skyline_rest/rs/posts/{idNumber} --data "ti
 
 # Query parameters. NOTE: Must quote URI. Will get list (with possible 0 elements)
 curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/posts/range?first=0&last=2"
+OK!
 
 # Get primitive type
 curl -v http://localhost:8080/skyline_rest/rs/posts/count
 curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts/count
+//OK!
 
 # get all post by a member
 curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/posts/postByMember?memberId={memberId}"
