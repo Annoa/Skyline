@@ -100,7 +100,9 @@ public class MemberResource {
     public Response update(@PathParam("Id") Long id,
             @FormParam("name") String name) {
         try {
-            memberBox.update(new Member(id, name));
+            Member m = memberBox.find(id);
+            memberBox.update(new Member(id, m.getDate(), name, m.getPosts(), 
+                    m.getComments(), m.getFavoriteMembers()));
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

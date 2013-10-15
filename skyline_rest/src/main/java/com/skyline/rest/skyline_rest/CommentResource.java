@@ -79,7 +79,7 @@ public class CommentResource {
         Member auth = members.find(authorId);
         Post post = posts.find(postId);
         //TODO: Fix this constructor.
-        Comment c = new Comment(null, text);
+        Comment c = new Comment(text);
         comments.add(c);
         post.addComment(c);
         posts.update(post);
@@ -115,7 +115,7 @@ public class CommentResource {
         Comment c = comments.find(commentId);
         if (c != null) {
             try {
-                comments.update(new Comment(commentId, c.getChildComment(),
+                comments.update(new Comment(commentId, c.getChildComments(),
                         text, c.getCommentDate(), c.getVotes()));
                 return Response.ok().build();
             } catch (IllegalArgumentException e) {

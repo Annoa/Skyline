@@ -23,7 +23,7 @@ public class TestCommentProxy {
     @Test
     public void testMarchalCommentProxy() throws JAXBException {
         JAXBContext jc = JAXBContext.newInstance(CommentProxy.class);
-        Comment c = new Comment(null, "I just commented myself");
+        Comment c = new Comment("I just commented myself");
         CommentProxy cp = new CommentProxy(c);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.marshal(cp, System.out);

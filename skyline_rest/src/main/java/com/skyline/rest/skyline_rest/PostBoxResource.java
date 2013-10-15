@@ -152,7 +152,8 @@ public class PostBoxResource {
         Post tempPost = postBox.find(id);
         VotingSystem voteSys = tempPost.getVotes();
         try {
-            postBox.update(new Post(id, title, bodyText, null, postVid, voteSys));
+            
+            postBox.update(new Post(id, tempPost.getDate(), title, bodyText, null, postVid, voteSys));
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
