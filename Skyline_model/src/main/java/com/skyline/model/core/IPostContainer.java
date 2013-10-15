@@ -18,8 +18,12 @@ public interface IPostContainer extends IDAO<Post, Long> {
 //    
 //    public List<Post> getAllPostByMember(Post post);
     
-    public List<Post> getPostsByVotes(int amount);
+    public Member getAuthor(Post post);
     
-    public List<Post> getPostsByTime(int amount);
+    public List<Post> getPostsOfMemberByVotes(Member member, int start, int amount);
+    
+    public List<Post> getRangeByVotes(int start, int amount);
+    
+    public List<Post> getRangeByTime(int start, int amount);
     
 }

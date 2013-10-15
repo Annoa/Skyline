@@ -6,11 +6,14 @@ package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractEntity;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,9 +26,9 @@ import javax.persistence.TemporalType;
 public class Comment extends AbstractEntity implements Comparable<Comment>{
 
 //    private Post post;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
     @JoinColumn
-    private Comment childComment;
+    private Set<Comment> childComments;
     private String commentText;
     @Temporal(TemporalType.DATE)
     private Date commentDate;
@@ -37,20 +40,20 @@ public class Comment extends AbstractEntity implements Comparable<Comment>{
     }
 
     /**
-     * @param parentComment == null, if top-level
+     * @param childComments == null, if top-level
      * @param Gabriel
      */
-    public Comment(Comment parentComment, String commentText) {
-        this.childComment = parentComment;
+    public Comment(String commentText) {
+        this.childComments = new HashSet<Comment>();
         this.commentText = commentText;
         this.commentDate = new Date();
         this.votes = new VotingSystem();
     }
 
-    public Comment(Long id, Comment parentComment, String commentText,
+    public Comment(Long id, Set<Comment> childComments, String commentText,
             Date date, VotingSystem votes) {
         super(id);
-        this.childComment = parentComment;
+        this.childComments = childComments;
         this.commentText = commentText;
         this.commentDate = date;
         this.votes = votes;
@@ -62,8 +65,8 @@ public class Comment extends AbstractEntity implements Comparable<Comment>{
 //    public Post getPost() {
 //        return post;
 //    }
-    public Comment getChildComment() {
-        return childComment;
+    public Set<Comment> getChildComments() {
+        return childComments;
     }
 
     public String getCommentText() {
@@ -73,9 +76,14 @@ public class Comment extends AbstractEntity implements Comparable<Comment>{
     public Date getCommentDate() {
         return commentDate;
     }
-//    public Member getAuthor() {
-//        return author;
-//    }
+
+    public boolean addChildComment(Comment comment) {
+        return this.childComments.add(comment);
+    }
+    
+    public boolean removeChildComment(Comment comment) {
+        return this.childComments.remove(comment);
+    }
 
     public VotingSystem getVotes() {
         return votes;

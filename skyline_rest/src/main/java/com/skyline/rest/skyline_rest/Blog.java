@@ -24,7 +24,7 @@ public enum Blog {
     }
 
     public IMemberRegistry getMembersRegistry() {
-        return blog.getMemberContainer();
+        return blog.getMemberRegistry();
     }
 
     public IPostContainer getPostContainer() {

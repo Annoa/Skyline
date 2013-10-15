@@ -16,6 +16,4 @@ public interface IMemberRegistry extends IDAO<Member, Long> {
     public Member getMember(String name);
     
     public Set<Member> getMutualFavorites(Member memberOne, Member memberTwo);
-    
-    public Set<Member> getFavorites(Member member);
 }

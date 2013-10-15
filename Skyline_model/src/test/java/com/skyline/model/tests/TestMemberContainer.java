@@ -8,7 +8,7 @@ import com.skyline.model.core.BlogFactory;
 import com.skyline.model.core.IBlog;
 import com.skyline.model.core.IMemberRegistry;
 import com.skyline.model.core.Member;
-import java.util.List;
+import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
@@ -25,12 +25,12 @@ public class TestMemberContainer {
 
     @BeforeClass
     public static void beforeClass() {
-        blog = BlogFactory.getBlog(PU);
+        blog = BlogFactory.getBlog(TEST_PU);
     }
     
     @Test
-    public void testAddUpdateAndRemoveProduct() {
-        IMemberRegistry mr = blog.getMemberContainer();
+    public void testAddUpdateAndRemoveMember() {
+        IMemberRegistry mr = blog.getMemberRegistry();
 
         Member m1 = new Member("Anno");
         mr.add(m1);
@@ -42,7 +42,8 @@ public class TestMemberContainer {
         // Equal by value
         assertTrue(m2.equals(m1));
 
-        Member m = new Member(m1.getId(), "updated");
+        Member m = new Member(m1.getId(), m1.getDate(), "updated"
+                , m1.getPosts(), m1.getComments(), m1.getFavoriteMembers());
         m1 = mr.update(m);
         /*
          * Id NOT changed here we have two Products with
@@ -64,7 +65,7 @@ public class TestMemberContainer {
     
     @Test
     public void testAdd() {
-        IMemberRegistry mr = blog.getMemberContainer();
+        IMemberRegistry mr = blog.getMemberRegistry();
         Member tomas = new Member("Tomas");
         mr.add(tomas);
         assertTrue(mr.getCount() == 1);
@@ -74,24 +75,56 @@ public class TestMemberContainer {
     
     @Test
     public void testGetByName() {
-        IMemberRegistry mr = blog.getMemberContainer();
+        IMemberRegistry mr = blog.getMemberRegistry();
         Member tomas = new Member("Tomas");
         mr.add(tomas);
         assertTrue(mr.getCount() == 1);
         mr.remove(mr.getMember("Tomas").getId());
         assertTrue(mr.getCount() == 0);
     }
+    
+    @Test
+    public void testFavorites() {
+        IMemberRegistry mr = blog.getMemberRegistry();
+        Member tomas = new Member("Tomas");
+        Member anton = new Member("Anton");
+        Member anno = new Member("Anno");
+        mr.add(tomas);
+        mr.add(anton);
+        mr.add(anno);
+        
+        anno.addFavoriteMember(tomas);
+        anno.addFavoriteMember(anton);
+        anno = mr.update(anno);
+        tomas.addFavoriteMember(anton);
+        tomas = mr.update(tomas);
+        
+        assertEquals(2, anno.getFavoriteMembers().size());
+        assertEquals(1, tomas.getFavoriteMembers().size());
+        
+        Set<Member> result = mr.getMutualFavorites(anno, tomas);
+        assertEquals(1, result.size());
+        assertEquals(true, result.contains(anton));
+        
+        mr.remove(tomas.getId());
+        mr.remove(anton.getId());
+        mr.remove(anno.getId());
+        assertEquals(null, mr.find(tomas.getId()));
+        assertEquals(null, mr.find(anno.getId()));
+        assertEquals(null, mr.find(anton.getId()));
+        
+    }
 
 //    @Test
 //    public void getAllMembers() {
-//        int count = blog.getMemberContainer().getCount();
-//        List<Member> allMembers = blog.getMemberContainer().getRange(0, count);
+//        int count = blog.getMemberRegistry().getCount();
+//        List<Member> allMembers = blog.getMemberRegistry().getRange(0, count);
 //        assertTrue(allMembers.size() == 4);
 //    }
 
 //    @Test
 //    public void getFavoriteFriendsOfTomas() {
-//        Member m = blog.getMemberContainer().getMember("Tomas");
+//        Member m = blog.getMemberRegistry().getMember("Tomas");
 //        System.out.println("member m is equal to" + m.toString());
 //        List<Member> tomasFavoriteFriends = m.getFavoriteMembers();
 //        assertTrue(tomasFavoriteFriends.size() == 3);
@@ -99,9 +132,9 @@ public class TestMemberContainer {
 //
 //    @Test
 //    public void getFavoriteFriendsByIntersection() {
-//        Member anton = blog.getMemberContainer().getMember("Anton");
-//        Member tomas = blog.getMemberContainer().getMember("Tomas");
-//        List<Member> commonFriends = blog.getMemberContainer().getMutualFriendsberByIntersection(tomas, anton);
+//        Member anton = blog.getMemberRegistry().getMember("Anton");
+//        Member tomas = blog.getMemberRegistry().getMember("Tomas");
+//        List<Member> commonFriends = blog.getMemberRegistry().getMutualFriendsberByIntersection(tomas, anton);
 //        assertTrue(commonFriends.size() == 1);
 //        Member cf = commonFriends.get(0);
 //        assertTrue(cf.getName().equals("Krabban"));

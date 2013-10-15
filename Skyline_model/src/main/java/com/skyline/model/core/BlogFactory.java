@@ -49,10 +49,10 @@ public class BlogFactory {
 //        blog.getPostContainer().add(thirdPost);
 //        blog.getPostContainer().add(forthPost);
 //        
-//        blog.getMemberContainer().add(tomas);
-//        blog.getMemberContainer().add(anno);
-//        blog.getMemberContainer().add(krabban);
-//        blog.getMemberContainer().add(anton);
+//        blog.getMemberRegistry().add(tomas);
+//        blog.getMemberRegistry().add(anno);
+//        blog.getMemberRegistry().add(krabban);
+//        blog.getMemberRegistry().add(anton);
 //        
 //        blog.getCommentContainer().add(new Comment(firstPost, null, "firstComment", anton));
 //        Comment c = new Comment(firstPost, null, "secondComment", anno);
