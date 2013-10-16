@@ -78,7 +78,7 @@ $(function() {
     function getFormDialogData() {
         var post = {};
         post.title = $("#add-edit-post #ptitle").val();
-        post.name = $("#add-edit-post #ptext").val();
+        post.bodyText = $("#add-edit-post #ptext").val();
         return post;
     }
 });

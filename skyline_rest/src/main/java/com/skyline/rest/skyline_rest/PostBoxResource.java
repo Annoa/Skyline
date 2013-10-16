@@ -89,7 +89,7 @@ public class PostBoxResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addPost(
             @FormParam("title") String title,
-            @FormParam("BodyText") String bodyText,
+            @FormParam("bodyText") String bodyText,
             //@FormParam("PostPicture") byte[] postPicture,
             @FormParam("PostVideo") String postVideo) {
 //        Member mWhoWroteThePost = memberBox.find(idMember);
@@ -133,7 +133,7 @@ public class PostBoxResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response update(@PathParam("Id") Long id,
             @FormParam("title") String title,
-            @FormParam("BodyText") String bodyText,
+            @FormParam("bodyText") String bodyText,
            // @FormParam("PostPicture") byte[] postPicture,
             @FormParam("PostVideo") String postVideo) {
 //        Member mWhoWroteThePost = memberBox.find(idMember);

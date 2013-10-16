@@ -18,7 +18,7 @@ curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/post
 //OK!
 
 # *** POST (create) ***
-curl -v -X POST http://localhost:8080/skyline_rest/rs/posts/ --data "title=Post Title example&BodyText=This is a text. Bla bla bla...&PostVideo=www.video.com"
+curl -v -X POST http://localhost:8080/skyline_rest/rs/posts/ --data "title=Post Title example&bodyText=This is a text. Bla bla bla...&PostVideo=www.video.com"
 //OK!
 
 # *** DELETE (delete) ***
@@ -27,7 +27,7 @@ curl -v -X DELETE http://localhost:8080/skyline_rest/rs/posts/{idNumber}
 
 # *** PUT (update) ***
 # Sending JSON, probably need other id last
-curl -v -X PUT http://localhost:8080/skyline_rest/rs/posts/{idNumber} --data "title=Updated Title&BodyText=updated text"
+curl -v -X PUT http://localhost:8080/skyline_rest/rs/posts/{idNumber} --data "title=Updated Title&bodyText=updated text"
 //OK!
 (optional add on: &PostVideo=null)
 
