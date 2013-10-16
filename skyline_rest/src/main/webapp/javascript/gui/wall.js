@@ -65,8 +65,7 @@ $(function() {
                     console.log(newPost);
                     skyline.getPostBox().add(newPost);
                     $(this).dialog("close");
-                    //Fixa autorendering av uppdaterad tabell här?
-                       //nej eftersom vi inte vet var vi befinner oss. (Vi vet bara om vi ska så prev eller next.)
+                    skyline.getPostBox().getAll().done(renderTable);
                 },
                 Cancel: function() {
                     $(this).dialog("close");
