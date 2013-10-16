@@ -10,8 +10,11 @@ $(function() {
     
     skyline.getPostBox().getAll().done(renderTable);
     
-    //Eventhandling
-//    $("#divid").delegate("tr", "click", function(){
+    //Eventhandling when clicking on a post
+    $("#posttable").delegate("td", "click", function(){
+        var thisTd = this;
+        console.log($(this).html());
+    });
         
     
     /**********************************************
