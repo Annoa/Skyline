@@ -36,6 +36,7 @@ $(function() {
                     + 'Title: ' + post[i].title + '<br>' 
                     + 'Date: ' + post[i].date + '<br>' 
                     + 'Text: ' + post[i].bodyText + '<br>' 
+                    + 'Video link: ' + post[i].postVideo + '<br>' 
                     + 'Up Votes = ' + post[i].upVotes + '<br>'
                     + 'Down Votes = ' + post[i].downVotes + '<br>'
                     + '<br>'
@@ -80,6 +81,7 @@ $(function() {
         var post = {};
         post.title = $("#add-edit-post #ptitle").val();
         post.bodyText = $("#add-edit-post #ptext").val();
+        post.postVideo = $("#add-edit-post #pvideo").val();
         return post;
     }
 });

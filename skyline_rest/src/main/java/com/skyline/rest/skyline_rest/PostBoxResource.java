@@ -91,7 +91,7 @@ public class PostBoxResource {
             @FormParam("title") String title,
             @FormParam("bodyText") String bodyText,
             //@FormParam("PostPicture") byte[] postPicture,
-            @FormParam("PostVideo") String postVideo) {
+            @FormParam("postVideo") String postVideo) {
 //        Member mWhoWroteThePost = memberBox.find(idMember);
        /* byte[] postPic;
         if (postPicture!=null) {
@@ -135,7 +135,7 @@ public class PostBoxResource {
             @FormParam("title") String title,
             @FormParam("bodyText") String bodyText,
            // @FormParam("PostPicture") byte[] postPicture,
-            @FormParam("PostVideo") String postVideo) {
+            @FormParam("postVideo") String postVideo) {
 //        Member mWhoWroteThePost = memberBox.find(idMember);
         /*byte[] postPic;
         if (postPicture!=null) {
