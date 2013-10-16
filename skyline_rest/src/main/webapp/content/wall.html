@@ -11,19 +11,28 @@ and open the template in the editor.
     </head>
     <body>
         <div>
+            <button id="write-post">Write new post</button><br><br>
+        </div>
+        <div>
             All posts below:<br><br>
         </div>
-<!--        <div id="products-contain" class="ui-widget">
-            <table id="posts" class="ui-widget ui-widget-content">
-                <thead>
-                    <tr class="ui-widget-header ">
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tfoot></tfoot>
+        <!--divider to store all posts in-->
+        <div>
+            <table id="posttable">
             </table>
-        </div>-->
+        </div>
+        <div id="add-edit-post" title="Set this in code" hidden="hidden">
+            <p class="validateTips">All form fields are required.</p>
+            <form>
+                <fieldset>
+                    <label for="ptitle">Title</label>
+                    <input type="text" name="ptitle" id="ptitle" value="" class="text ui-widget-content ui-corner-all" />
+                    <label for="ptext">Text</label>
+                    <input type="text" name="ptext" id="ptext" value="" class="text ui-widget-content ui-corner-all" />
+                    <label for="pvideo">Video Link</label>
+                    <input type="text" name="pvideo" id="pvideo" value="" class="text ui-widget-content ui-corner-all" />
+                </fieldset>
+            </form>
+        </div>
     </body>
 </html>

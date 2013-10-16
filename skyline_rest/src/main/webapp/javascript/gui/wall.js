@@ -10,32 +10,97 @@ $(function() {
     
     skyline.getPostBox().getAll().done(renderTable);
     
+    var postIsOpen = new Array();
+    
+    
+    //Eventhandling when clicking on a post
+    $("#posttable").delegate("tr", "click", function(){
+        var thisTr = this;
+        $("#posttable").delegate("td", "click", function(){
+            var thisTd = this;
+            //        var postOpen = new Boolean(0);
+            console.log($(this).html());
+            console.log($(thisTr).index()+1);
+            var rowIndex = ($(thisTr).index()+1);
+            //        console.log(postOpen[0]);
+            if(postIsOpen[rowIndex]===false){
+                $(thisTd).after("<td>Comments will come here</td>");
+                postIsOpen[rowIndex]=true;
+            }
+            if(postIsOpen[rowIndex]===true){
+                $(thisTd).after("<td>LOOOOOOOOL</td>");
+                postIsOpen[rowIndex]=false;
+            }
+        });
+    });
+    
+    //Button
+    $("#write-post")
+            .button()
+            .click(function() {
+        createWritePostDialog();
+    });
+    
     /**********************************************
      *   
      *   Function for redering table of all wall posts
      */
     function renderTable(post) {
         console.log(post[0]);
-        //        for(var i=0; i<post.length; i++){
-        //            console.log(post[i]);
-        //            $('#posts').append("<tr><td>" + post[i].id + post[i].title + "</td></tr>");
-        //            //                    + "<td>" + post[i].name + "</td>"
-        //            //                    + "<td>" + post[i].price + "</td></tr>");
-        //        }
         var htmlText = '';
         for(var i=0; i<post.length; i++){
             //            htmlText += '<div id="div'+ i +'" />';
-            htmlText += '<div>'
+            htmlText += '<tr><td>'
                     + 'Title: ' + post[i].title + '<br>' 
                     + 'Date: ' + post[i].date + '<br>' 
+                    + 'Text: ' + post[i].bodyText + '<br>' 
+                    + 'Video link: ' + post[i].postVideo + '<br>' 
                     + 'Up Votes = ' + post[i].upVotes + '<br>'
                     + 'Down Votes = ' + post[i].downVotes + '<br>'
                     + '<br>'
-                    + 'Best regards<br>User Nr ' + post[i].id + '<br>' 
+                    + 'Post ID: ' + post[i].id + '<br>' 
                     + '<br><br>\n\
-                        </div>';
+                        </td></tr>';
             console.log(post[i]);
+            postIsOpen[i]=false;
+            console.log(postIsOpen[i]);
         }
-        $('body').append(htmlText);
+        $('#posttable').append(htmlText);
+    }
+    
+    function createWritePostDialog() {
+        // Use JQueryUI dialog
+        console.log("createAddDialog");
+        //        clearFormDialogData();
+        console.log("Formdata cleared");
+        //        $("#dialog-form")
+        var myDialog = $("#add-edit-post").dialog({
+            autoOpen: false,
+            modal: true,
+            stack: true,
+            title: "Write new post",
+            buttons: {
+                Save: function() {
+                    var newPost = getFormDialogData();
+                    console.log(newPost);
+                    skyline.getPostBox().add(newPost);
+                    $(this).dialog("close");
+                    skyline.getPostBox().getAll().done(renderTable);
+                },
+                Cancel: function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        // Show it
+        myDialog.dialog("open");
+    }
+    
+    function getFormDialogData() {
+        var post = {};
+        post.title = $("#add-edit-post #ptitle").val();
+        post.bodyText = $("#add-edit-post #ptext").val();
+        post.postVideo = $("#add-edit-post #pvideo").val();
+        return post;
     }
 });

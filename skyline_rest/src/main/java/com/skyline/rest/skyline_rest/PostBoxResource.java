@@ -89,9 +89,9 @@ public class PostBoxResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addPost(
             @FormParam("title") String title,
-            @FormParam("BodyText") String bodyText,
+            @FormParam("bodyText") String bodyText,
             //@FormParam("PostPicture") byte[] postPicture,
-            @FormParam("PostVideo") String postVideo) {
+            @FormParam("postVideo") String postVideo) {
 //        Member mWhoWroteThePost = memberBox.find(idMember);
        /* byte[] postPic;
         if (postPicture!=null) {
@@ -133,9 +133,9 @@ public class PostBoxResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response update(@PathParam("Id") Long id,
             @FormParam("title") String title,
-            @FormParam("BodyText") String bodyText,
+            @FormParam("bodyText") String bodyText,
            // @FormParam("PostPicture") byte[] postPicture,
-            @FormParam("PostVideo") String postVideo) {
+            @FormParam("postVideo") String postVideo) {
 //        Member mWhoWroteThePost = memberBox.find(idMember);
         /*byte[] postPic;
         if (postPicture!=null) {
@@ -152,7 +152,8 @@ public class PostBoxResource {
         Post tempPost = postBox.find(id);
         VotingSystem voteSys = tempPost.getVotes();
         try {
-            postBox.update(new Post(id, title, bodyText, null, postVid, voteSys));
+            
+            postBox.update(new Post(id, tempPost.getDate(), title, bodyText, null, postVid, voteSys));
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

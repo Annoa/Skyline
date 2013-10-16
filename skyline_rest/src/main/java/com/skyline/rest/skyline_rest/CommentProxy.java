@@ -8,6 +8,8 @@ import com.skyline.model.core.Comment;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -43,8 +45,8 @@ public class CommentProxy {
 
     //TODO: default value?
     @XmlElement(required = false)
-    public Comment getParentComment() {
-        return comment.getChildComment();
+    public Set<Comment> getChildComments() {
+        return comment.getChildComments();
     }
     
     
