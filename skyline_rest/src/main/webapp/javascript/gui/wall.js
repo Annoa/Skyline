@@ -35,10 +35,11 @@ $(function() {
             htmlText += '<tr><td>'
                     + 'Title: ' + post[i].title + '<br>' 
                     + 'Date: ' + post[i].date + '<br>' 
+                    + 'Text: ' + post[i].bodyText + '<br>' 
                     + 'Up Votes = ' + post[i].upVotes + '<br>'
                     + 'Down Votes = ' + post[i].downVotes + '<br>'
                     + '<br>'
-                    + 'Best regards<br>User Nr ' + post[i].id + '<br>' 
+                    + 'Post ID: ' + post[i].id + '<br>' 
                     + '<br><br>\n\
                         </td></tr>';
             console.log(post[i]);
