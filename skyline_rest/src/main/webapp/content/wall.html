@@ -11,7 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <div>
-            <button>Write new post</button><br><br>
+            <button id="write-post">Write new post</button><br><br>
         </div>
         <div>
             All posts below:<br><br>
@@ -20,6 +20,17 @@ and open the template in the editor.
         <div>
             <table id="posttable">
             </table>
+        </div>
+        <div id="add-edit-post" title="Set this in code" hidden="hidden">
+            <p class="validateTips">All form fields are required.</p>
+            <form>
+                <fieldset>
+                    <label for="ptitle">Title</label>
+                    <input type="text" name="ptitle" id="ptitle" value="" class="text ui-widget-content ui-corner-all" />
+                    <label for="ptext">Text</label>
+                    <input type="text" name="ptext" id="ptext" value="" class="text ui-widget-content ui-corner-all" />
+                </fieldset>
+            </form>
         </div>
     </body>
 </html>

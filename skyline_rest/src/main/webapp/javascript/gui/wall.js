@@ -16,6 +16,12 @@ $(function() {
         console.log($(this).html());
     });
         
+    //Button
+    $("#write-post")
+            .button()
+            .click(function() {
+        createWritePostDialog();
+    });
     
     /**********************************************
      *   
@@ -38,5 +44,41 @@ $(function() {
             console.log(post[i]);
         }
         $('#posttable').append(htmlText);
+    }
+    
+    function createWritePostDialog() {
+        // Use JQueryUI dialog
+        console.log("createAddDialog");
+//        clearFormDialogData();
+        console.log("Formdata cleared");
+        //        $("#dialog-form")
+        var myDialog = $("#add-edit-post").dialog({
+            autoOpen: false,
+            modal: true,
+            stack: true,
+            title: "Write new post",
+            buttons: {
+                Save: function() {
+                    var newPost = getFormDialogData();
+                    console.log(newPost);
+                    skyline.getPostBox().add(newPost);
+                    $(this).dialog("close");
+                    //Fixa autorendering av uppdaterad tabell här?
+                       //nej eftersom vi inte vet var vi befinner oss. (Vi vet bara om vi ska så prev eller next.)
+                },
+                Cancel: function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        // Show it
+        myDialog.dialog("open");
+    }
+    
+    function getFormDialogData() {
+        var post = {};
+        post.title = $("#add-edit-post #ptitle").val();
+        post.name = $("#add-edit-post #ptext").val();
+        return post;
     }
 });
