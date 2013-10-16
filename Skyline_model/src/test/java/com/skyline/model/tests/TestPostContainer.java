@@ -11,7 +11,6 @@ import com.skyline.model.core.IPostContainer;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
 import com.skyline.model.core.VotingSystem;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
