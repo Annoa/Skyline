@@ -16,12 +16,6 @@ $(function() {
      */
     function renderTable(post) {
         console.log(post[0]);
-        //        for(var i=0; i<post.length; i++){
-        //            console.log(post[i]);
-        //            $('#posts').append("<tr><td>" + post[i].id + post[i].title + "</td></tr>");
-        //            //                    + "<td>" + post[i].name + "</td>"
-        //            //                    + "<td>" + post[i].price + "</td></tr>");
-        //        }
         var htmlText = '';
         for(var i=0; i<post.length; i++){
             //            htmlText += '<div id="div'+ i +'" />';
@@ -36,6 +30,6 @@ $(function() {
                         </div>';
             console.log(post[i]);
         }
-        $('body').append(htmlText);
+        $('#divid').append(htmlText);
     }
 });
