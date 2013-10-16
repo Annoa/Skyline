@@ -10,12 +10,30 @@ $(function() {
     
     skyline.getPostBox().getAll().done(renderTable);
     
+    var postIsOpen = new Array();
+    
+    
     //Eventhandling when clicking on a post
-    $("#posttable").delegate("td", "click", function(){
-        var thisTd = this;
-        console.log($(this).html());
+    $("#posttable").delegate("tr", "click", function(){
+        var thisTr = this;
+        $("#posttable").delegate("td", "click", function(){
+            var thisTd = this;
+            //        var postOpen = new Boolean(0);
+            console.log($(this).html());
+            console.log($(thisTr).index()+1);
+            var rowIndex = ($(thisTr).index()+1);
+            //        console.log(postOpen[0]);
+            if(postIsOpen[rowIndex]===false){
+                $(thisTd).after("<td>Comments will come here</td>");
+                postIsOpen[rowIndex]=true;
+            }
+            if(postIsOpen[rowIndex]===true){
+                $(thisTd).after("<td>LOOOOOOOOL</td>");
+                postIsOpen[rowIndex]=false;
+            }
+        });
     });
-        
+    
     //Button
     $("#write-post")
             .button()
@@ -44,6 +62,8 @@ $(function() {
                     + '<br><br>\n\
                         </td></tr>';
             console.log(post[i]);
+            postIsOpen[i]=false;
+            console.log(postIsOpen[i]);
         }
         $('#posttable').append(htmlText);
     }
@@ -51,7 +71,7 @@ $(function() {
     function createWritePostDialog() {
         // Use JQueryUI dialog
         console.log("createAddDialog");
-//        clearFormDialogData();
+        //        clearFormDialogData();
         console.log("Formdata cleared");
         //        $("#dialog-form")
         var myDialog = $("#add-edit-post").dialog({
