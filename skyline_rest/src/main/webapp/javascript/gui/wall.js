@@ -10,6 +10,10 @@ $(function() {
     
     skyline.getPostBox().getAll().done(renderTable);
     
+    //Eventhandling
+//    $("#divid").delegate("tr", "click", function(){
+        
+    
     /**********************************************
      *   
      *   Function for redering table of all wall posts
@@ -19,7 +23,7 @@ $(function() {
         var htmlText = '';
         for(var i=0; i<post.length; i++){
             //            htmlText += '<div id="div'+ i +'" />';
-            htmlText += '<div>'
+            htmlText += '<tr><td>'
                     + 'Title: ' + post[i].title + '<br>' 
                     + 'Date: ' + post[i].date + '<br>' 
                     + 'Up Votes = ' + post[i].upVotes + '<br>'
@@ -27,9 +31,9 @@ $(function() {
                     + '<br>'
                     + 'Best regards<br>User Nr ' + post[i].id + '<br>' 
                     + '<br><br>\n\
-                        </div>';
+                        </td></tr>';
             console.log(post[i]);
         }
-        $('#divid').append(htmlText);
+        $('#posttable').append(htmlText);
     }
 });
