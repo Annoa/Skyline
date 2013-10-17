@@ -11,28 +11,30 @@ $(function() {
     skyline.getPostBox().getAll().done(renderTable);
     
     var postIsOpen = new Array();
+//    var myArray2 : boolean[] = new boolean[10];
     
     
     //Eventhandling when clicking on a post
-    $("#posttable").delegate("tr", "click", function(){
-        var thisTr = this;
-        $("#posttable").delegate("td", "click", function(){
-            var thisTd = this;
+//    $("#posttable").delegate("tr", "click", function(){
+//        var thisTr = this;
+        $("#posttable").delegate("tr", "click", function(){
+            var thisTr = this;
             //        var postOpen = new Boolean(0);
             console.log($(this).html());
-            console.log($(thisTr).index()+1);
-            var rowIndex = ($(thisTr).index()+1);
-            //        console.log(postOpen[0]);
+            console.log($(thisTr).index());
+            var rowIndex = ($(thisTr).index());
             if(postIsOpen[rowIndex]===false){
-                $(thisTd).after("<td>Comments will come here</td>");
+                $(thisTr).after("<td>Opening</td>");
                 postIsOpen[rowIndex]=true;
+                console.log(postIsOpen[rowIndex]);
             }
-            if(postIsOpen[rowIndex]===true){
-                $(thisTd).after("<td>LOOOOOOOOL</td>");
+            else{
+                $(thisTr).after("<td>Closing</td>");
                 postIsOpen[rowIndex]=false;
+                console.log(postIsOpen[rowIndex]);
             }
         });
-    });
+//    });
     
     //Button
     $("#write-post")
