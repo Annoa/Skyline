@@ -36,10 +36,10 @@ public class Authors implements Serializable{
         String gN = "Gabriel Andersson";
         String mN = "Mike Phoohad";
         String tN = "Tomas Selldén";
-        l.add(new Author(1, aN, aST, aLT));
-        l.add(new Author(2, gN, gST, gLT));
-        l.add(new Author(3, mN, mST, mLT));
-        l.add(new Author(4, tN, tST, tLT));
+        l.add(new Author(0, aN, aST, aLT));
+        l.add(new Author(1, gN, gST, gLT));
+        l.add(new Author(2, mN, mST, mLT));
+        l.add(new Author(3, tN, tST, tLT));
         return l;
     }
     

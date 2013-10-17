@@ -9,20 +9,20 @@ package com.skyline.rest.about;
  * @author Gabriel
  */
 public class Author {
-    private int id;
+    private int index;
     private String name;
     private String shortText;
     private String longText;
     
     public Author(int id, String name, String sT, String lT){
-        this.id = id;
+        this.index = id;
         this.name = name;
         this.shortText = sT;
         this.longText = lT;
     }
 
-    public int getId() {
-        return id;
+    public int getIndex() {
+        return index;
     }
 
     public String getName() {

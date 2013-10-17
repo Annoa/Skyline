@@ -19,8 +19,20 @@ and open the template in the editor.
                 </f:facet>
                 <h:outputText value="#{a.name}"/>
             </h:column>
-<!--<h:commandButton actionListener="#{viewAuthor.setSelected(a.id)}" 
-             action="#{about.goTo('viewAuthor')}" value="#{a.name}"/>-->
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText  value="Summary"/>
+                </f:facet>
+                <h:outputText value="#{a.shortText}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText  value="goto"/>
+                </f:facet>
+                <h:commandButton actionListener="#{viewAuthor.view(a.index)}" 
+                                 action="viewAuthor" value="#{a.name}"/>
+            </h:column>
+
         </h:dataTable>
         <div>TODO write content</div>
     </body>
