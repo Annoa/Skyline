@@ -56,7 +56,7 @@ curl -v http://localhost:8080/skyline_rest/rs/members
 curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/members
 
 2.
-Get a specific post by its id
+Get a specific member by its id
 curl -v http://localhost:8080/skyline_rest/rs/members/{idNummer}
 
 # asking for json

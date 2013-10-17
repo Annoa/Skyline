@@ -70,7 +70,8 @@ implements ICommentContainer {
         for (Object[] obj : result) {
             commentList.add((Comment) obj[0]);
         }
-        
         return commentList;
+        
     }
+    
 }
