@@ -9,3 +9,11 @@
 body {
   padding-top: 50px;
 }
+
+#contents {
+    margin-top: 20px;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
