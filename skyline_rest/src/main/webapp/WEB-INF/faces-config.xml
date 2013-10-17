@@ -5,10 +5,10 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <application> 
-	  <message-bundle>
-	  	<!-- If customizing messages -->
-	  </message-bundle>
-     </application>
+        <message-bundle>
+            <!-- If customizing messages -->
+        </message-bundle>
+    </application>
     <!-- Main menu on all pages -->
     <navigation-rule>
         <from-view-id>*</from-view-id> 
@@ -18,11 +18,19 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>about</from-outcome>
-            <to-view-id>/about/mainabout.xhtml</to-view-id>
+            <to-view-id>/about/authors.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>chat</from-outcome>
             <to-view-id>/chat/chat.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/about/mainabout.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>viewAuthor</from-outcome>
+            <to-view-id>/about/viewAuthor.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
