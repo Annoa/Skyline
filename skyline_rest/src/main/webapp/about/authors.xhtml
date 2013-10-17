@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <head>
+        <title>TODO supply a title</title>
+    </head>
+    <body>
+        <h:dataTable var="a" value="#{about.authorRange}">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText  value="name"/>
+                </f:facet>
+                <h:outputText value="#{a.name}"/>
+            </h:column>
+<!--<h:commandButton actionListener="#{viewAuthor.setSelected(a.id)}" 
+             action="#{about.goTo('viewAuthor')}" value="#{a.name}"/>-->
+        </h:dataTable>
+        <div>TODO write content</div>
+    </body>
+</html>
