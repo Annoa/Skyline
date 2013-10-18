@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+        <title>View #{viewAuthor.name}</title>
+    </head>
+    <h:body>
+        <h:form>
+            <h:outputText class="h1" value="#{viewAuthor.name}:" /><br/>
+            <h:outputText  value="#{viewAuthor.isShort ?  viewAuthor.shortT :
+                                    viewAuthor.longT}"/>
+            <br/>
+            <h:button outcome="about" value="back"/>
+            <h:commandButton actionListener="#{viewAuthor.setIsShort}" 
+                             value="#{viewAuthor.isShort ? 'Long Version' : 
+                                      'Short version'}"/>
+        </h:form>
+    </h:body>
+</html>

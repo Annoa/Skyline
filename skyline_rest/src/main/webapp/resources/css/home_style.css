@@ -1,0 +1,23 @@
+/* 
+    Document   : home_style
+    Created on : Oct 17, 2013, 5:23:08 PM
+    Author     : Anno
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body {
+  padding-top: 50px;
+}
+
+#contents {
+    margin-top: 20px;
+}
+
+.navbar-static-top {
+  margin-bottom: 19px;
+}
+
+.navbar-brand {
+    font-size: 19pt;
+}
