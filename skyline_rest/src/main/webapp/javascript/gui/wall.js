@@ -101,7 +101,7 @@ $(function() {
                 + '<p>Text: ' + post.bodyText + '</p>' 
                 + '<p>Video link: ' + post.postVideo + '</p>' 
                 + '<iframe width="420" height="345"'
-                + 'src="' + convertToYouTubeEmbedLink(post.postVideo) + '">'
+                    + 'src="' + convertToYouTubeEmbedLink(post.postVideo) + '">'
                 +' </iframe>'
                 + '<p>Up Votes = ' + post.upVotes + '</p>'
                 + '<p>Down Votes = ' + post.downVotes + '</p>'
