@@ -51,7 +51,7 @@ $(function() {
                     + '<p>Text: ' + post[i].bodyText + '</p>' 
                     + '<p>Video link: ' + post[i].postVideo + '</p>' 
                     + '<iframe width="420" height="345"'
-                    + 'src="' + convertToYouTubeEmbedLink(post[i].postVideo) + '">'
+                        + 'src="' + convertToYouTubeEmbedLink(post[i].postVideo) + '">'
                     +' </iframe>'
                     + '<p>Up Votes = ' + post[i].upVotes + '</p>'
                     + '<p>Down Votes = ' + post[i].downVotes + '</p>'
