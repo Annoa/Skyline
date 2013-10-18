@@ -21,44 +21,52 @@ import javax.inject.Named;
 @ConversationScoped
 public class ViewAuthorBB implements Serializable {
 
-    
     private boolean isShort;
-    
-    
-    private Author author;
-    
+    private String shortT;
+    private String longT;
+    private String name;
     @Inject
     private Authors source;
-    
     @Inject
     private Conversation conversation;
-    
-    public void view(String index){
-        if(conversation.isTransient()){
+
+    public void view(String index) {
+
+        if (conversation.isTransient()) {
             conversation.begin();
         }
-        author = source.getAuthors().get(Integer.valueOf(index));
-        isShort=true;
+        Author a = source.getAuthors().get(Integer.valueOf(index));
+        name = a.getName();
+        shortT = a.getShortText();
+        longT = a.getLongText();
+        isShort = true;
     }
-    
-    
+
     @PreDestroy
     public void destroy() {
         if (!conversation.isTransient()) {
             conversation.end();
         }
     }
-    
-    public void switchBT(){
+
+    public void setIsShort() {
+
         isShort = !isShort;
     }
-    
-    public boolean getIsShort(){
+
+    public boolean getIsShort() {
         return isShort;
     }
 
-    public Author getAuthor() {
-        return author;
+    public String getShortT() {
+        return shortT;
+    }
+
+    public String getLongT() {
+        return longT;
+    }
+    public String getName(){
+        return name;
     }
     
 }
