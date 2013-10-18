@@ -21,7 +21,7 @@ var skyline = (function(){
 //        getMemberRegistry: function() {
 //            return members;
 //        },
-                
+        
         getBaseUri : function(){
             return baseUri;
         }

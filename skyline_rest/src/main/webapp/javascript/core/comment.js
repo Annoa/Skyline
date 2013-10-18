@@ -1,48 +1,44 @@
 
-var PostBox = function( baseUri ){
-     this.baseUri = baseUri;
- };
+var CommentBox = function(baseUri) {
+    this.baseUri = baseUri;
+};
 
 
 
-PostBox.prototype = (function (){
-    
+CommentBox.prototype = (function() {
+
     return {
+        getRootCommentsForPost: function(postId) {
+            return $.getJSON(this.baseUri + "/" + postId);
+        },
         
-        getAll: function() {
+        getAllOnPost: function() {
             return $.getJSON(this.baseUri);
         },
-
-        add: function( post ){
+        add: function(comment) {
             return $.ajax({
                 type: 'POST',
                 url: this.baseUri,
-                data: post
+                data: comment
             });
         },
-                
-        remove: function ( id ){
+        remove: function(id) {
             return $.ajax({
                 type: 'DELETE',
                 url: this.baseUri + "/" + id
             });
         },
-        
-        find: function( id ){
+        find: function(id) {
             return $.getJSON(this.baseUri + "/" + id);
         },
-        
-        getRange: function ( fst, max ){
-                            //TODO
-                            console.log("HAJ");
-            return $.getJSON(this.baseUri + "/range?first=" + fst + "&last=" + max);
+        getRange: function(fst, max) {
+            //TODO
+            return $.getJSON(this.baseUri + "/range?fst=" + fst + "&max=" + max);
         },
-
-        getCount: function(){
+        getCount: function() {
             return $.getJSON(this.baseUri + "/count");
         },
-        
-        update: function ( post ){
+        update: function(post) {
             return $.ajax({
                 type: 'PUT',
                 url: this.baseUri + "/" + post.id,

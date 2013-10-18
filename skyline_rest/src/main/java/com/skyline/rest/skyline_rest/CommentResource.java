@@ -1,6 +1,7 @@
 package com.skyline.rest.skyline_rest;
 
 import com.skyline.model.core.Comment;
+import com.skyline.model.core.ICommentContainer;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
 import com.skyline.model.utils.IDAO;
@@ -31,7 +32,7 @@ import javax.ws.rs.core.UriInfo;
 public class CommentResource {
 
     private final static Logger log = Logger.getAnonymousLogger();
-    private IDAO<Comment, Long> comments = Blog.INSTANCE.getCommentContainer();
+    private ICommentContainer comments = Blog.INSTANCE.getCommentContainer();
     private IDAO<Member, Long> members = Blog.INSTANCE.getMembersRegistry();
     private IDAO<Post, Long> posts = Blog.INSTANCE.getPostContainer();
     private UriInfo uriInfo;
@@ -56,19 +57,40 @@ public class CommentResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
-
+    
     @GET
-    @Path("{id}")
+    @Path("{postId}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response find(@PathParam("id") Long id) {
+    public Response getRootComments(@PathParam("postId") Long postId) {
+        Post p = posts.find(postId);
+        List<Comment> rootList = comments.getRootCommentsForPost(p);
+        List<CommentProxy> wrappedComments = new ArrayList();
         try {
-            CommentProxy cp = new CommentProxy(comments.find(id));
-            return Response.ok(cp).build();
+            for (Comment c : rootList) {
+                wrappedComments.add(new CommentProxy(c));
+            }
+            GenericEntity<List<CommentProxy>> ge =
+                    new GenericEntity<List<CommentProxy>>(wrappedComments) {
+            };
+            return Response.ok(ge).build();
         } catch (IllegalArgumentException ie) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+//    @GET
+//    @Path("{id}")
+//    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+//    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+//    public Response find(@PathParam("id") Long id) {
+//        try {
+//            CommentProxy cp = new CommentProxy(comments.find(id));
+//            return Response.ok(cp).build();
+//        } catch (IllegalArgumentException ie) {
+//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
