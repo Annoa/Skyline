@@ -12,28 +12,30 @@ and open the template in the editor.
         <title>TODO supply a title</title>
     </head>
     <body>
-        <h:dataTable var="a" value="#{about.authorRange}">
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText  value="name"/>
-                </f:facet>
-                <h:outputText value="#{a.name}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText  value="Summary"/>
-                </f:facet>
-                <h:outputText value="#{a.shortText}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">
-                    <h:outputText  value="goto"/>
-                </f:facet>
-                <h:commandButton actionListener="#{viewAuthor.view(a.index)}" 
-                                 action="viewAuthor" value="#{a.name}"/>
-            </h:column>
+        <h:form>
+            <h:dataTable var="a" value="#{about.authorRange}">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText  value="name"/>
+                    </f:facet>
+                    <h:outputText value="#{a.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText  value="Summary"/>
+                    </f:facet>
+                    <h:outputText value="#{a.shortText}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText  value="goto"/>
+                    </f:facet>
+                    <h:commandButton actionListener="#{viewAuthor.view(a.index)}" 
+                                     action="#{about.navigate('aview')}" value="#{a.name}"/>
+                </h:column>
 
-        </h:dataTable>
+            </h:dataTable>
+        </h:form>
         <div>TODO write content</div>
     </body>
 </html>
