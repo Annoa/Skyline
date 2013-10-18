@@ -11,9 +11,16 @@ and open the template in the editor.
     <head>
         <title>TODO supply a title</title>
     </head>
-    <body>
-        <h:outputText value="current author is #{viewAuthor.author.name} " />
-        
+    <h:body>
+
+        <h:outputText class="h1" value="#{viewAuthor.author.name}:" /><br/>
+        <h:outputText  value="#{viewAuthor.isShort ? viewAuthor.author.shortText : 
+                            viewAuthor.author.longText}"/>
+        <br/>
+        <h:button outcome="about" value="back"/>
+        <h:commandButton actionListener="#{viewAuthor.switchBT()}"
+                         value="#{viewAuthor.isShort ? 'Long Version' : 
+                            'Short version'}"/>
         <div>is the author.</div>
-    </body>
+    </h:body>
 </html>

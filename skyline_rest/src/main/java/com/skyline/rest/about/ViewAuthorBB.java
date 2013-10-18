@@ -20,8 +20,10 @@ import javax.inject.Named;
 @Named("viewAuthor")
 @ConversationScoped
 public class ViewAuthorBB implements Serializable {
+
     
-    private String bodyText;
+    private boolean isShort;
+    
     
     private Author author;
     
@@ -32,21 +34,31 @@ public class ViewAuthorBB implements Serializable {
     private Conversation conversation;
     
     public void view(String index){
-        Logger.getAnonymousLogger().log(Level.INFO, "in View1");
         if(conversation.isTransient()){
-            Logger.getAnonymousLogger().log(Level.INFO, "in View2");
             conversation.begin();
         }
-        Logger.getAnonymousLogger().log(Level.INFO, "in View3");
         author = source.getAuthors().get(Integer.valueOf(index));
-        bodyText = author.getShortText();
+        isShort=true;
     }
+    
     
     @PreDestroy
     public void destroy() {
         if (!conversation.isTransient()) {
             conversation.end();
         }
+    }
+    
+    public void switchBT(){
+        isShort = !isShort;
+    }
+    
+    public boolean getIsShort(){
+        return isShort;
+    }
+
+    public Author getAuthor() {
+        return author;
     }
     
 }
