@@ -7,7 +7,7 @@ $(function() {
     //Clear the table
     //    $('#posts tbody').remove();
     console.log("walls javascript körs");
-    skyline.getPostBox().getAll().done(renderTable);
+    skyline.getPostBox().getAll().done(renderAllPosts);
     
     //Eventhandling when clicking on a post
     $("#postlist > li").on("click", function(evt){
@@ -25,7 +25,7 @@ $(function() {
      *   
      *   Function for redering table of all wall posts
      */
-    function renderTable(post) {
+    function renderAllPosts(post) {
         console.log(post[0]);
         var htmlText = '';
         for(var i=0; i<post.length; i++){
