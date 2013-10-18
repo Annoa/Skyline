@@ -14,7 +14,9 @@ import java.util.List;
  */
 public interface ICommentContainer extends IDAO<Comment,Long> {
    
-    public List<Comment> getAllCommentsOnPost(Post post);
+   public List<Comment> getAllCommentsOnPost(Post post);
     
-   // public List<Comment> getChildComments(Comment parent);
+   public List<Comment> getChildComments(Comment parent);
+   
+   public List<Comment> getRootCommentsForPost(Post post);
 }

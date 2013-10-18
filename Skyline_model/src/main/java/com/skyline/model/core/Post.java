@@ -46,7 +46,7 @@ public class Post extends AbstractEntity implements Serializable {
     @Embedded
     private VotingSystem votes;
     @OneToMany(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
-    @JoinColumn
+    @JoinColumn(name="POST")
     private List<Comment> comments;
 
     public Post() {

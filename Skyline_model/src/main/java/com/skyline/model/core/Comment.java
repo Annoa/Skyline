@@ -27,7 +27,7 @@ public class Comment extends AbstractEntity implements Comparable<Comment>{
 
 //    private Post post;
     @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name="PARENTCOMMENT", referencedColumnName="ID")
     private Set<Comment> childComments;
     private String commentText;
     @Temporal(TemporalType.DATE)
@@ -59,12 +59,6 @@ public class Comment extends AbstractEntity implements Comparable<Comment>{
         this.votes = votes;
     }
 
-    //TODO: Constructor with ID for database-constructing
-    //TODO: getter for voting system 
-    //TODO: Cleanup.
-//    public Post getPost() {
-//        return post;
-//    }
     public Set<Comment> getChildComments() {
         return childComments;
     }

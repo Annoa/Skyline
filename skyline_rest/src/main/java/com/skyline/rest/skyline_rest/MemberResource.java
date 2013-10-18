@@ -5,6 +5,7 @@
 package com.skyline.rest.skyline_rest;
 
 import com.skyline.model.core.IBlog;
+import com.skyline.model.core.IMemberRegistry;
 import com.skyline.model.core.Member;
 import com.skyline.model.utils.IDAO;
 import java.net.URI;
@@ -34,7 +35,7 @@ import javax.ws.rs.core.UriInfo;
 @Path("members")
 public class MemberResource {
 
-    private IDAO<Member, Long> memberBox = Blog.INSTANCE.getMembersRegistry();
+    private IMemberRegistry memberBox = Blog.INSTANCE.getMembersRegistry();
     @Context
     private UriInfo uriInfo;
 
@@ -152,7 +153,7 @@ public class MemberResource {
     @GET
     @Path("commonFavoriteMembers")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getCommonFriends(@QueryParam("memberId") Long memberId,
+    public Response getCommonFavorites(@QueryParam("memberId") Long memberId,
             @QueryParam("memberId2") long memberId2) {
         Member member1 = memberBox.find(memberId);
         Member member2 = memberBox.find(memberId2);
