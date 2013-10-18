@@ -10,21 +10,51 @@ $(function() {
     skyline.getPostBox().getAll().done(renderAllPosts);
     
     //Eventhandling when clicking on a post
+
     $("#postlist").click(function(event){
         var postId = 1;
         var targetId = $(event.target).closest("li").attr('id');
         var target = targetId.substr(targetId.indexOf("#")+1);
         console.log(target);
         renderComments(target);
+
     });
-    
+
     //Button
     $("#write-post")
             .button()
             .click(function() {
-        createWritePostDialog();
+        $("#new-post").removeAttr('hidden');
     });
     
+    $("#save-post").button().click(function(){
+        var newPost = getFormDialogData();
+        console.log(newPost);
+        skyline.getPostBox().add(newPost);
+        clearFormDialogData();
+        $("#new-post").attr('hidden');
+        skyline.getPostBox().getAll().done(renderTable);
+    });
+
+    $("#cancel-post").button().click(function(){
+        $("#new-post").attr('hidden');
+    });
+    
+    function getFormDialogData() {
+        var post = {};
+        
+        post.title = $("#ptitle").val();
+        post.bodyText = $("#ptext").val();
+        post.postVideo = $("#pvideo").val();
+        return post;
+    }
+    
+    function clearFormDialogData() {
+        $("#add-edit-post #ptitle").val("");
+        $("#add-edit-post #ptext").val("");
+        $("#add-edit-post #pvideo").val("");
+    }
+
     /**********************************************
      *   
      *   Function for redering comments of a post
@@ -85,8 +115,9 @@ $(function() {
     }
     
     function createWritePostDialog() {
+
         // Use JQueryUI dialog
-        console.log("createAddDialog");
+        
         //        clearFormDialogData();
         console.log("Formdata cleared");
         //        $("#dialog-form")
@@ -110,13 +141,5 @@ $(function() {
         });
         // Show it
         myDialog.dialog("open");
-    }
-    
-    function getFormDialogData() {
-        var post = {};
-        post.title = $("#add-edit-post #ptitle").val();
-        post.bodyText = $("#add-edit-post #ptext").val();
-        post.postVideo = $("#add-edit-post #pvideo").val();
-        return post;
     }
 });
