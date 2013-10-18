@@ -10,13 +10,12 @@ $(function() {
     skyline.getPostBox().getAll().done(renderAllPosts);
     
     //Eventhandling when clicking on a post
-
     $("#postlist").click(function(event){
-        var postId = 1;
-        var targetId = $(event.target).closest("li").attr('id');
-        var target = targetId.substr(targetId.indexOf("#")+1);
-        console.log(target);
-        renderComments(target);
+//        var postId = 1;
+//        var targetId = $(event.target).closest("li").attr('id');
+//        var target = targetId.substr(targetId.indexOf("#")+1);
+//        console.log(target);
+//        renderComments(target);
 
     });
 
@@ -33,8 +32,6 @@ $(function() {
         console.log(newPost);
         clearFormDialogData();
         $("#new-post").attr('hidden');
-        //skyline.getPostBox().add(newPost);
-        //renderAllPosts();
         skyline.getPostBox().add(newPost).then(renderAddedPost(newPost));
     });
 
