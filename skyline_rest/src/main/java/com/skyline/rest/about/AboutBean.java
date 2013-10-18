@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skyline.rest.about;
 
 import java.io.Serializable;
@@ -17,7 +13,7 @@ import javax.inject.Named;
  */
 @Named("about")
 @SessionScoped
-public class AboutBB implements Serializable{
+public class AboutBean implements Serializable{
     
     private List<Author> authorRange;
     
@@ -32,9 +28,5 @@ public class AboutBB implements Serializable{
     public List<Author> getAuthorRange(){
         return authorRange;
         
-    }
-    
-    public String navigate(String path) {
-        return path;
     }
 }
