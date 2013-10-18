@@ -10,15 +10,32 @@ and open the template in the editor.
         <script type="text/javascript" src="javascript/gui/wall.js"></script>
     </head>
     <body>
-        <div>
-            <button id="write-post">Write new post</button><br><br>
+        <button id="write-post" class="btn">Write new post</button><br><br>
+        <div id="add-edit-post" class="divider" title="Set this in code" hidden="hidden">
+            <p class="validateTips">All form fields are required.</p>
+            <form class="form-horizontal">
+                <fieldset>
+                    <div>
+                        <label class="label-info" for="ptitle">Title</label>
+                        <input type="text" name="ptitle" id="ptitle" value="" class="text ui-widget-content ui-corner-all" />
+                    </div>
+                    <div>
+                        <label class="label-info" for="ptext">Text</label>
+                        <input type="text" name="ptext" id="ptext" value="" class="text ui-widget-content ui-corner-all" />
+                    </div>
+                    <div>
+                        <label class="label-info" for="pvideo">Video Link</label>
+                        <input type="text" name="pvideo" id="pvideo" value="" class="text ui-widget-content ui-corner-all" />
+                    </div>
+                </fieldset>
+            </form>
         </div>
         <div>
             All posts below:<br><br>
         </div>
         <!--divider to store all posts in-->
         
-        <div>
+        <div class="container">
             <ol id="postlist">
                 <li>
                     <h2>post 1</h2>
@@ -35,19 +52,6 @@ and open the template in the editor.
                     </div>
                 </li>
             </ol>
-        </div>
-        <div id="add-edit-post" title="Set this in code" hidden="hidden">
-            <p class="validateTips">All form fields are required.</p>
-            <form>
-                <fieldset>
-                    <label for="ptitle">Title</label>
-                    <input type="text" name="ptitle" id="ptitle" value="" class="text ui-widget-content ui-corner-all" />
-                    <label for="ptext">Text</label>
-                    <input type="text" name="ptext" id="ptext" value="" class="text ui-widget-content ui-corner-all" />
-                    <label for="pvideo">Video Link</label>
-                    <input type="text" name="pvideo" id="pvideo" value="" class="text ui-widget-content ui-corner-all" />
-                </fieldset>
-            </form>
         </div>
     </body>
 </html>

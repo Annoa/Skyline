@@ -66,11 +66,11 @@ $(function() {
             //                            </li>
             //                        </ol>
             //                    </div>
-            //                </li>;
             console.log('<li id="post#' + post[i].id + '">');
             htmlText += '<li id="post#' + post[i].id + '">'
+            var d = new Date(post[i].date);
                     + '<h2>Title: ' + post[i].title + '</h2>' 
-                    + '<p>Date: ' + post[i].date + '</p>' 
+                    + '<p>Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + '   ' + d.getHours() + ':' + d.getMinutes() + '</p>' 
                     + '<p>Text: ' + post[i].bodyText + '</p>' 
                     + '<p>Video link: ' + post[i].postVideo + '</p>' 
                     + '<p>Up Votes = ' + post[i].upVotes + '</p>'

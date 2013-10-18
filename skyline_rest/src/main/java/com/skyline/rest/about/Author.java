@@ -1,7 +1,9 @@
 package com.skyline.rest.about;
 
 /**
- *
+ * Author object is used in the About page as information holders. 
+ * What the author has contributed, etc.
+ * 
  * @author Gabriel
  */
 public class Author {
@@ -10,8 +12,13 @@ public class Author {
     private String shortText;
     private String longText;
     
-    public Author(int id, String name, String sT, String lT){
-        this.index = id;
+    /**
+     * 
+     * @param sT Short Text: A summary of what the author has written.
+     * @param lT Long Text: A more extensive summary of what the author has written.
+     */
+    public Author(int index, String name, String sT, String lT){
+        this.index = index;
         this.name = name;
         this.shortText = sT;
         this.longText = lT;

@@ -8,7 +8,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- *
+ * The Main bean in about authors section. makes the objects accessible. 
+ * 
  * @author Gabriel
  */
 @Named("about")
@@ -20,6 +21,9 @@ public class AboutBean implements Serializable{
     @Inject
     private Authors source;
 
+    /**
+     * Will run after the list of Authors has been constructed.
+     */
     @PostConstruct
     public void post() {
         authorRange = source.getAuthors();
