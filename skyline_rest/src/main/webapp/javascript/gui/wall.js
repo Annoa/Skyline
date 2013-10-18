@@ -10,8 +10,12 @@ $(function() {
     skyline.getPostBox().getAll().done(renderAllPosts);
     
     //Eventhandling when clicking on a post
-    $("#postlist > li").on("click", function(evt){
-        $(this).find(".comments").toggle();
+    $("#postlist").click(function(event){
+        var postId = 1;
+        var targetId = $(event.target).closest("li").attr('id');
+        var target = targetId.substr(targetId.indexOf("#")+1);
+        console.log(target);
+        renderComments(target);
     });
     
     //Button
@@ -23,10 +27,29 @@ $(function() {
     
     /**********************************************
      *   
+     *   Function for redering comments of a post
+     */
+    
+    function renderComments(post) {
+        skyline_comments.getCommentBox().getRootCommentsForPost(post).done(commentDraw);
+        
+        function commentDraw(comments) {
+            console.log("Hoho");
+            var htmlText = '';
+            for(var i=0; i<comments.length; i++) {
+                htmlText += '<p>' + i + '</p>'
+            }
+            $("#comments").append(htmlText);
+        }
+    };
+    
+    /**********************************************
+     *   
      *   Function for redering table of all wall posts
      */
     function renderAllPosts(post) {
         console.log(post[0]);
+        $("#postlist").contents().remove();
         var htmlText = '';
         for(var i=0; i<post.length; i++){
             htmlText += convertPostToHTML(post[i]);
