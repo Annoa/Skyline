@@ -4,15 +4,8 @@
  */
 package com.skyline.servlet.skyline_Authentication;
 
+import com.skyline.model.core.Member;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.Filter;
@@ -23,9 +16,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 
 /**
  *
@@ -34,6 +25,8 @@ import javax.servlet.http.HttpServletResponseWrapper;
 @WebFilter(filterName = "AuthentificationFilter", urlPatterns = {"/login/*"})
 public class AuthentificationFilter implements Filter {
 
+    
+    
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
@@ -63,14 +56,18 @@ public class AuthentificationFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
-        String member = (String) req.getSession().getAttribute("USER");
+        Member member = (Member) req.getSession().getAttribute("USER");
         if (member != null) {
             Logger.getAnonymousLogger().log(Level.INFO, "Filter: member != null");
             req.getSession().setAttribute("USER", member); // Login
+            
+            //chain.doFilter(request, response);//is this okay!!!!!
+            //res.sendRedirect("index.xhtml");
+            req.getRequestDispatcher("AddPost.html").forward(request, response);
         }
         if (member == null) {
             Logger.getAnonymousLogger().log(Level.INFO, "Filter: member == null");
-            res.sendRedirect("authorization.html");
+            res.sendRedirect("../authorization.html");
             //chain.doFilter(request, response);
         }
             

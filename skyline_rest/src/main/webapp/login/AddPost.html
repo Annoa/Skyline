@@ -7,23 +7,20 @@ and open the template in the editor.
     <head>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script type="text/javascript" src="javascript/gui/wall.js"></script>
+        <script type="text/javascript" src="../lib/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="../lib/jquery-ui-1.10.2.custom.js"></script>
+        <script type="text/javascript" src="../javascript/gui/wall.js"></script>
+        <script type="text/javascript" src="../javascript/core/memberregistry.js"></script>
+        <script type="text/javascript" src="../javascript/core/postBox.js"></script>
+        <script type="text/javascript" src="../javascript/core/skyline_member.js"></script>
+        <script type="text/javascript" src="../javascript/core/skyline.js"></script> 
+        <script type="text/javascript" src="../javascript/gui/index.js"></script>
     </head>
     <body>
-        <form action="login" method="post">
-            <input type="submit" value="write-post"/><br>
-        </form>
-        <!--div> To add a post or comment on a post you have to login or become a member</div-->
-            <!--button id="write-post">Write new post</button><br><br-->
+        <div>
+            <button id="write-post">Write new post</button><br><br>
+        </div>
         
-        <div>
-            All posts below:<br><br>
-        </div>
-        <!--divider to store all posts in-->
-        <div>
-            <table id="posttable">
-            </table>
-        </div>
         <div id="add-edit-post" title="Set this in code" hidden="hidden">
             <p class="validateTips">All form fields are required.</p>
             <form>
@@ -37,5 +34,6 @@ and open the template in the editor.
                 </fieldset>
             </form>
         </div>
+        
     </body>
 </html>
