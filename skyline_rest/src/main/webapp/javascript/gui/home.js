@@ -39,6 +39,8 @@ $(document).ready(function() {
         event.preventDefault();
     });
     
+    
+    
     function resetActive() {
         $(".menuItem").parent().removeClass("active");
     };
