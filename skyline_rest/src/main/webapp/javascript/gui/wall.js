@@ -29,37 +29,32 @@ $(function() {
         console.log(post[0]);
         var htmlText = '';
         for(var i=0; i<post.length; i++){
-            //            htmlText += '<div id="div'+ i +'" />'
-            //            <li>
-            //                    <h2>post 1</h2>
-            //                    <p>lorem ipsum lol</p>
-            //                    <div class="comments" hidden>
-            //                        <ol>
-            //                            <li>
-            //                                kommmentar 1
-            //                            </li>
-            //                            <li>
-            //                                kommmentar 2
-            //                            </li>
-            //                        </ol>
-            //                    </div>
-            //                </li>;
-            var d = new Date(post[i].date);
-            htmlText += '<li>'
-                    + '<h2>Title: ' + post[i].title + '</h2>' 
-                    + '<p>Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + '   ' + d.getHours() + ':' + d.getMinutes() + '</p>' 
-                    + '<p>Text: ' + post[i].bodyText + '</p>' 
-                    + '<p>Video link: ' + post[i].postVideo + '</p>' 
-                    + '<iframe width="420" height="345"'
-                        + 'src="' + convertToYouTubeEmbedLink(post[i].postVideo) + '">'
-                    +' </iframe>'
-                    + '<p>Up Votes = ' + post[i].upVotes + '</p>'
-                    + '<p>Down Votes = ' + post[i].downVotes + '</p>'
-                    + '<br>'
-                    + '<p>Post ID: ' + post[i].id + '</p>' 
-                    + '</li>';
+            htmlText += convertPostToHTML(post[i]);
         }
         $('#postlist').append(htmlText);
+    }
+    function renderAddedPost(post) {
+        //        $('#postlist').append(htmlText);
+        console.log("LOL");
+        console.log(post);
+        $('#postlist').append(convertPostToHTML(post));
+    }
+    
+    function convertPostToHTML(post) {
+        var d = new Date(post.date);
+        return '<li>'
+                + '<h2>Title: ' + post.title + '</h2>' 
+                + '<p>Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + '   ' + d.getHours() + ':' + d.getMinutes() + '</p>' 
+                + '<p>Text: ' + post.bodyText + '</p>' 
+                + '<p>Video link: ' + post.postVideo + '</p>' 
+                + '<iframe width="420" height="345"'
+                + 'src="' + convertToYouTubeEmbedLink(post.postVideo) + '">'
+                +' </iframe>'
+                + '<p>Up Votes = ' + post.upVotes + '</p>'
+                + '<p>Down Votes = ' + post.downVotes + '</p>'
+                + '<br>'
+                + '<p>Post ID: ' + post.id + '</p>' 
+                + '</li>';
     }
     
     function convertToYouTubeEmbedLink (link) {
@@ -81,9 +76,9 @@ $(function() {
                 Save: function() {
                     var newPost = getFormDialogData();
                     console.log(newPost);
-                    skyline.getPostBox().add(newPost);
+                    skyline.getPostBox().add(newPost).then(renderAddedPost(newPost));
                     $(this).dialog("close");
-                    skyline.getPostBox().getAll().done(renderTable);
+//                    renderAddedPost(newPost);
                 },
                 Cancel: function() {
                     $(this).dialog("close");
