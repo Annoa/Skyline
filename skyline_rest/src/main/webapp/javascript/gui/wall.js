@@ -44,9 +44,10 @@ $(function() {
             //                        </ol>
             //                    </div>
             //                </li>;
+            var d = new Date(post[i].date);
             htmlText += '<li>'
                     + '<h2>Title: ' + post[i].title + '</h2>' 
-                    + '<p>Date: ' + post[i].date + '</p>' 
+                    + '<p>Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + '   ' + d.getHours() + ':' + d.getMinutes() + '</p>' 
                     + '<p>Text: ' + post[i].bodyText + '</p>' 
                     + '<p>Video link: ' + post[i].postVideo + '</p>' 
                     + '<p>Up Votes = ' + post[i].upVotes + '</p>'
