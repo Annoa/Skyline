@@ -7,34 +7,12 @@ $(function() {
     //Clear the table
     //    $('#posts tbody').remove();
     console.log("walls javascript körs");
-    
     skyline.getPostBox().getAll().done(renderTable);
     
-    var postIsOpen = new Array();
-//    var myArray2 : boolean[] = new boolean[10];
-    
-    
     //Eventhandling when clicking on a post
-//    $("#posttable").delegate("tr", "click", function(){
-//        var thisTr = this;
-        $("#posttable").delegate("tr", "click", function(){
-            var thisTr = this;
-            //        var postOpen = new Boolean(0);
-            console.log($(this).html());
-            console.log($(thisTr).index());
-            var rowIndex = ($(thisTr).index());
-            if(postIsOpen[rowIndex]===false){
-                $(thisTr).after("<td>Opening</td>");
-                postIsOpen[rowIndex]=true;
-                console.log(postIsOpen[rowIndex]);
-            }
-            else{
-                $(thisTr).after("<td>Closing</td>");
-                postIsOpen[rowIndex]=false;
-                console.log(postIsOpen[rowIndex]);
-            }
-        });
-//    });
+    $("#postlist > li").on("click", function(evt){
+        $(this).find(".comments").toggle();
+    });
     
     //Button
     $("#write-post")
@@ -51,23 +29,33 @@ $(function() {
         console.log(post[0]);
         var htmlText = '';
         for(var i=0; i<post.length; i++){
-            //            htmlText += '<div id="div'+ i +'" />';
-            htmlText += '<tr><td>'
-                    + 'Title: ' + post[i].title + '<br>' 
-                    + 'Date: ' + post[i].date + '<br>' 
-                    + 'Text: ' + post[i].bodyText + '<br>' 
-                    + 'Video link: ' + post[i].postVideo + '<br>' 
-                    + 'Up Votes = ' + post[i].upVotes + '<br>'
-                    + 'Down Votes = ' + post[i].downVotes + '<br>'
+            //            htmlText += '<div id="div'+ i +'" />'
+            //            <li>
+            //                    <h2>post 1</h2>
+            //                    <p>lorem ipsum lol</p>
+            //                    <div class="comments" hidden>
+            //                        <ol>
+            //                            <li>
+            //                                kommmentar 1
+            //                            </li>
+            //                            <li>
+            //                                kommmentar 2
+            //                            </li>
+            //                        </ol>
+            //                    </div>
+            //                </li>;
+            htmlText += '<li>'
+                    + '<h2>Title: ' + post[i].title + '</h2>' 
+                    + '<p>Date: ' + post[i].date + '</p>' 
+                    + '<p>Text: ' + post[i].bodyText + '</p>' 
+                    + '<p>Video link: ' + post[i].postVideo + '</p>' 
+                    + '<p>Up Votes = ' + post[i].upVotes + '</p>'
+                    + '<p>Down Votes = ' + post[i].downVotes + '</p>'
                     + '<br>'
-                    + 'Post ID: ' + post[i].id + '<br>' 
-                    + '<br><br>\n\
-                        </td></tr>';
-            console.log(post[i]);
-            postIsOpen[i]=false;
-            console.log(postIsOpen[i]);
+                    + '<p>Post ID: ' + post[i].id + '</p>' 
+                    + '</li>';
         }
-        $('#posttable').append(htmlText);
+        $('#postlist').append(htmlText);
     }
     
     function createWritePostDialog() {
