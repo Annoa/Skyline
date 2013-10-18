@@ -50,6 +50,9 @@ $(function() {
                     + '<p>Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + '   ' + d.getHours() + ':' + d.getMinutes() + '</p>' 
                     + '<p>Text: ' + post[i].bodyText + '</p>' 
                     + '<p>Video link: ' + post[i].postVideo + '</p>' 
+                    + '<iframe width="420" height="345"'
+                    + 'src="' + convertToYouTubeEmbedLink(post[i].postVideo) + '">'
+                    +' </iframe>'
                     + '<p>Up Votes = ' + post[i].upVotes + '</p>'
                     + '<p>Down Votes = ' + post[i].downVotes + '</p>'
                     + '<br>'
@@ -57,6 +60,10 @@ $(function() {
                     + '</li>';
         }
         $('#postlist').append(htmlText);
+    }
+    
+    function convertToYouTubeEmbedLink (link) {
+        return link.replace("http://www.youtube.com/watch?v=", "http://www.youtube.com/embed/");
     }
     
     function createWritePostDialog() {
