@@ -20,13 +20,14 @@ $(function() {
 
     });
 
-    //Button
+    //Button add new post
     $("#write-post")
             .button()
             .click(function() {
         $("#new-post").removeAttr('hidden');
     });
     
+    //Button: Save post form
     $("#save-post").button().click(function(){
         var newPost = getFormDialogData();
         console.log(newPost);
@@ -36,13 +37,13 @@ $(function() {
         skyline.getPostBox().getAll().done(renderTable);
     });
 
+    //Button: Cancel post form
     $("#cancel-post").button().click(function(){
         $("#new-post").attr('hidden');
     });
     
     function getFormDialogData() {
         var post = {};
-        
         post.title = $("#ptitle").val();
         post.bodyText = $("#ptext").val();
         post.postVideo = $("#pvideo").val();
@@ -111,43 +112,4 @@ $(function() {
         }
         $('#postlist').append(htmlText);
     }
-
-    function createWritePostDialog() {
-
-        // Use JQueryUI dialog
-        
-        //        clearFormDialogData();
-        console.log("Formdata cleared");
-        //        $("#dialog-form")
-//        clearFormDialogData();
-
-//        var myDialog = $("#add-edit-post").dialog({
-//            autoOpen: false,
-//            modal: true,
-//            stack: true,
-//            title: "Write new post",
-//            buttons: {
-//                Save: function() {
-//                    var newPost = getFormDialogData();
-//                    console.log(newPost);
-//                    skyline.getPostBox().add(newPost);
-//                    $(this).dialog("close");
-//                    skyline.getPostBox().getAll().done(renderTable);
-//                },
-//                Cancel: function() {
-//                    $(this).dialog("close");
-//                }
-//            }
-//        });
-//            // Show it
-//        myDialog.dialog("open");
-//    }
-//
-    
-//    function clearFormDialogData() {
-//        $("#add-edit-post #ptitle").val("");
-//        $("#add-edit-post #ptext").val("");
-//        $("#add-edit-post #pvideo").val("");
-    }
-
 });
