@@ -1,12 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skyline.rest.about;
 
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -15,7 +9,7 @@ import javax.inject.Named;
 
 /**
  *
- * @author User
+ * @author Gabriel
  */
 @Named("viewAuthor")
 @ConversationScoped
