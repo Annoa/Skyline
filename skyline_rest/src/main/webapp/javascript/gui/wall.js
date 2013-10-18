@@ -31,13 +31,13 @@ $(function() {
         var newPost = getFormDialogData();
         console.log(newPost);
         clearFormDialogData();
-        $("#new-post").attr('hidden');
+        $("#new-post").attr("hidden",'hidden');
         skyline.getPostBox().add(newPost).then(renderAddedPost(newPost));
     });
 
     //Button: Cancel post form
     $("#cancel-post").button().click(function(){
-        $("#new-post").attr('hidden');
+        $("#new-post").attr("hidden",'hidden');
     });
     
     function getFormDialogData() {
