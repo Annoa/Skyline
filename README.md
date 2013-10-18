@@ -7,4 +7,5 @@ The project git for the web applications course DAT076, fall semester 2013. Our 
 
 epoxy = Anton Palmqvist<br>
 tomsel = Tomas Selldén<br>
-annoa = Mike Phoohad
+annoa = Mike Phoohad<br>
+krabban91 = Gabriel Andersson
