@@ -116,15 +116,15 @@ $(function() {
         console.log("convertToHTML");
         var d = new Date(post.date);
         return '<li>'
-                + '<h2>Title: ' + post.title + '</h2>' 
-                + '<p>Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + 
+                + '<h4 class="custom-title">The title of the day is ' + post.title + '</h2>' 
+                + '<p class="custom-date">Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + 
                     '-' + d.getDate() + '   ' + d.getHours() + 
                     ':' + d.getMinutes() + '</p>' 
-                + '<p>Text: ' + post.bodyText + '</p>' 
+                + '<p class="custom-body-text">The text I write is  ' + post.bodyText + '</p>' 
                 + '<p>Video link: ' + post.postVideo + '</p>' 
-                + '<iframe width="420" height="345"'
+                + '<p><iframe width="420" height="345"'
                     + 'src="' + convertToYouTubeEmbedLink(post.postVideo) + '">'
-                +' </iframe>'
+                +' </iframe></p>'
                 + '<p>Up Votes = ' + post.upVotes + '</p>'
                 + '<p>Down Votes = ' + post.downVotes + '</p>'
                 + '<br>'
