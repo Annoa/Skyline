@@ -38,6 +38,23 @@ $(document).ready(function() {
         
         event.preventDefault();
     });
+    $("#login").click(function(event) {
+        $("#contents").load("author/pageLogin.html");
+        resetActive();
+        $("#logout").parent().addClass("active");
+        
+        
+        event.preventDefault();
+    });
+     $("#logout").click(function(event) {
+        $("#contents").load("author/logout.html");
+        resetActive();
+        $("#logout").parent().addClass("active");
+        
+        
+        event.preventDefault();
+    });
+    
     
     function resetActive() {
         $(".menuItem").parent().removeClass("active");

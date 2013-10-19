@@ -9,9 +9,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <script type="text/javascript" src="lib/jquery-1.9.1.js"></script>
         <script type="text/javascript" src="lib/jquery-ui-1.10.2.custom.js"></script>
+        <script type="text/javascript" src="javascript/core/memberregistry.js"></script>
         <script type="text/javascript" src="javascript/core/postBox.js"></script>
+        <script type="text/javascript" src="javascript/core/skyline_member.js"></script>
         <script type="text/javascript" src="javascript/core/skyline.js"></script> 
-        <script type="text/javascript" src="javascript/gui/index.js"></script>
         <script type="text/javascript" src="javascript/gui/home.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- Bootstrap -->
@@ -36,18 +37,15 @@
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li class="active"><a class="menuItem" id="wall" href="#">Wall</a></li>
-                            <li><a class="menuItem" id="login" href="#">login</a></li>
-<!--<<<<<<< HEAD
-                            
                             <li><a class="menuItem" id="myPage" href="#">My Page</a></li>
                             <li><a class="menuItem" id="members" href="#">Members</a></li>
-=======
-                            <li><a class="menuItem" id="myPage" href="home.xhtml">My Page</a></li>
-                            <li><a class="menuItem" id="members" href="home.xhtml">Members</a></li>
->>>>>>> adb6ddce3b407918795bcbc0ece703457149ce6d-->
+                            <li><a class="menuItem" id="wall" href="login/addPost.xhtml">addPost</a></li>
+                            <li><a class="menuItem" id="logout" href="#">logout</a></li>
+                            
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li><h:link class="menuItem" outcome="blog" value="Bloggen"/></li>
+                            <!--<li><h:link class="menuItem" outcome="blog" value="Bloggen"/></li>-->
+                            <!--li><a class="menuItem" id="about" href="#">about</a></li-->
                             <li><h:link class="menuItem" outcome="about" value="Om bloggen.."/></li>
                             <li><h:link class="menuItem" outcome="chat" value="Chatta"/></li>
                         </ul>

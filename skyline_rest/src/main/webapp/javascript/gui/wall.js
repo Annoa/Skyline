@@ -6,6 +6,8 @@
  * @returns {undefined}
  */
 $(function() {
+    
+    $("#aboutUrl2").remove();
     //Clear the table
     //    $('#posts tbody').remove();
     console.log("walls javascript körs");
