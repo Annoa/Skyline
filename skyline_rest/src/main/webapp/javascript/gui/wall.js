@@ -103,10 +103,7 @@ $(function() {
                 + '<p>Text: ' + post.bodyText + '</p>' 
                 + '<p>Video link: ' + post.postVideo + '</p>' 
                 + '<iframe width="420" height="345"'
-//                    + 'src="' + 'http://www.youtube.com/embed/XGSy3_Czz8k' + '">'
                     + 'src="' + convertToYouTubeEmbedLink(post.postVideo) + '">'
-//                    + 'src="' + convertToYouTubeEmbedLink('http://www.youtube.com/embed/XGSy3_Czz8k') + '">'
-//                    + 'src="' + convertToYouTubeEmbedLink('w') + '">'
                 +' </iframe>'
                 + '<p>Up Votes = ' + post.upVotes + '</p>'
                 + '<p>Down Votes = ' + post.downVotes + '</p>'
@@ -114,30 +111,25 @@ $(function() {
                 + '<p>Post ID: ' + post.id + '</p>' 
                 + '</li>';
     }
-    
+    /**
+     * Function converting a standard youtube watch-link into a youtube 
+     * embedded link
+     * @param {type} link
+     * @returns {String}
+     */
     function convertToYouTubeEmbedLink (link) {
         console.log("convertToEmbed");
-//        var videoUrl = link;
-            console.log(link);
-            console.log(link.charAt(0));
-        if(link.charAt(0)==='w'){
-//            return link.replace("www.youtube.com/watch?v=", "http://www.youtube.com/embed/");
-            console.log("lika!!!!!!!!");
-//            return 'http://www.youtube.com/embed/XGSy3_Czz8k';
-            return link.replace("www.youtube.com/watch?v=", "http://www.youtube.com/embed/");
-        }
-        else if(link.charAt(0)==='h'){
-            return link.replace("http://www.youtube.com/watch?v=", "http://www.youtube.com/embed/");
-        }
-        else if(link.charAt(0)==='y'){
-            return link.replace("youtube.com/watch?v=", "http://www.youtube.com/embed/");
+        var videoSuffix = link.substring(link.length - 11, link.length)
+            console.log(link.search("youtube.com/watch?v=") + " <- Bad link if -1");
+        if(link.search("youtube.com/watch")!==-1){
+            console.log("Good link");
+            return "http://www.youtube.com/embed/" + videoSuffix;
         }
         else{
-            console.log("BAD LINK. Make sure your link starts with www och http")
-            return null;
+            console.log("Bad link, retype as: www.youtube.com/watch?v=.....");
+            return "";
+            
         }
-//        if(true){
-//        if(videoUrl.charAt(0)===videoUrl.charAt(0)){
     }
     
 //    function createWritePostDialog() {
