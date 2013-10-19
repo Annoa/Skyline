@@ -106,7 +106,7 @@ curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/post
 
 2.
 Get a specific comment by its id
-curl -v http://localhost:8080/skyline_rest/rs/posts/comments{idNummer}
+curl -v http://localhost:8080/skyline_rest/rs/posts/comments/{idNummer}
 
 # asking for json
 curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/posts/comments/{idNummer}

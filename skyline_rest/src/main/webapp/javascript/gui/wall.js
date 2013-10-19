@@ -14,14 +14,6 @@ $(function() {
     skyline.getPostBox().getAll().done(renderAllPosts);
     
     //Eventhandling when clicking on a post
-    $("#postlist").click(function(event){
-//        var postId = 1;
-//        var targetId = $(event.target).closest("li").attr('id');
-//        var target = targetId.substr(targetId.indexOf("#")+1);
-//        console.log(target);
-//        renderComments(target);
-
-    });
 
     //Button add new post
     $("#write-post")
@@ -68,12 +60,30 @@ $(function() {
         skyline_comments.getCommentBox().getRootCommentsForPost(post).done(commentDraw);
         
         function commentDraw(comments) {
-            console.log("Hoho");
-            var htmlText = '';
-            for(var i=0; i<comments.length; i++) {
-                htmlText += '<p>' + i + '</p>'
+            
+            if ($('[id="comments-post#' + post + '"]').is(':empty')) {
+                var even = true;
+                var htm = '';
+                $.each(comments, function(i, el) {
+                    recurseChildren(i, el);
+                });
+                function recurseChildren(i, parent) {
+                    var color = ((even) ? 'even' : 'uneven');
+                    htm += '<div class="comment comment-' + color + '"><div>\n\
+                    <span class="glyphicon glyphicon-arrow-up"></span>\n\
+                    <span class="glyphicon glyphicon-arrow-down"></span></div><div><p>'+ parent.commentText + '</p></div>';
+                    if (undefined !== parent.childComments){
+                        even = !even;
+                        $.each(parent.childComments, function(z, child) {
+                            recurseChildren(z, child);
+                        });
+                        even = !even;
+                    }
+                    htm +='</div>';
+                };
+                $('[id="comments-post#' + post + '"]').append(htm);
             }
-            $("#comments").append(htmlText);
+            return false;
         }
     };
     
@@ -87,12 +97,32 @@ $(function() {
         console.log(post[0]);
         $("#postlist").contents().remove();
         var htmlText = '';
+//            htmlText += '<li id="post#' + post[i].id + '">'
+//                    + '<button id="comment-button#'+ post[i].id +'" class="btn">Show comments</button>'
+//                    + '<div id="comments-post#'+post[i].id+'" class="commentbox"></div>'
         for(var i=0; i<post.length; i++){
-            console.log(post[i]);
             htmlText += convertPostToHTML(post[i]);
         }
+        
         $('#postlist').append(htmlText);
-    }
+        
+        $("[id^=comment-button#]")
+            .button()
+            .click(function(){
+                var targetId = $(this).attr('id');
+                var target = targetId.substr(targetId.indexOf("#")+1);
+                var targetDiv = $('[id="comments-post#' + target + '"]')
+                if ($('[id="comments-post#' + target + '"]').is(':empty')) {
+                    $(this).html("Hide comments");
+                    renderComments(target);
+                } else {
+                    $(this).html("Show comments");
+                    $(targetDiv).contents().remove();
+                }
+
+            });
+    }   
+    
     
     /**
      * Function rendering the added post at the bottom of the existing 
@@ -115,9 +145,8 @@ $(function() {
      * @returns {String}
      */
     function convertPostToHTML(post) {
-        console.log("convertToHTML");
         var d = new Date(post.date);
-        return '<li>'
+        return '<li id="post#' + post.id + '">'
                 + '<h4 class="custom-title">The title of the day is ' + post.title + '</h2>' 
                 + '<p class="custom-date">Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + 
                     '-' + d.getDate() + '   ' + d.getHours() + 
@@ -130,7 +159,9 @@ $(function() {
                 + '<p>Up Votes = ' + post.upVotes + '</p>'
                 + '<p>Down Votes = ' + post.downVotes + '</p>'
                 + '<br>'
-                + '<p>Post ID: ' + post.id + '</p>' 
+                + '<p>Post ID: ' + post.id + '</p>'
+                + '<button id="comment-button#'+ post.id +'" class="btn">Show comments</button>'
+                + '<div id="comments-post#'+post.id+'" class="commentbox"></div>'
                 + '</li>';
     }
     /**

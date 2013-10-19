@@ -5,14 +5,11 @@
 var skyline_comments = (function(){
     
     var baseUri = "http://localhost:8080/skyline_rest/rs/";  
-    var comments = new CommentBox(baseUri + "posts/comments");
-    
-    
-    // etc ...
+    var comments = new CommentBox(baseUri + "comments/post");
     
     return {
       
-        //getMember..
+        //get commentbox
         getCommentBox: function() {
             return comments;
         },

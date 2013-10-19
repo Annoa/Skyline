@@ -11,6 +11,10 @@ CommentBox.prototype = (function() {
         getRootCommentsForPost: function(postId) {
             return $.getJSON(this.baseUri + "/" + postId);
         },
+                
+        getChildComments: function(commentId) {
+            return $.getJSON(this.baseUri + "/comment/" + commentId);
+        },
         
         getAllOnPost: function() {
             return $.getJSON(this.baseUri);
