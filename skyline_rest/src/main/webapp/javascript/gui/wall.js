@@ -81,6 +81,7 @@ $(function() {
         $("#postlist").contents().remove();
         var htmlText = '';
         for(var i=0; i<post.length; i++){
+            console.log(post[i]);
             htmlText += convertPostToHTML(post[i]);
         }
         $('#postlist').append(htmlText);
@@ -94,6 +95,7 @@ $(function() {
     }
     
     function convertPostToHTML(post) {
+        console.log("convertToHTML");
         var d = new Date(post.date);
         return '<li>'
                 + '<h2>Title: ' + post.title + '</h2>' 
@@ -101,7 +103,10 @@ $(function() {
                 + '<p>Text: ' + post.bodyText + '</p>' 
                 + '<p>Video link: ' + post.postVideo + '</p>' 
                 + '<iframe width="420" height="345"'
+//                    + 'src="' + 'http://www.youtube.com/embed/XGSy3_Czz8k' + '">'
                     + 'src="' + convertToYouTubeEmbedLink(post.postVideo) + '">'
+//                    + 'src="' + convertToYouTubeEmbedLink('http://www.youtube.com/embed/XGSy3_Czz8k') + '">'
+//                    + 'src="' + convertToYouTubeEmbedLink('w') + '">'
                 +' </iframe>'
                 + '<p>Up Votes = ' + post.upVotes + '</p>'
                 + '<p>Down Votes = ' + post.downVotes + '</p>'
@@ -111,7 +116,28 @@ $(function() {
     }
     
     function convertToYouTubeEmbedLink (link) {
-        return link.replace("http://www.youtube.com/watch?v=", "http://www.youtube.com/embed/");
+        console.log("convertToEmbed");
+//        var videoUrl = link;
+            console.log(link);
+            console.log(link.charAt(0));
+        if(link.charAt(0)==='w'){
+//            return link.replace("www.youtube.com/watch?v=", "http://www.youtube.com/embed/");
+            console.log("lika!!!!!!!!");
+//            return 'http://www.youtube.com/embed/XGSy3_Czz8k';
+            return link.replace("www.youtube.com/watch?v=", "http://www.youtube.com/embed/");
+        }
+        else if(link.charAt(0)==='h'){
+            return link.replace("http://www.youtube.com/watch?v=", "http://www.youtube.com/embed/");
+        }
+        else if(link.charAt(0)==='y'){
+            return link.replace("youtube.com/watch?v=", "http://www.youtube.com/embed/");
+        }
+        else{
+            console.log("BAD LINK. Make sure your link starts with www och http")
+            return null;
+        }
+//        if(true){
+//        if(videoUrl.charAt(0)===videoUrl.charAt(0)){
     }
     
 //    function createWritePostDialog() {
