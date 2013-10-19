@@ -38,6 +38,13 @@ $(document).ready(function() {
         
         event.preventDefault();
     });
+    $("#logout").click(function(event) {
+        $("#contents").load("authorization.html");
+        resetActive();
+        $("#logout").parent().addClass("active");
+        
+        event.preventDefault();
+    });
     
     function resetActive() {
         $(".menuItem").parent().removeClass("active");

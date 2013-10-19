@@ -39,8 +39,12 @@ public class LoginServlet extends HttpServlet {
          Logger.getAnonymousLogger().log(Level.INFO, "LoginServlet");
          
          String username = request.getParameter("username");
-         String password = request.getParameter("password");
-         
+         String login = request.getParameter("login");
+         String logout = request.getParameter("logout");
+         if (logout.equals("y")) {
+             request.getSession().invalidate();
+             response.sendRedirect("index.xhtml");
+         }
          
          Member member;
          try {
@@ -57,9 +61,9 @@ public class LoginServlet extends HttpServlet {
              request.getSession().setAttribute("USER", member);
              //response.sendRedirect("");
              
-             request.getRequestDispatcher("index.xhtml").forward(request, response);
+             //request.getRequestDispatcher("home.xhtml").forward(request, response);
          } else {
-             response.sendRedirect("authorization.html");
+             response.sendRedirect("");
          }
     }
 

@@ -67,8 +67,9 @@ public class AuthentificationFilter implements Filter {
         }
         if (member == null) {
             Logger.getAnonymousLogger().log(Level.INFO, "Filter: member == null");
-            res.sendRedirect("../authorization.html");
+            //res.sendRedirect("authorization.html");
             //chain.doFilter(request, response);
+            req.getRequestDispatcher("../authorization.html").forward(request, response);
         }
             
     }
