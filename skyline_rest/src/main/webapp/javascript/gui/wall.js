@@ -1,8 +1,10 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Wall.js is covering the view-part of everything that has to do 
+ * with the wall. As you can see in the methods below this is for 
+ * example things as rendering the posts and their comments.
+ * 
+ * @returns {undefined}
  */
-
 $(function() {
     //Clear the table
     //    $('#posts tbody').remove();
@@ -54,11 +56,12 @@ $(function() {
         $("#add-edit-post #pvideo").val("");
     }
 
-    /**********************************************
-     *   
-     *   Function for redering comments of a post
+    /**
+     * Function rendering comments of the posts and comments of the comments.
+     * 
+     * @param {type} post
+     * @returns {undefined}
      */
-    
     function renderComments(post) {
         skyline_comments.getCommentBox().getRootCommentsForPost(post).done(commentDraw);
         
@@ -72,9 +75,11 @@ $(function() {
         }
     };
     
-    /**********************************************
-     *   
-     *   Function for redering table of all wall posts
+    /**
+     * Function rendering all posts on the wall.
+     * 
+     * @param {type} post
+     * @returns {undefined}
      */
     function renderAllPosts(post) {
         console.log(post[0]);
@@ -87,19 +92,34 @@ $(function() {
         $('#postlist').append(htmlText);
     }
     
+    /**
+     * Function rendering the added post at the bottom of the existing 
+     * posts on the wall. That is, the post is added without re-rendering 
+     * all the posts on the wall.
+     * 
+     * @param {type} post
+     * @returns {undefined}
+     */
     function renderAddedPost(post) {
         //        $('#postlist').append(htmlText);
         console.log("LOL");
         console.log(post);
         $('#postlist').append(convertPostToHTML(post));
     }
-    
+    /**
+     * Function converting data from post into HTML-code.
+     * 
+     * @param {type} post
+     * @returns {String}
+     */
     function convertPostToHTML(post) {
         console.log("convertToHTML");
         var d = new Date(post.date);
         return '<li>'
                 + '<h2>Title: ' + post.title + '</h2>' 
-                + '<p>Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + '   ' + d.getHours() + ':' + d.getMinutes() + '</p>' 
+                + '<p>Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + 
+                    '-' + d.getDate() + '   ' + d.getHours() + 
+                    ':' + d.getMinutes() + '</p>' 
                 + '<p>Text: ' + post.bodyText + '</p>' 
                 + '<p>Video link: ' + post.postVideo + '</p>' 
                 + '<iframe width="420" height="345"'
@@ -113,7 +133,8 @@ $(function() {
     }
     /**
      * Function converting a standard youtube watch-link into a youtube 
-     * embedded link
+     * embedded link.
+     * 
      * @param {type} link
      * @returns {String}
      */
