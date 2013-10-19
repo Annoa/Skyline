@@ -7,15 +7,46 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html">
-    <head>
+    <h:head>
         <title>this is where we navigate</title>
-    </head>
-    <body>
-        <ul>
-            <li><h:button outcome="blog" value="Bloggen"/></li>
-            <li><h:button outcome="about" value="Om bloggen.."/></li>
-            <li><h:button outcome="chat" value="Chatta"/></li>
-            
-        </ul>
-    </body>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <script type="text/javascript" src="../lib/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="../lib/jquery-ui-1.10.2.custom.js"></script>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+        <link href="../resources/css/home_style.css" rel="stylesheet" />
+        
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar-inverse navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Skyline</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a class="menuItem" id="wall" href="../home.xhtml">Wall</a></li>
+                            <li><a class="menuItem" id="myPage" href="../home.xhtml">My Page</a></li>
+                            <li><a class="menuItem" id="members" href="../home.xhtml">Members</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--<li><h:link class="menuItem" outcome="blog" value="Bloggen"/></li>-->
+                            <li><h:link class="menuItem" id="about" outcome="about" value="Om bloggen.."/></li>
+                            <li><h:link class="menuItem" id="chat" outcome="chat" value="Chatta"/></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+            <div id="contents" class="container"></div>
+        </div>
+        <script type="text/javascript" src="../lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        
+    </h:body>
 </html>

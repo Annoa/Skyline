@@ -17,23 +17,48 @@ and open the template in the editor.
         <script type="text/javascript" src="../javascript/gui/index.js"></script>
     </head>
     <body>
-        <div>
+        <!--div>
             <button id="write-post">Write new post</button><br><br>
-        </div>
+        </div-->
         
-        <div id="add-edit-post" title="Set this in code" hidden="hidden">
-            <p class="validateTips">All form fields are required.</p>
-            <form>
-                <fieldset>
-                    <label for="ptitle">Title</label>
-                    <input type="text" name="ptitle" id="ptitle" value="" class="text ui-widget-content ui-corner-all" />
-                    <label for="ptext">Text</label>
-                    <input type="text" name="ptext" id="ptext" value="" class="text ui-widget-content ui-corner-all" />
-                    <label for="pvideo">Video Link</label>
-                    <input type="text" name="pvideo" id="pvideo" value="" class="text ui-widget-content ui-corner-all" />
-                </fieldset>
-            </form>
+       <button id="write-post" class="btn">Write new post</button><br><br>
+        <form id="new-post" class="write-post-form" hidden>   
+            <div class="input-group">
+                <input type="text" id="ptitle" class="form-control" placeholder="Title" />
+            </div>
+            <div class="input-group">
+                <input type="text" id="ptext" class="form-control" placeholder="Blog post"/>
+            </div>
+            <div class="input-group">
+                <input type="text" id="pvideo" class="form-control" placeholder="Low resolution video" />
+            </div>
+            <div id="new-post-btn" class="btn-group">
+                <button class="btn" type="button" id="save-post" >Save</button>
+                <button class="btn" type="button" id="cancel-post"  >Cancel</button>
+            </div>
+        </form>
+        <div>
+            All posts below:<br><br>
         </div>
-        
+        <!--divider to store all posts in-->
+
+        <div class="container">
+            <ol id="postlist">
+                <li>
+                    <h2>post 1</h2>
+                    <p>lorem ipsum lol</p>
+                    <div class="comments" hidden>
+                        <ol>
+                            <li>
+                                kommmentar 1
+                            </li>
+                            <li>
+                                kommmentar 2
+                            </li>
+                        </ol>
+                    </div>
+                </li>
+            </ol>
+        </div>
     </body>
 </html>
