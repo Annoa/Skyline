@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
              request.getSession().setAttribute("USER", member);
              //response.sendRedirect("");
              
-             //request.getRequestDispatcher("home.xhtml").forward(request, response);
+             request.getRequestDispatcher("home.xhtml").forward(request, response);
          } else {
              response.sendRedirect("");
          }
