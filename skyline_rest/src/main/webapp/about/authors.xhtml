@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-To change this template, choose Tools | Templates
-and open the template in the editor.
+A section in the about page to view who contributed what in Skyline. 
+Would have been more extensive if we would launch the system.
+Uses the two Beans AuthorBean and ViewAuthorBB.
+@author Gabriel
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <head>
-        <title>TODO supply a title</title>
+        <title>Authors</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Bootstrap -->
+        <link href="../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+        <link href="../resources/css/home_style.css" rel="stylesheet" />
     </head>
     <body>
-        <h:form>
-            <h:dataTable var="a" value="#{about.authorRange}">
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText  value="name"/>
-                    </f:facet>
-                    <h:outputText value="#{a.name}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText  value="Summary"/>
-                    </f:facet>
-                    <h:outputText value="#{a.shortText}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">
-                        <h:outputText  value="goto"/>
-                    </f:facet>
-                    <h:commandButton actionListener="#{viewAuthor.view(a.index)}" 
-                                     action="#{about.navigate('aview')}" value="#{a.name}"/>
-                </h:column>
+        <h:form class="panel" >
 
-            </h:dataTable>
+            <div class="panel-title">Authors of Skyline</div>
+            <div class="btn-toolbar">
+                <div class="btn-group">
+                    <c:forEach var="a" items="#{about.authorRange}" >
+                        <h:commandButton class="btn" actionListener="#{viewAuthor.view(a.index)}" 
+                                         value="#{a.name}"/>
+                    </c:forEach>
+                </div>
+                <h:commandButton class="btn" actionListener="#{viewAuthor.setIsShort}" 
+                                 rendered="#{viewAuthor.name!=null}" 
+                                 value="#{viewAuthor.isShort ? 'Long Version' : 
+                                          'Short version'}"/>
+            </div>
+            <div>
+                <h:outputText id="authortext" value="#{viewAuthor.isShort ?  viewAuthor.shortT :
+                                                       viewAuthor.longT}"/>
+            </div>
+
         </h:form>
-        <div>TODO write content</div>
     </body>
 </html>

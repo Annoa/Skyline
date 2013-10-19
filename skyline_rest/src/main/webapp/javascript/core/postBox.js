@@ -8,6 +8,7 @@ var PostBox = function( baseUri ){
 PostBox.prototype = (function (){
     
     return {
+        
         getAll: function() {
             return $.getJSON(this.baseUri);
         },

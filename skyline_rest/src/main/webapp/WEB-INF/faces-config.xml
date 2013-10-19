@@ -25,14 +25,4 @@
             <to-view-id>/chat/chat.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
-    <navigation-rule>
-        <from-view-id>/about/mainabout.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>aview</from-outcome>
-            <to-view-id>/about/viewAuthor.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-    
 </faces-config>

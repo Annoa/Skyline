@@ -1,13 +1,17 @@
 
-var PostBox = function(baseUri) {
+var CommentBox = function(baseUri) {
     this.baseUri = baseUri;
 };
 
 
 
-PostBox.prototype = (function() {
+CommentBox.prototype = (function() {
 
     return {
+        getRootCommentsForPost: function(postId) {
+            return $.getJSON(this.baseUri + "/" + postId);
+        },
+        
         getAllOnPost: function() {
             return $.getJSON(this.baseUri);
         },

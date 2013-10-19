@@ -1,12 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skyline.rest.about;
 
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -14,8 +8,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
+ * Let's the specific information of an user get interpreted in the about
+ * section. ' Is at the moment very simple in design.
  *
- * @author User
+ * @author Gabriel
  */
 @Named("viewAuthor")
 @ConversationScoped
@@ -30,6 +26,12 @@ public class ViewAuthorBB implements Serializable {
     @Inject
     private Conversation conversation;
 
+    /**
+     * Assigning an author to be read about. Has short version as viewable
+     * first.
+     *
+     * @param index which user that will be shown
+     */
     public void view(String index) {
 
         if (conversation.isTransient()) {
@@ -48,9 +50,11 @@ public class ViewAuthorBB implements Serializable {
             conversation.end();
         }
     }
-
+    
+    /**
+     * Switches between long and short version in the .xhtml-file
+     */
     public void setIsShort() {
-
         isShort = !isShort;
     }
 
@@ -65,8 +69,8 @@ public class ViewAuthorBB implements Serializable {
     public String getLongT() {
         return longT;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    
 }
