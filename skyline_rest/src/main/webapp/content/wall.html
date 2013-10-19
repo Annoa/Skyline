@@ -14,33 +14,30 @@ and open the template in the editor.
         <link href="resources/css/wall.css" rel="stylesheet" />
         
     </head>
+
     <body>
         <button id="write-post" class="btn">Write new post</button><br><br>
-        <div id="add-edit-post" class="divider" title="Set this in code" hidden="hidden">
-            <p class="validateTips">All form fields are required.</p>
-            <form class="form-horizontal">
-                <fieldset>
-                    <div>
-                        <label class="label-info" for="ptitle">Title</label>
-                        <input type="text" name="ptitle" id="ptitle" value="" class="text ui-widget-content ui-corner-all" />
-                    </div>
-                    <div>
-                        <label class="label-info" for="ptext">Text</label>
-                        <input type="text" name="ptext" id="ptext" value="" class="text ui-widget-content ui-corner-all" />
-                    </div>
-                    <div>
-                        <label class="label-info" for="pvideo">Video Link</label>
-                        <input type="text" name="pvideo" id="pvideo" value="" class="text ui-widget-content ui-corner-all" />
-                    </div>
-                </fieldset>
-            </form>
-        </div>
+        <form id="new-post" class="write-post-form" hidden>   
+            <div class="input-group">
+                <input type="text" id="ptitle" class="form-control" placeholder="Title" />
+            </div>
+            <div class="input-group">
+                <input type="text" id="ptext" class="form-control" placeholder="Blog post"/>
+            </div>
+            <div class="input-group">
+                <input type="text" id="pvideo" class="form-control" placeholder="http://www.youtube.com/watch?v=.........." />
+            </div>
+            <div id="new-post-btn" class="btn-group">
+                <button class="btn" type="button" id="save-post" >Save</button>
+                <button class="btn" type="button" id="cancel-post"  >Cancel</button>
+            </div>
+        </form>
         <div>
             All posts below:<br><br>
         </div>
         <!--divider to store all posts in-->
-        
-        <div class="container">
+
+        <div class="post">
             <ol id="postlist">
                 <li>
                     <h2>post 1</h2>

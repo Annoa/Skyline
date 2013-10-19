@@ -49,7 +49,7 @@ public class TestData {
         Comment com5 = new Comment("This is the fifth comment");
         Comment com6 = new Comment("This is the sixth comment");
 
-        Post post1 = new Post("Post", "Tester", null, null);
+        Post post1 = new Post("Post", "Tester", null, "http://www.youtube.com/watch?v=YYkVS9y5iP4");
         pc.add(post1);
         cc.add(com1);
         cc.add(com2);
@@ -126,7 +126,7 @@ public class TestData {
         Comment xcom5 = new Comment("Anno: This is the fifth comment");
         Comment xcom6 = new Comment("Anno: This is the sixth comment");
 
-        Post xpost1 = new Post("Post", "Tester", null, null);
+        Post xpost1 = new Post("Post", "Tester", null, "http://www.youtube.com/watch?v=YYkVS9y5iP4");
         pc.add(xpost1);
         cc.add(xcom1);
         cc.add(xcom2);
