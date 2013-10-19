@@ -61,15 +61,15 @@ public class AuthentificationFilter implements Filter {
             Logger.getAnonymousLogger().log(Level.INFO, "Filter: member != null");
             req.getSession().setAttribute("USER", member); // Login
             
-            //chain.doFilter(request, response);//is this okay!!!!!
-            //res.sendRedirect("index.xhtml");
-            req.getRequestDispatcher("AddPost.html").forward(request, response);
+            chain.doFilter(request, response);//is this okay!!!!!
+            //res.sendRedirect("/skyline_rest/login/AddPost.html");
+            //req.getRequestDispatcher("/skyline_rest/login/AddPost.html").forward(request, response);
         }
         if (member == null) {
             Logger.getAnonymousLogger().log(Level.INFO, "Filter: member == null");
             //res.sendRedirect("authorization.html");
             //chain.doFilter(request, response);
-            req.getRequestDispatcher("../authorization.html").forward(request, response);
+            req.getRequestDispatcher("../index.xhtml").forward(request, response);
         }
             
     }

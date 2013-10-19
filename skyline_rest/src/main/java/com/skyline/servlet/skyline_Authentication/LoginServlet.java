@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author tomassellden
  */
 
-@WebServlet(name = "ServletLogin", urlPatterns = {"/authorization/*", "/login/*"})
+@WebServlet(name = "ServletLogin", urlPatterns = {"/authorization/*"})
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -40,13 +40,13 @@ public class LoginServlet extends HttpServlet {
          Logger.getAnonymousLogger().log(Level.INFO, "LoginServlet");
          
          String username = request.getParameter("username");
-         String login = request.getParameter("login");
          String logout = request.getParameter("logout");
-         if (logout.equals("y")) {
-             request.getSession().invalidate();
-             response.sendRedirect("index.xhtml");
+         if (logout != null) {
+             request.getSession().removeAttribute("USER");
+             Logger.getAnonymousLogger().log(Level.INFO, "remove session USER attribute");
+             request.getRequestDispatcher("index.xhtml").forward(request, response);
+             return;
          }
-         
          Member member;
          try {
              member = Blog.INSTANCE.getMembersRegistry().getMember(username);
@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
              
              request.getRequestDispatcher("home.xhtml").forward(request, response);
          } else {
-             response.sendRedirect("");
+             request.getRequestDispatcher("index.xhtml").forward(request, response);
          }
     }
 

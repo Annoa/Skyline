@@ -6,7 +6,7 @@ and open the template in the editor.
 <html>
     <head>
         <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <script type="text/javascript" src="../lib/jquery-1.9.1.js"></script>
         <script type="text/javascript" src="../lib/jquery-ui-1.10.2.custom.js"></script>
         <script type="text/javascript" src="../javascript/gui/wall.js"></script>
@@ -21,8 +21,8 @@ and open the template in the editor.
             <button id="write-post">Write new post</button><br><br>
         </div-->
         
-       <button id="write-post" class="btn">Write new post</button><br><br>
-        <form id="new-post" class="write-post-form" hidden>   
+       <button id="write-post" class="btn">Write new post</button><br></br>
+       <form id="new-post" class="write-post-form"> <!--type="hidden"-->   
             <div class="input-group">
                 <input type="text" id="ptitle" class="form-control" placeholder="Title" />
             </div>
@@ -38,7 +38,7 @@ and open the template in the editor.
             </div>
         </form>
         <div>
-            All posts below:<br><br>
+            All posts below:<br></br>
         </div>
         <!--divider to store all posts in-->
 
@@ -47,7 +47,7 @@ and open the template in the editor.
                 <li>
                     <h2>post 1</h2>
                     <p>lorem ipsum lol</p>
-                    <div class="comments" hidden>
+                    <div class="comments"><!-- hidden-->
                         <ol>
                             <li>
                                 kommmentar 1
