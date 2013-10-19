@@ -55,7 +55,7 @@ public class PostProxy {
     }
 
     @XmlElement(name = "postPicture")
-    public byte[] getPostPicture() {
+    public String getPostPicture() {
         return post.getPostPicture();
     }
 

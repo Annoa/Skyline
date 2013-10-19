@@ -36,11 +36,12 @@ public class Post extends AbstractEntity implements Serializable {
     @Column(nullable=false)
     private String title;
     @Column(nullable=true)
+    @Lob
     private String bodyText;
     @Basic(fetch=FetchType.LAZY)
     @Column(nullable=true)
     @Lob
-    private byte[] postPicture;
+    private String postPicture;
     @Column(nullable=true)
     private String postVideo;
     @Embedded
@@ -52,7 +53,7 @@ public class Post extends AbstractEntity implements Serializable {
     public Post() {
     }
 
-    public Post(String title, String bodyText, byte[] postPicture, 
+    public Post(String title, String bodyText, String postPicture, 
             String postVideo) {
         this.createDate = new Date();
         this.title = title;
@@ -63,7 +64,7 @@ public class Post extends AbstractEntity implements Serializable {
     }
 
     public Post(Long id, Date date, String title, String bodyText, 
-            byte[] picture, String video, VotingSystem votingSystem) {
+            String picture, String video, VotingSystem votingSystem) {
         super(id);
         this.createDate = date;
         this.title = title;
@@ -85,7 +86,7 @@ public class Post extends AbstractEntity implements Serializable {
         return bodyText;
     }
 
-    public byte[] getPostPicture() {
+    public String getPostPicture() {
         return postPicture;
     }
 

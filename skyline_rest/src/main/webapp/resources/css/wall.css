@@ -26,3 +26,24 @@
     background-color: rgb(247, 247, 248);
 }
 
+.custom-date {
+    color: gray;
+    font-size: small;
+}
+
+.custom-body-text {
+    
+}
+
+.custom-title {
+    font-weight: bold;
+}
+
+.postlist {
+    list-style: none;
+}
+
+.post-textarea {
+    width: 600px;
+    height: 300px;
+}

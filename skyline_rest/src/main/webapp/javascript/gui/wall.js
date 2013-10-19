@@ -37,7 +37,12 @@ $(function() {
     function getFormDialogData() {
         var post = {};
         post.title = $("#ptitle").val();
-        post.bodyText = $("#ptext").val();
+        // **
+        // Preserves rowbreaks for saving to database
+        // Also only allows two rowbreaks max in a row
+        var text = $("#ptext").val();
+        post.bodyText = text.replace(/\n/g, "<br />")
+        // **
         post.postVideo = $("#pvideo").val();
         return post;
     }
@@ -95,9 +100,6 @@ $(function() {
         console.log(post[0]);
         $("#postlist").contents().remove();
         var htmlText = '';
-//            htmlText += '<li id="post#' + post[i].id + '">'
-//                    + '<button id="comment-button#'+ post[i].id +'" class="btn">Show comments</button>'
-//                    + '<div id="comments-post#'+post[i].id+'" class="commentbox"></div>'
         for(var i=0; i<post.length; i++){
             htmlText += convertPostToHTML(post[i]);
         }
@@ -110,9 +112,12 @@ $(function() {
                 var targetId = $(this).attr('id');
                 var target = targetId.substr(targetId.indexOf("#")+1);
                 var targetDiv = $('[id="comments-post#' + target + '"]')
-                if ($('[id="comments-post#' + target + '"]').is(':empty')) {
-                    $(this).html("Hide comments");
+                if ($(targetDiv).is(':empty')) {
                     renderComments(target);
+                    // If no comments where gotten we don't change name
+                    if (!$(targetDiv).is(':empty')) {
+                        $(this).html("Hide comments");
+                    }
                 } else {
                     $(this).html("Show comments");
                     $(targetDiv).contents().remove();
@@ -144,21 +149,24 @@ $(function() {
      */
     function convertPostToHTML(post) {
         var d = new Date(post.date);
+        var video = convertToYouTubeEmbedLink(post.postVideo);
+        var videoLink = (video.length === 0) ? '' : '<p><iframe width="420" height="345" src="' + video + '">' +' </iframe>' + '</p>';
         return '<li id="post#' + post.id + '">'
-                + '<h4 class="custom-title">The title of the day is ' + post.title + '</h2>' 
-                + '<p class="custom-date">Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + 
-                    '-' + d.getDate() + '   ' + d.getHours() + 
-                    ':' + d.getMinutes() + '</p>' 
-                + '<p class="custom-body-text">The text I write is  ' + post.bodyText + '</p>' 
-                + '<p>Video link: ' + post.postVideo + '</p>' 
-                + '<p><iframe width="420" height="345"'
-                    + 'src="' + convertToYouTubeEmbedLink(post.postVideo) + '">'
-                +' </iframe></p>'
+                + '<h4 class="custom-title">' + post.title + '</h2>' 
+                + '<p class="custom-date">Posted on: ' + d.getFullYear() + '-' + (d.getMonth()+1) + 
+                    '-' + d.getDate() + '   ' + (d.getHours() < 10 ? '0' : '') + d.getHours() + 
+                    ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes() + '</p>' 
+                + '<p class="custom-body-text">' + post.bodyText + '</p>' 
+                + videoLink
                 + '<p>Up Votes = ' + post.upVotes + '</p>'
                 + '<p>Down Votes = ' + post.downVotes + '</p>'
                 + '<br>'
                 + '<p>Post ID: ' + post.id + '</p>'
-                + '<button id="comment-button#'+ post.id +'" class="btn">Show comments</button>'
+                + '<div class="btn-group btn-group-sm">'
+                + '<button id="comment-button#'+ post.id +'" class="btn btn-default">Show comments</button>'
+                + '<button id="comment-add-button#'+ post.id +'" class="btn btn-default">Add comments</button>'
+                + '</div>'
+                + '<div id="add-commentbox-post#'+post.id+'" class="commentbox"></div>'
                 + '<div id="comments-post#'+post.id+'" class="commentbox"></div>'
                 + '</li>';
     }

@@ -16,29 +16,28 @@ and open the template in the editor.
     </head>
 
     <body>
-        <button id="write-post" class="btn">Write new post</button><br><br>
+        <button id="write-post" class="btn btn-default">Write new post</button><br><br>
         <form id="new-post" class="write-post-form" hidden>   
             <div class="input-group">
-                <input type="text" id="ptitle" class="form-control" placeholder="Title" />
+                <label for="ptitle">Title</label>
+                <input type="text" id="ptitle" class="form-control" placeholder="Enter title" />
             </div>
             <div class="input-group">
-                <input type="text" id="ptext" class="form-control" placeholder="Blog post"/>
+                <textarea id="ptext" class="form-control" placeholder="Enter blog text here..."/>
             </div>
             <div class="input-group">
+                <label for="pvideo">Video link</label>
                 <input type="text" id="pvideo" class="form-control" placeholder="http://www.youtube.com/watch?v=.........." />
             </div>
             <div id="new-post-btn" class="btn-group">
-                <button class="btn" type="button" id="save-post" >Save</button>
-                <button class="btn" type="button" id="cancel-post"  >Cancel</button>
+                <button class="btn btn-default" type="button" id="save-post" >Save</button>
+                <button class="btn btn-default" type="button" id="cancel-post"  >Cancel</button>
             </div>
         </form>
-        <div>
-            All posts below:<br><br>
-        </div>
         <!--divider to store all posts in-->
 
         <div class="post">
-            <ol id="postlist">
+            <ul id="postlist" class="postlist">
                 <li>
                     <h2>post 1</h2>
                     <p>lorem ipsum lol</p>
@@ -53,7 +52,7 @@ and open the template in the editor.
                         </ol>
                     </div>
                 </li>
-            </ol>
+            </ul>
         </div>
     </body>
 </html>

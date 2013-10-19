@@ -14,6 +14,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,6 +31,7 @@ public class Comment extends AbstractEntity implements Comparable<Comment>, Seri
     @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
     @JoinColumn(name="PARENTCOMMENT", referencedColumnName="ID")
     private Set<Comment> childComments;
+    @Lob
     private String commentText;
     @Temporal(TemporalType.DATE)
     private Date commentDate;
