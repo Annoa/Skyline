@@ -8,6 +8,7 @@ import com.skyline.model.utils.IDAO;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -23,31 +24,54 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.Context;
 
 /**
  *
  * @author Gabriel
  */
-@Path("posts/comments")
+@Path("comments/post")
 public class CommentResource {
 
     private final static Logger log = Logger.getAnonymousLogger();
-    private ICommentContainer comments = Blog.INSTANCE.getCommentContainer();
+    private final ICommentContainer comments = Blog.INSTANCE.getCommentContainer();
     private IDAO<Member, Long> members = Blog.INSTANCE.getMembersRegistry();
     private IDAO<Post, Long> posts = Blog.INSTANCE.getPostContainer();
+    @Context
     private UriInfo uriInfo;
 
     //TODO: Is it FormParam or PathParam?
+//    @GET
+//    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+//    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+//    public Response getAllOnPost(@QueryParam("postId") Long postId) {
+//        Post p = posts.find(postId);
+//        List<Comment> cList = p.getComments();
+//        List<CommentProxy> wrappedComments = new ArrayList();
+//        try {
+//            for (Comment parent : cList) {
+//                wrappedComments.add(new CommentProxy(parent));
+//            }
+//            GenericEntity<List<CommentProxy>> ge =
+//                    new GenericEntity<List<CommentProxy>>(wrappedComments) {
+//            };
+//            return Response.ok(ge).build();
+//        } catch (IllegalArgumentException ie) {
+//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
     @GET
+    @Path("{postId}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getAllOnPost(@QueryParam("postId") Long postId) {
+    public Response getRootComments(@PathParam("postId") Long postId) {
         Post p = posts.find(postId);
-        List<Comment> cList = p.getComments();
-        List<CommentProxy> wrappedComments = new ArrayList();
+        List<Comment> rootList = new ArrayList<Comment>();
+        rootList = comments.getRootCommentsForPost(p);
+        List<CommentProxy> wrappedComments = new ArrayList<CommentProxy>();
         try {
-            for (Comment c : cList) {
-                wrappedComments.add(new CommentProxy(c));
+            for (Object c : rootList) {
+                wrappedComments.add(new CommentProxy((Comment) c));
             }
             GenericEntity<List<CommentProxy>> ge =
                     new GenericEntity<List<CommentProxy>>(wrappedComments) {
@@ -57,17 +81,18 @@ public class CommentResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     @GET
-    @Path("{postId}")
+    @Path("comment/{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getRootComments(@PathParam("postId") Long postId) {
-        Post p = posts.find(postId);
-        List<Comment> rootList = comments.getRootCommentsForPost(p);
-        List<CommentProxy> wrappedComments = new ArrayList();
+    public Response getChildComments(@PathParam("id") Long commentId) {
+        Comment parent = comments.find(commentId);
+        List<Comment> childList;
+        childList = comments.getChildComments(parent);
+        List<CommentProxy> wrappedComments = new ArrayList<CommentProxy>();
         try {
-            for (Comment c : rootList) {
+            for (Comment c : childList) {
                 wrappedComments.add(new CommentProxy(c));
             }
             GenericEntity<List<CommentProxy>> ge =
@@ -80,7 +105,7 @@ public class CommentResource {
     }
 
 //    @GET
-//    @Path("{id}")
+//    @Path("comment/{id}")
 //    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 //    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 //    public Response find(@PathParam("id") Long id) {
@@ -91,7 +116,6 @@ public class CommentResource {
 //            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 //        }
 //    }
-
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

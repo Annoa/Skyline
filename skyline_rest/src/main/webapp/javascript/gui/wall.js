@@ -10,13 +10,7 @@ $(function() {
     skyline.getPostBox().getAll().done(renderTable);
     
     //Eventhandling when clicking on a post
-    $("#postlist").click(function(event){
-        var postId = 1;
-        var targetId = $(event.target).closest("li").attr('id');
-        var target = targetId.substr(targetId.indexOf("#")+1);
-        console.log(target);
-        renderComments(target);
-    });
+    
     
     //Button
     $("#write-post")
@@ -34,12 +28,30 @@ $(function() {
         skyline_comments.getCommentBox().getRootCommentsForPost(post).done(commentDraw);
         
         function commentDraw(comments) {
-            console.log("Hoho");
-            var htmlText = '';
-            for(var i=0; i<comments.length; i++) {
-                htmlText += '<p>' + i + '</p>'
+            
+            if ($('[id="comments-post#' + post + '"]').is(':empty')) {
+                var even = true;
+                var htm = '';
+                $.each(comments, function(i, el) {
+                    recurseChildren(i, el);
+                });
+                function recurseChildren(i, parent) {
+                    var color = ((even) ? 'even' : 'uneven');
+                    htm += '<div class="comment comment-' + color + '"><div>\n\
+                    <span class="glyphicon glyphicon-arrow-up"></span>\n\
+                    <span class="glyphicon glyphicon-arrow-down"></span></div><div><p>'+ parent.commentText + '</p></div>';
+                    if (undefined !== parent.childComments){
+                        even = !even;
+                        $.each(parent.childComments, function(z, child) {
+                            recurseChildren(z, child);
+                        });
+                        even = !even;
+                    }
+                    htm +='</div>';
+                };
+                $('[id="comments-post#' + post + '"]').append(htm);
             }
-            $("#comments").append(htmlText);
+            return false;
         }
     };
     
@@ -66,20 +78,41 @@ $(function() {
             //                            </li>
             //                        </ol>
             //                    </div>
-            console.log('<li id="post#' + post[i].id + '">');
-            htmlText += '<li id="post#' + post[i].id + '">'
             var d = new Date(post[i].date);
+            htmlText += '<li id="post#' + post[i].id + '">'
+            
                     + '<h2>Title: ' + post[i].title + '</h2>' 
-                    + '<p>Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + '   ' + d.getHours() + ':' + d.getMinutes() + '</p>' 
+                    + '<p>Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + '   ' + 
+                    (d.getHours() < 10 ? '0' + d.getHours() : d.getHours()) + ':' + 
+                    (d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes()) + '</p>' 
                     + '<p>Text: ' + post[i].bodyText + '</p>' 
                     + '<p>Video link: ' + post[i].postVideo + '</p>' 
                     + '<p>Up Votes = ' + post[i].upVotes + '</p>'
                     + '<p>Down Votes = ' + post[i].downVotes + '</p>'
                     + '<br>'
-                    + '<p>Post ID: ' + post[i].id + '</p>' 
+                    + '<p>Post ID: ' + post[i].id + '</p>'
+                    + '<button id="comment-button#'+ post[i].id +'" class="btn">Show comments</button>'
+                    + '<div id="comments-post#'+post[i].id+'" class="commentbox"></div>'
                     + '</li>';
         }
         $('#postlist').append(htmlText);
+        
+        $("[id^=comment-button#]")
+                .button()
+                .click(function(){
+            var targetId = $(this).attr('id');
+            var target = targetId.substr(targetId.indexOf("#")+1);
+            var targetDiv = $('[id="comments-post#' + target + '"]')
+            if ($('[id="comments-post#' + target + '"]').is(':empty')) {
+                $(this).html("Hide comments");
+                renderComments(target);
+            } else {
+                $(this).html("Show comments");
+                $(targetDiv).contents().remove();
+            }
+            
+            
+        });
     }
     
     function createWritePostDialog() {

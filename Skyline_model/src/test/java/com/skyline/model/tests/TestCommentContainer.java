@@ -100,6 +100,7 @@ public class TestCommentContainer {
         
         result = cc.getRootCommentsForPost(post1);
         assertTrue(result.size() == 1);
+        assertTrue(result.get(0).getId() == com1.getId());
         
         com1.removeChildComment(com2);
         com1.removeChildComment(com3);

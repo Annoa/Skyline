@@ -1,0 +1,28 @@
+/* 
+    Document   : wall
+    Created on : Oct 19, 2013, 3:38:38 PM
+    Author     : Anno
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.commentbox{
+    margin: 10px 0px 0px 0px;
+    padding: 5px 0px;
+}
+
+.comment {
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 5px;
+    margin: 0px 0px 5px 0px;
+    padding: 0px 3px 0px 20px;
+}
+
+.comment-even {
+    background-color: white;
+}
+
+.comment-uneven {
+    background-color: rgb(247, 247, 248);
+}
+

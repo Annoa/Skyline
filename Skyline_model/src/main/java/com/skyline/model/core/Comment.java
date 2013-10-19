@@ -5,6 +5,7 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractEntity;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +24,7 @@ import javax.persistence.TemporalType;
  * @author Gabriel
  */
 @Entity
-public class Comment extends AbstractEntity implements Comparable<Comment>{
+public class Comment extends AbstractEntity implements Comparable<Comment>, Serializable{
 
 //    private Post post;
     @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
