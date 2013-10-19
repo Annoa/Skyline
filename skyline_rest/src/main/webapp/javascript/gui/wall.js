@@ -126,6 +126,62 @@ $(function() {
                 }
 
             });
+            
+        $("[id^=comment-add-button#]")
+            .button()
+            .click(function() {
+                var targetId = $(this).attr('id');
+                var target = targetId.substr(targetId.indexOf("#")+1);
+                var targetDiv = $('[id="add-commentbox-post_' + target + '"]')
+                if ($(targetDiv).is(':empty')) {
+                    var add = addCommentBox(target);
+                    $(targetDiv).append(add);
+                    // If no comments where gotten we don't change name
+                    var tar = "#add-commentbox-post_" + target;
+                    $(tar).find(".comment-save-button")
+                                .button()
+                                .click(function() {
+                            var comment = {};
+                            
+                            comment.text = $(tar).find(".comment-textarea").val();
+                            comment.postId = target;
+                            //******
+                            // Test AUTHOR!
+                            comment.authorId = 1;
+                            //******
+                            console.log(comment);
+                            $(tar).find(".comment-textarea").val("");
+                            $("#new-post").attr("hidden",'hidden');
+                            skyline_comments.getCommentBox().add(comment)
+                                    .then($("#contents").load("content/wall.html"));
+                        });
+                    $(tar).find(".comment-cancel-button")
+                                .button()
+                                .click(function() {
+                            $("#add-commentbox-post_" + target).hide();
+                        });
+                } else {
+                    if ($(targetDiv).is(':hidden')) {
+                        $(targetDiv).show();
+                    } else {
+                        $(targetDiv).hide();
+                    }
+                }
+            });
+        
+        
+        function addCommentBox(post) {
+            var html = '<form id="add-commentbox-post_'+ post +'" class="write-post-form" >'
+                + '<div class="input-group">'
+                    +'<textarea class="form-control input-block-level comment-textarea" placeholder="Enter comment text here..."/>'
+                +'</div>'
+                +'<div class="btn-group-xs">'
+                    +'<button class="btn btn-default comment-save-button" type="button" >Save</button>'
+                    +'<button class="btn btn-default comment-cancel-button" type="button" >Cancel</button>'
+                +'</div>'
+            +'</form>';
+            return html;
+        }
     }   
     
     
@@ -168,7 +224,7 @@ $(function() {
                 + '<button id="comment-button#'+ post.id +'" class="btn btn-default">Show comments</button>'
                 + '<button id="comment-add-button#'+ post.id +'" class="btn btn-default">Add comments</button>'
                 + '</div>'
-                + '<div id="add-commentbox-post#'+post.id+'" class="commentbox"></div>'
+                + '<div id="add-commentbox-post_'+post.id+'" class="commentbox"></div>'
                 + '<div id="comments-post#'+post.id+'" class="commentbox"></div>'
                 + '</li>';
     }

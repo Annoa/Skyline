@@ -15,7 +15,7 @@
     border: 1px solid rgb(230, 230, 230);
     border-radius: 5px;
     margin: 0px 0px 5px 0px;
-    padding: 0px 3px 0px 20px;
+    padding: 5px 3px 0px 20px;
 }
 
 .comment-even {
@@ -46,4 +46,10 @@
 .post-textarea {
     width: 600px;
     height: 300px;
+}
+
+.input-block-level {
+    width: 100%; 
+    box-sizing: border-box; 
+    height: 100px;
 }

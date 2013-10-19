@@ -25,6 +25,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Context;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -119,21 +120,23 @@ public class CommentResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addComment(@QueryParam("authorId") Long authorId,
-            @QueryParam("postId") Long postId,
+    public Response addComment(@FormParam("authorId") Long authorId,
+            @FormParam("postId") Long postId,
             @FormParam("text") String text) {
-        Member auth = members.find(authorId);
+        Member author = members.find(authorId);
         Post post = posts.find(postId);
         //TODO: Fix this constructor.
         Comment c = new Comment(text);
         comments.add(c);
         post.addComment(c);
         posts.update(post);
-        auth.addComment(c);
-        members.update(auth);
+        author.addComment(c);
+        members.update(author);
         try {
-            URI uri = uriInfo.getAbsolutePathBuilder().path(c.getId().toString()).build();
-            return Response.ok(uri).build();
+//            URI uri = uriInfo.getAbsolutePathBuilder().path("").build();//c.getId().toString()).build();
+//            return Response.ok(uri).build();
+            return Response.created(uriInfo.getAbsolutePathBuilder()
+                .path(String.valueOf(c.getId())).build()).build();
         } catch (IllegalArgumentException ie) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
