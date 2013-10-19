@@ -1,8 +1,10 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Wall.js is covering the view-part of everything that has to do 
+ * with the wall. As you can see in the methods below this is for 
+ * example things as rendering the posts and their comments.
+ * 
+ * @returns {undefined}
  */
-
 $(function() {
     
     $("#aboutUrl2").remove();
@@ -56,11 +58,12 @@ $(function() {
         $("#add-edit-post #pvideo").val("");
     }
 
-    /**********************************************
-     *   
-     *   Function for redering comments of a post
+    /**
+     * Function rendering comments of the posts and comments of the comments.
+     * 
+     * @param {type} post
+     * @returns {undefined}
      */
-    
     function renderComments(post) {
         skyline_comments.getCommentBox().getRootCommentsForPost(post).done(commentDraw);
         
@@ -74,46 +77,82 @@ $(function() {
         }
     };
     
-    /**********************************************
-     *   
-     *   Function for redering table of all wall posts
+    /**
+     * Function rendering all posts on the wall.
+     * 
+     * @param {type} post
+     * @returns {undefined}
      */
     function renderAllPosts(post) {
         console.log(post[0]);
         $("#postlist").contents().remove();
         var htmlText = '';
         for(var i=0; i<post.length; i++){
+            console.log(post[i]);
             htmlText += convertPostToHTML(post[i]);
         }
         $('#postlist').append(htmlText);
     }
     
+    /**
+     * Function rendering the added post at the bottom of the existing 
+     * posts on the wall. That is, the post is added without re-rendering 
+     * all the posts on the wall.
+     * 
+     * @param {type} post
+     * @returns {undefined}
+     */
     function renderAddedPost(post) {
         //        $('#postlist').append(htmlText);
         console.log("LOL");
         console.log(post);
         $('#postlist').append(convertPostToHTML(post));
     }
-    
+    /**
+     * Function converting data from post into HTML-code.
+     * 
+     * @param {type} post
+     * @returns {String}
+     */
     function convertPostToHTML(post) {
+        console.log("convertToHTML");
         var d = new Date(post.date);
         return '<li>'
-                + '<h2>Title: ' + post.title + '</h2>' 
-                + '<p>Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() + '   ' + d.getHours() + ':' + d.getMinutes() + '</p>' 
-                + '<p>Text: ' + post.bodyText + '</p>' 
+                + '<h4 class="custom-title">The title of the day is ' + post.title + '</h2>' 
+                + '<p class="custom-date">Date: ' + d.getFullYear() + '-' + (d.getMonth()+1) + 
+                    '-' + d.getDate() + '   ' + d.getHours() + 
+                    ':' + d.getMinutes() + '</p>' 
+                + '<p class="custom-body-text">The text I write is  ' + post.bodyText + '</p>' 
                 + '<p>Video link: ' + post.postVideo + '</p>' 
-                + '<iframe width="420" height="345"'
+                + '<p><iframe width="420" height="345"'
                     + 'src="' + convertToYouTubeEmbedLink(post.postVideo) + '">'
-                +' </iframe>'
+                +' </iframe></p>'
                 + '<p>Up Votes = ' + post.upVotes + '</p>'
                 + '<p>Down Votes = ' + post.downVotes + '</p>'
                 + '<br>'
                 + '<p>Post ID: ' + post.id + '</p>' 
                 + '</li>';
     }
-    
+    /**
+     * Function converting a standard youtube watch-link into a youtube 
+     * embedded link.
+     * 
+     * @param {type} link
+     * @returns {String}
+     */
     function convertToYouTubeEmbedLink (link) {
-        return link.replace("http://www.youtube.com/watch?v=", "http://www.youtube.com/embed/");
+        console.log("convertToEmbed");
+        var videoSuffix = link.substring(link.length - 11, link.length)
+            console.log(link.search("youtube.com/watch?v=") + " <- Bad link if -1");
+        if(link.search("youtube.com/watch")!==-1){
+            console.log("Good link");
+            return "http://www.youtube.com/embed/" + videoSuffix;
+        }
+        else{
+            console.log("Bad link, retype as: www.youtube.com/watch?v=.....");
+            return "";
+            
+        }
     }
     
 //    function createWritePostDialog() {

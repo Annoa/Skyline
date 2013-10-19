@@ -1,7 +1,7 @@
 /* 
     Document   : home_style
     Created on : Oct 17, 2013, 5:23:08 PM
-    Author     : Anno
+    Author     : Anno, epoxy
     Description:
         Purpose of the stylesheet follows.
 */
@@ -20,4 +20,17 @@ body {
 
 .navbar-brand {
     font-size: 19pt;
+}
+
+.custom-date {
+    color: gray;
+}
+
+.custom-body-text {
+    font-style: italic;
+    font-family: dancing-script;
+}
+
+.custom-title {
+    font-weight: bold;
 }
