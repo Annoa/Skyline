@@ -6,6 +6,11 @@
         Purpose of the stylesheet follows.
 */
 
+.post {
+    margin: 25px 0px;
+    border-top: 1px dashed rgb(206, 206, 209);
+}
+
 .commentbox{
     margin: 10px 0px 0px 0px;
     padding: 5px 0px;
@@ -48,8 +53,28 @@
     height: 300px;
 }
 
+.voting-span {
+    margin-left: 100px;
+}
+
+.arrow-span {
+    margin-left: 35px;
+}
+
 .input-block-level {
     width: 100%; 
     box-sizing: border-box; 
     height: 100px;
+}
+
+.blue {
+    color: peri;
+}
+
+.periwinkle {
+    color: rgb(195, 195, 229);
+}
+
+.orangered {
+    color: rgb(255, 69, 0);
 }

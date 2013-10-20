@@ -122,12 +122,19 @@ public class CommentResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addComment(@FormParam("authorId") Long authorId,
             @FormParam("postId") Long postId,
+            @FormParam("parentId") Long parentCommentId,
             @FormParam("text") String text) {
         Member author = members.find(authorId);
         Post post = posts.find(postId);
+        log.log(Level.INFO, "Trying to add comment: Author=" + authorId + ", Post="+ postId +", Parent="+ parentCommentId +". text=" + text);
         //TODO: Fix this constructor.
         Comment c = new Comment(text);
         comments.add(c);
+        if (parentCommentId != -1) {
+            Comment parent = comments.find(parentCommentId);
+            parent.addChildComment(c);
+            comments.update(parent);
+        }
         post.addComment(c);
         posts.update(post);
         author.addComment(c);
