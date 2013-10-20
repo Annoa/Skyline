@@ -3,7 +3,7 @@
  */
 $(document).ready(function() {
     
-    $("#contents").load("content/wall.html");
+    $("#contents").load("/skyline_rest/content/wall.html");
 });
 
 

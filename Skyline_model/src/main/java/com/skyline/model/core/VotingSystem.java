@@ -37,6 +37,14 @@ public class VotingSystem implements Comparable<Object>, Serializable {
     public int getValue() {
         return upVote - downVote;
     }
+    
+    public void addUpVote() {
+        upVote += 1;
+    }
+
+    public void addDownVote() {
+        downVote += 1;
+    }
 
     @Override
     public boolean equals(Object o) {

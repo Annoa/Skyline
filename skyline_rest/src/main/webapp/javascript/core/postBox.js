@@ -9,6 +9,17 @@ PostBox.prototype = (function (){
     
     return {
         
+        vote: function(postId, positive) {
+            return $.ajax({
+                type: 'POST',
+                url: this.baseUri + "/vote?postId=" + postId + "&positive=" + positive
+            });
+        },
+                
+        getAuthor: function(postId) {
+            return $.getJSON(this.baseUri + "/author/" + postId);
+        },
+        
         getAll: function() {
             console.log("getAll");
             return $.getJSON(this.baseUri);

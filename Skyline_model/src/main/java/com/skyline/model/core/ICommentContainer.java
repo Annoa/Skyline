@@ -19,4 +19,6 @@ public interface ICommentContainer extends IDAO<Comment,Long> {
    public List<Comment> getChildComments(Comment parent);
    
    public List<Comment> getRootCommentsForPost(Post post);
+   
+   public Member getAuthor(Comment comment);
 }

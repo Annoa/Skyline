@@ -8,6 +8,13 @@ var CommentBox = function(baseUri) {
 CommentBox.prototype = (function() {
 
     return {
+        vote: function(commentId, positive) {
+            return $.ajax({
+                type: 'POST',
+                url: this.baseUri + "/vote?commentId=" + commentId + "&positive=" +positive
+            });
+        },
+        
         getRootCommentsForPost: function(postId) {
             return $.getJSON(this.baseUri + "/" + postId);
         },
@@ -16,9 +23,14 @@ CommentBox.prototype = (function() {
             return $.getJSON(this.baseUri + "/comment/" + commentId);
         },
         
-        getAllOnPost: function() {
-            return $.getJSON(this.baseUri);
+        getAllOnPost: function(postId) {
+            return $.getJSON(this.baseUri + "/all?postId="+ postId);
         },
+                
+        getAuthor: function(commentId) {
+            return $.getJSON(this.baseUri + "/author/" + commentId);
+        },
+        
         add: function(comment) {
             return $.ajax({
                 type: 'POST',
@@ -33,7 +45,7 @@ CommentBox.prototype = (function() {
             });
         },
         find: function(id) {
-            return $.getJSON(this.baseUri + "/" + id);
+            return $.getJSON(this.baseUri + "?id=" + id);
         },
         getRange: function(fst, max) {
             //TODO

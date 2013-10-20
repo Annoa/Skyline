@@ -11,8 +11,6 @@ $(function() {
     //Clear the table
     //    $('#posts tbody').remove();
     skyline.getPostBox().getAll().done(renderAllPosts);
-    
-    //Eventhandling when clicking on a post
 
     //Button add new post
     $("#write-post")
@@ -26,12 +24,10 @@ $(function() {
         var newPost = getFormDialogData();
         clearFormDialogData();
         $("#new-post").attr("hidden",'hidden');
-        
+        newPost.authorId = 1;
         //Creating a new post of the entered values
         var def = skyline.getPostBox().add(newPost);
         def.done(function(addedPost){
-            console.log("post under");
-            console.log(addedPost);
             renderAddedPost(addedPost);
         });
     });
@@ -72,18 +68,22 @@ $(function() {
         
        
         function commentDraw(comments) {
-            
-            if ($('[id="comments-post#' + post + '"]').is(':empty')) {
+            if ($('[id="comments-post_' + post + '"]').is(':empty')) {
                 var even = true;
                 var htm = '';
                 $.each(comments, function(i, el) {
                     recurseChildren(i, el);
                 });
-                function recurseChildren(i, parent) {
+                function recurseChildren(i, parent) {                 
                     var color = ((even) ? 'even' : 'uneven');
+                    var bug = parent.votes === undefined;
+                    var voteup = (bug) ? parent.upVotes : parent.votes.upVote;
+                    var votedown = (bug) ? parent.downVotes : parent.votes.downVote;
                     htm += '<div class="comment comment-' + color + ' comment_'+ parent.id +'"><div>\n\
-                    <span class="glyphicon glyphicon-arrow-up"></span>\n\
-                    <span class="glyphicon glyphicon-arrow-down"></span></div><div><p>'+ parent.commentText + '</p></div>'
+                    <span class="glyphicon glyphicon-arrow-up vote-up">'+ voteup +'</span>\n\
+                    <span class="glyphicon glyphicon-arrow-down vote-down">'+ votedown +'</span>'
+                    + '<span class="medium-distance author"></span></div><div>'
+                    + '<p class="comment-text">'+ parent.commentText + '</p></div>'
                     + '<div class="btn-group-xs">'
                     + '<button class="btn btn-default comment-reply-button" type="button">Reply</button>'
                     + '</div>'
@@ -97,18 +97,20 @@ $(function() {
                     }
                     htm +='</div>';
                 };
-                $('[id="comments-post#' + post + '"]').append(htm);
+                var postDiv = $('[id="comments-post_' + post + '"]');
+                $(postDiv).append(htm);
                 
-                $('[id="comments-post#' + post + '"]')
+                $(postDiv)
                         .find(".comment-reply-button")
                         .button()
                         .click(function() {
                     var targetClasses = $(this).parent().parent().attr('class');
                     var targetId = targetClasses.substr(targetClasses.indexOf("_")+1);
                     
-                    var targetDiv = $(this).parent().parent().find("[class^=add-commentbox-post_]");
+                    var targetDiv = $(this).parent().parent().find("[class^=add-commentbox-post_]").first();
                     if ($(targetDiv).is(":empty")) {
                         var htm = addCommentBoxWithParent(targetId);
+                        console.log($(targetDiv));
                         $(targetDiv).append(htm);
                         
                         $(targetDiv).find(".comment-save-button")
@@ -126,7 +128,6 @@ $(function() {
                             
                             $(targetDiv).find(".comment-textarea").val("");
                             skyline_comments.getCommentBox().add(comment).done(function() {
-                                console.log("Trying to render comments for post: " + post);
                                 location.reload();
                             });
                         });
@@ -144,13 +145,54 @@ $(function() {
                         }
                     }
                 });
-                        
-//                        $(this)
-//                        .button()
-//                        .click(function() {
-//                    console.log($(this).parent());
-//                    })
-//                   );     
+                
+                $(postDiv).find('.vote-up').click(function() {
+                    var commentIdentifier = $(this).parent().parent().attr('class');
+                    var commentId = commentIdentifier.substr(commentIdentifier.indexOf('comment_')+7+1);
+                    if ($(this).attr('class').indexOf('orangered') === -1) {
+                        $(this).addClass('orangered');
+                    }
+                    console.log("Vote on: id=" + commentId + ", positive=" + true);
+                    skyline_comments.getCommentBox().vote(commentId, true);
+                });
+                
+                $(postDiv).find('.vote-down').click(function() {
+                   var commentIdentifier = $(this).parent().parent().attr('class');
+                    var commentId = commentIdentifier.substr(commentIdentifier.indexOf('comment_')+7+1);
+                    if ($(this).attr('class').indexOf('periwinkle') === -1) {
+                        $(this).addClass('periwinkle');
+                    }
+                    console.log("Vote on: id=" + commentId + ", positive=" + false);
+                    skyline_comments.getCommentBox().vote(commentId, false); 
+                });
+                
+                $(postDiv).find('div.comment').each(function() {
+                    console.log(this);
+                    var classText = $(this).attr('class');
+                    var commentId = classText.substr(classText.indexOf("comment_")+8);
+                    skyline_comments.getCommentBox().getAuthor(commentId).done(function(author) {
+                        // In order to find by the full class name we replace (all) spaces with dots
+                        var realClassText = classText.replace(/ /g,'.');
+                        $(postDiv).find("."+realClassText).find('.author').first().append(author.name);
+                    });
+                });
+//                $("[id^=post_]").find('.vote-up').click(function() {
+//                    var postIdentifier = $(this).parents('li').attr('id');
+//                    var postId = postIdentifier.substr(postIdentifier.indexOf('#')+1);
+//                    if ($(this).attr('class').indexOf('orangered') === -1) {
+//                        $(this).addClass('orangered')
+//                    }
+//                    skyline.getPostBox().vote(postId, true);
+//                });
+//
+//                $("[id^=post_]").find('.vote-down').click(function() {
+//                    var postIdentifier = $(this).parents('li').attr('id');
+//                    var postId = postIdentifier.substr(postIdentifier.indexOf('#')+1);
+//                    if ($(this).attr('class').indexOf('periwinkle') === -1) {
+//                        $(this).addClass('periwinkle')
+//                    }
+//                    skyline.getPostBox().vote(postId, false);
+//                });
                 
                 function addCommentBoxWithParent(parentComment) {
                     var commentHtml = '<form id="add-commentbox-post_'+ post +'-parent_' + parentComment + '" class="write-post-form" >'
@@ -189,7 +231,7 @@ $(function() {
             .click(function(){
                 var targetId = $(this).attr('id');
                 var target = targetId.substr(targetId.indexOf("#")+1);
-                var targetDiv = $('[id="comments-post#' + target + '"]')
+                var targetDiv = $('[id="comments-post_' + target + '"]')
                 if ($(targetDiv).is(':empty')) {
                     renderComments(target);
                     // If no comments where gotten we don't change name
@@ -228,8 +270,12 @@ $(function() {
                             comment.authorId = 1;
                             //******
                             $(tar).find(".comment-textarea").val("");
+
+//                            $("#new-post").attr("hidden",'hidden');
+//                            skyline_comments.getCommentBox().add(comment)
+//                                    .then($("#contents").load("/skyline_rest/content/wall.html"));
+
                             skyline_comments.getCommentBox().add(comment).done(function() {
-                                console.log("Trying to render comments for post: " + target);
                                 location.reload();
                             });
                         });
@@ -246,6 +292,34 @@ $(function() {
                     }
                 }
             });
+            
+        $("[id^=post_]").find('.vote-up').click(function() {
+            var postIdentifier = $(this).parents('li').attr('id');
+            var postId = postIdentifier.substr(postIdentifier.indexOf('_')+1);
+            if ($(this).attr('class').indexOf('orangered') === -1) {
+                $(this).addClass('orangered')
+            }
+            skyline.getPostBox().vote(postId, true);
+        });
+        
+        $("[id^=post_]").find('.vote-down').click(function() {
+            var postIdentifier = $(this).parents('li').attr('id');
+            var postId = postIdentifier.substr(postIdentifier.indexOf('_')+1);
+            if ($(this).attr('class').indexOf('periwinkle') === -1) {
+                $(this).addClass('periwinkle')
+            }
+            skyline.getPostBox().vote(postId, false);
+        });
+        
+        $("[id^=post_]").each(function() {
+            var targetLi = $(this).attr('id');
+            var postId = targetLi.substr(targetLi.indexOf("_")+1);
+            skyline.getPostBox().getAuthor(postId).done(function(author) {
+                $("#post_"+postId).find('.author').html(author.name);
+//                $("#"+targetLi).find('.author')//.first().append(author.name);
+            });     
+        });
+        
         
         
         function addCommentBox(post) {
@@ -261,7 +335,6 @@ $(function() {
             return html;
         }
     }   
-    
     
     /**
      * Function rendering the added post at the bottom of the existing 
@@ -284,8 +357,9 @@ $(function() {
         var d = new Date(post.date);
         var video = convertToYouTubeEmbedLink(post.postVideo);
         var videoLink = (video.length === 0) ? '' : '<p><iframe width="420" height="345" src="' + video + '">' +' </iframe>' + '</p>';
-        return '<li id="post#' + post.id + '" class="post">'
-                + '<h4 class="custom-title">' + post.title + '</h2>' 
+        return '<li id="post_' + post.id + '" class="post">'
+                + '<h2 class="custom-title">' + post.title + '</h2>'
+                + '<p class="author"></p>'
                 + '<p class="custom-date">Posted on: ' + d.getFullYear() + '-' + (d.getMonth()+1) + 
                     '-' + d.getDate() + '   ' + (d.getHours() < 10 ? '0' : '') + d.getHours() + 
                     ':' + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes() + '</p>' 
@@ -295,14 +369,14 @@ $(function() {
                 + '<p>Post ID: ' + post.id + '</p>'
                 + '<div class="btn-group btn-group-sm voting-div">'
                 + '<button id="comment-button#'+ post.id +'" class="btn btn-default">Show comments</button>'
-                + '<button id="comment-add-button#'+ post.id +'" class="btn btn-default">Add comments</button>'
+                + '<button id="comment-add-button#'+ post.id +'" class="btn btn-default">Reply</button>'
                 + '<span class="voting-span">'
-                + '<span class="glyphicon glyphicon-arrow-up orangered">' + post.upVotes + '</span>'
-                + '<span class="glyphicon glyphicon-arrow-down arrow-span periwinkle">' + post.downVotes + '</span>'
+                + '<span class="glyphicon glyphicon-arrow-up vote-up">' + post.upVotes + '</span>'
+                + '<span class="glyphicon glyphicon-arrow-down vote-down">' + post.downVotes + '</span>'
                 + '</span>'
                 + '</div>'
                 + '<div id="add-commentbox-post_'+post.id+'" class="commentbox"></div>'
-                + '<div id="comments-post#'+post.id+'" class="commentbox"></div>'
+                + '<div id="comments-post_'+post.id+'" class="commentbox"></div>'
                 + '</li>';
     }
     /**

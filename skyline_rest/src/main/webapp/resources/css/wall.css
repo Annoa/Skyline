@@ -33,7 +33,7 @@
 
 .custom-date {
     color: gray;
-    font-size: small;
+    font-size: smaller;
 }
 
 .custom-body-text {
@@ -57,10 +57,6 @@
     margin-left: 100px;
 }
 
-.arrow-span {
-    margin-left: 35px;
-}
-
 .input-block-level {
     width: 100%; 
     box-sizing: border-box; 
@@ -72,9 +68,22 @@
 }
 
 .periwinkle {
-    color: rgb(195, 195, 229);
+    color: #9494FF;
 }
 
 .orangered {
     color: rgb(255, 69, 0);
+}
+
+
+.medium-distance {
+    margin-left: 35px;
+}
+
+.comment-text {
+    margin: 5px 0px;
+}
+
+.author {
+    font-weight: bold;
 }

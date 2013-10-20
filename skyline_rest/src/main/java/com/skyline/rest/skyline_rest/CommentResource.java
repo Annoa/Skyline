@@ -4,6 +4,7 @@ import com.skyline.model.core.Comment;
 import com.skyline.model.core.ICommentContainer;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
+import com.skyline.model.core.VotingSystem;
 import com.skyline.model.utils.IDAO;
 import java.net.URI;
 import java.util.ArrayList;
@@ -35,32 +36,34 @@ import org.codehaus.jettison.json.JSONObject;
 public class CommentResource {
 
     private final static Logger log = Logger.getAnonymousLogger();
-    private final ICommentContainer comments = Blog.INSTANCE.getCommentContainer();
+    private ICommentContainer comments = Blog.INSTANCE.getCommentContainer();
     private IDAO<Member, Long> members = Blog.INSTANCE.getMembersRegistry();
     private IDAO<Post, Long> posts = Blog.INSTANCE.getPostContainer();
     @Context
     private UriInfo uriInfo;
 
     //TODO: Is it FormParam or PathParam?
-//    @GET
-//    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-//    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-//    public Response getAllOnPost(@QueryParam("postId") Long postId) {
-//        Post p = posts.find(postId);
-//        List<Comment> cList = p.getComments();
-//        List<CommentProxy> wrappedComments = new ArrayList();
-//        try {
-//            for (Comment parent : cList) {
-//                wrappedComments.add(new CommentProxy(parent));
-//            }
-//            GenericEntity<List<CommentProxy>> ge =
-//                    new GenericEntity<List<CommentProxy>>(wrappedComments) {
-//            };
-//            return Response.ok(ge).build();
-//        } catch (IllegalArgumentException ie) {
-//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
+    @GET
+    @Path("all")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getAllOnPost(@QueryParam("postId") Long postId) {
+        Post p = posts.find(postId);
+        List<Comment> cList = p.getComments();
+        List<CommentProxy> wrappedComments = new ArrayList();
+        try {
+            for (Comment parent : cList) {
+                wrappedComments.add(new CommentProxy(parent));
+            }
+            GenericEntity<List<CommentProxy>> ge =
+                    new GenericEntity<List<CommentProxy>>(wrappedComments) {
+            };
+            return Response.ok(ge).build();
+        } catch (IllegalArgumentException ie) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
     @GET
     @Path("{postId}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -84,10 +87,9 @@ public class CommentResource {
     }
 
     @GET
-    @Path("comment/{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getChildComments(@PathParam("id") Long commentId) {
+    public Response getChildComments(@QueryParam("id") Long commentId) {
         Comment parent = comments.find(commentId);
         List<Comment> childList;
         childList = comments.getChildComments(parent);
@@ -105,18 +107,19 @@ public class CommentResource {
         }
     }
 
-//    @GET
-//    @Path("comment/{id}")
-//    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-//    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-//    public Response find(@PathParam("id") Long id) {
-//        try {
-//            CommentProxy cp = new CommentProxy(comments.find(id));
-//            return Response.ok(cp).build();
-//        } catch (IllegalArgumentException ie) {
-//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-//        }
-//    }
+    @GET
+    @Path("comment/{id}")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response find(@PathParam("id") Long id) {
+        try {
+            CommentProxy cp = new CommentProxy(comments.find(id));
+            return Response.ok(cp).build();
+        } catch (IllegalArgumentException ie) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -224,5 +227,36 @@ public class CommentResource {
         };
 
         return Response.ok(ge).build();
+    }
+    
+    @POST
+    @Path("vote")
+    public Response vote(@QueryParam("commentId") Long commentId, @QueryParam("positive") boolean positive) {
+        try {
+            Comment comment = comments.find(commentId);
+            VotingSystem votes = comment.getVotes();
+            if (positive) {
+                votes.addUpVote();
+            } else {
+                votes.addDownVote();
+            }
+            comments.update(comment);
+            return Response.ok().build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    @GET
+    @Path("author/{commentId}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getAuthor(@PathParam("commentId") Long commentId) {
+        try {
+            Comment comment = comments.find(commentId);
+            MemberProxy member = new MemberProxy(comments.getAuthor(comment));
+            return Response.ok(member).build();
+        } catch (IllegalArgumentException ie) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

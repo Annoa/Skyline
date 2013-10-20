@@ -1,5 +1,7 @@
 package com.skyline.rest.skyline_rest;
 
+import com.skyline.model.core.IMemberRegistry;
+import com.skyline.model.core.IPostContainer;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
 import com.skyline.model.core.VotingSystem;
@@ -34,16 +36,16 @@ import javax.ws.rs.core.UriInfo;
 public class PostBoxResource {
 
     private final static Logger log = Logger.getAnonymousLogger();
-    private IDAO<Post, Long> postBox = Blog.INSTANCE.getPostContainer();
-    private IDAO<Member, Long> memberBox = Blog.INSTANCE.getMembersRegistry();
+    private IPostContainer postBox = Blog.INSTANCE.getPostContainer();
+    private IMemberRegistry memberRegistry = Blog.INSTANCE.getMembersRegistry();
     // Helper class used to build URI's. Injected by container
     @Context
     private UriInfo uriInfo;
-
+    
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAll() {
-        List postList = postBox.getRange(0, postBox.getCount());
+        List postList = postBox.getRangeByVotes(0, postBox.getCount());
         List<PostProxy> wrappedPostList = new ArrayList();
         for (int i = 0; i < postList.size(); i++) {
             Post p = (Post) postList.get(i);
@@ -96,26 +98,45 @@ public class PostBoxResource {
             @FormParam("title") String title,
             @FormParam("bodyText") String bodyText,
             //@FormParam("PostPicture") byte[] postPicture,
-            @FormParam("postVideo") String postVideo) {
-//        Member mWhoWroteThePost = memberBox.find(idMember);
+            @FormParam("postVideo") String postVideo,
+            @FormParam("authorId") Long authorId) {
+        
        /* byte[] postPic;
         if (postPicture!=null) {
             postPic = postPicture;
         } else {
             postPic = new byte[0];
         }*/
-        String postVid;
-        if (postVideo!=null) {
-            postVid = postVideo;
-        } else {
-            postVid = "No video";
-        }
+        String postVid = (postVideo!=null) ? postVideo : "No video";
+        Member author = memberRegistry.find(authorId);
         Post p = new Post(title, bodyText, null, postVid);
         try {
             postBox.add(p);
+            author.addPost(p);
+            memberRegistry.update(author);
+
             PostProxy pp = new PostProxy(p);
             return Response.ok(pp).build();
         } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    @POST
+    @Path("vote")
+    public Response vote(@QueryParam("postId") Long postId, @QueryParam("positive") boolean positive) {
+        try {
+            Post post = postBox.find(postId);
+            VotingSystem votes = post.getVotes();
+            if (positive) {
+                votes.addUpVote();
+            } else {
+                votes.addDownVote();
+            }
+            postBox.update(post);
+            return Response.ok().build();
+        } catch (IllegalArgumentException e) {
+            log.log(Level.WARNING, e.getLocalizedMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -216,4 +237,19 @@ public class PostBoxResource {
 //        };
 //        return Response.ok(ge).build();
 //    }
+    
+    @GET
+    @Path("author/{postId}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getAuthor(@PathParam("postId") Long postId) {
+        try {
+            log.log(Level.INFO, "Inside getAuthor");
+            Post post = postBox.find(postId);
+            log.log(Level.INFO, "After post");
+            MemberProxy member = new MemberProxy(postBox.getAuthor(post));
+            return Response.ok(member).build();
+        } catch (IllegalArgumentException ie) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
