@@ -26,7 +26,14 @@ $(function() {
         var newPost = getFormDialogData();
         clearFormDialogData();
         $("#new-post").attr("hidden",'hidden');
-        skyline.getPostBox().add(newPost).then(renderAddedPost(newPost));
+        
+        //Creating a new post of the entered values
+        var def = skyline.getPostBox().add(newPost);
+        def.done(function(addedPost){
+            console.log("post under");
+            console.log(addedPost);
+            renderAddedPost(addedPost);
+        });
     });
 
     //Button: Cancel post form
@@ -269,8 +276,7 @@ $(function() {
      * @returns {undefined}
      */
     function renderAddedPost(post) {
-        //        $('#postlist').append(htmlText);
-        $('#postlist').append(convertPostToHTML(post));
+        $('#postlist').prepend(convertPostToHTML(post));
     }
     /**
      * Function converting data from post into HTML-code.

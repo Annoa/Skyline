@@ -1,5 +1,6 @@
 package com.skyline.model.utils;
 
+import com.skyline.model.core.Post;
 import java.util.List;
 
 /**

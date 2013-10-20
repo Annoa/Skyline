@@ -77,7 +77,12 @@ public class PostBoxResource {
     }
 
     /**
-     *
+     * Method to add a new post. To make the use of this method efficient 
+     * it is returning the added post, which means that the javascript getting
+     * the new post values can render it instantly.
+     * This is the reason why this method is returning a 200 OK-message 
+     * instead of a 201 Created-message.
+     * 
      * @param idMember Long to find the member who wrote the post
      * @param title String
      * @param bodyText String the bodyText
@@ -86,7 +91,7 @@ public class PostBoxResource {
      */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public Response addPost(
             @FormParam("title") String title,
             @FormParam("bodyText") String bodyText,
@@ -108,8 +113,8 @@ public class PostBoxResource {
         Post p = new Post(title, bodyText, null, postVid);
         try {
             postBox.add(p);
-            URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf("title")).build(p);
-            return Response.created(uri).build();
+            PostProxy pp = new PostProxy(p);
+            return Response.ok(pp).build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
