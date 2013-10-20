@@ -28,7 +28,7 @@ import javax.persistence.TemporalType;
 public class Comment extends AbstractEntity implements Comparable<Comment>, Serializable{
 
 //    private Post post;
-    @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
+    @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
     @JoinColumn(name="PARENTCOMMENT", referencedColumnName="ID")
     private Set<Comment> childComments;
     @Lob

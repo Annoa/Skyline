@@ -86,4 +86,13 @@ implements ICommentContainer {
         
     }
     
+    public Member getAuthor(Comment comment) {
+        EntityManager em = super.getEntityManager();
+        TypedQuery<Member> query = em.createQuery
+                ("select m from Member m where :comment MEMBER OF m.comments", Member.class);
+        query.setParameter("comment", comment);
+        
+        return query.getSingleResult();
+    }
+    
 }
