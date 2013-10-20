@@ -26,7 +26,20 @@ $(function() {
         var newPost = getFormDialogData();
         clearFormDialogData();
         $("#new-post").attr("hidden",'hidden');
-        skyline.getPostBox().add(newPost).then(renderAddedPost(newPost));
+        
+        //Creating a new post of the entered values
+        var def = skyline.getPostBox().add(newPost);
+        def.done(function(addedPost){
+            console.log("post under");
+            console.log(addedPost);
+            renderAddedPost(addedPost);
+        });
+          
+//          def.done(function(json){
+//             console.log(json); 
+//          });
+          
+          
     });
 
     //Button: Cancel post form
