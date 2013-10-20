@@ -5,6 +5,7 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractEntity;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +14,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,12 +25,13 @@ import javax.persistence.TemporalType;
  * @author Gabriel
  */
 @Entity
-public class Comment extends AbstractEntity implements Comparable<Comment>{
+public class Comment extends AbstractEntity implements Comparable<Comment>, Serializable{
 
 //    private Post post;
     @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
     @JoinColumn(name="PARENTCOMMENT", referencedColumnName="ID")
     private Set<Comment> childComments;
+    @Lob
     private String commentText;
     @Temporal(TemporalType.DATE)
     private Date commentDate;

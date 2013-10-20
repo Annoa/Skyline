@@ -6,24 +6,22 @@ and open the template in the editor.
 <html>
     <head>
         <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
-        <script type="text/javascript" src="javascript/core/comment.js"></script>
-        <script type="text/javascript" src="javascript/gui/wall.js"></script>
-        <script type="text/javascript" src="javascript/core/skyline_comments.js"></script>
-        <link href="resources/css/wall.css" rel="stylesheet" />
-        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <script type="text/javascript" src="../lib/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="../lib/jquery-ui-1.10.2.custom.js"></script>
+        <script type="text/javascript" src="../javascript/gui/wall.js"></script>
+        <script type="text/javascript" src="../javascript/core/memberregistry.js"></script>
+        <script type="text/javascript" src="../javascript/core/postBox.js"></script>
+        <script type="text/javascript" src="../javascript/core/skyline_member.js"></script>
+        <script type="text/javascript" src="../javascript/core/skyline.js"></script> 
+        <script type="text/javascript" src="../javascript/core/comment.js"></script>
+        <script type="text/javascript" src="../javascript/gui/index.js"></script>
     </head>
-
     <body>
-        <!--<button id="write-post" class="btn btn-default">Write new post</button><br><br>-->
-
-        <form action="login" method="post">
-            <input type="submit" value="write-post" class="btn btn-default"/><br>
-        </form>
-
-        <!--button id="write-post" class="btn">Write new post</button><br><br-->
-        <form id="new-post" class="write-post-form" hidden>   
+        <!--div>
+            <button id="write-post">Write new post</button><br><br>
+        </div-->
+        <form id="new-post" class="write-post-form">   
             <div class="input-group">
                 <label for="ptitle">Title</label>
                 <input type="text" id="ptitle" class="form-control" placeholder="Enter title" />
@@ -40,14 +38,18 @@ and open the template in the editor.
                 <button class="btn btn-default" type="button" id="cancel-post"  >Cancel</button>
             </div>
         </form>
+       
+        <div>
+            All posts below:<br></br>
+        </div>
         <!--divider to store all posts in-->
 
-        <div class="post">
-            <ul id="postlist" class="postlist">
+        <div class="container">
+            <ol id="postlist">
                 <li>
                     <h2>post 1</h2>
                     <p>lorem ipsum lol</p>
-                    <div class="comments" hidden>
+                    <div class="comments"><!-- hidden-->
                         <ol>
                             <li>
                                 kommmentar 1
@@ -58,7 +60,7 @@ and open the template in the editor.
                         </ol>
                     </div>
                 </li>
-            </ul>
+            </ol>
         </div>
     </body>
 </html>

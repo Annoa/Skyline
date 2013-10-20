@@ -22,17 +22,27 @@ implements ICommentContainer {
     }
     
     public List<Comment> getAllCommentsOnPost(Post post) {
-        EntityManager em = super.getEntityManager();
-        TypedQuery<Object[]> query = em.createQuery
-                ("select c, c.votes.upVote - c.votes.downVote AS b "
-                + "from Post p JOIN p.comments c where "
-                + "p.id = :id order by b DESC", Object[].class);
-        query.setParameter("id", post.getId());
-        
-        List<Object[]> result = query.getResultList();
+        EntityManager em = null;
         List<Comment> commentList = new ArrayList<Comment>();
-        for (Object[] obj : result) {
-            commentList.add((Comment) obj[0]);
+        try {
+            em = super.getEntityManager();
+            TypedQuery<Object[]> query = em.createQuery
+                    ("select c, c.votes.upVote - c.votes.downVote AS b "
+                    + "from Post p JOIN p.comments c where "
+                    + "p.id = :id order by b DESC", Object[].class);
+            query.setParameter("id", post.getId());
+
+            List<Object[]> result = query.getResultList();
+            
+            for (Object[] obj : result) {
+                commentList.add((Comment) obj[0]);
+            }
+        } catch (Exception ex) {
+            System.out.println("getAllCommentsOnPost={" + ex.getMessage() + "}");
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
         return commentList;
     }
@@ -51,6 +61,7 @@ implements ICommentContainer {
             commentList.add((Comment) obj[0]);
         }
         
+        em.close();
         return commentList;
         
     }
@@ -60,7 +71,7 @@ implements ICommentContainer {
         TypedQuery<Object[]> query = em.createQuery
                 ("SELECT c, c.votes.upVote - c.votes.downVote AS b "
                 + "FROM Post p JOIN p.comments c WHERE NOT EXISTS "
-                + "(SELECT cC FROM Comment p JOIN p.childComments cC "
+                + "(SELECT cC FROM Comment x JOIN x.childComments cC "
                 + "WHERE c.id = cC.id) AND p.id = :id "
                 + "ORDER BY b DESC", Object[].class);
         query.setParameter("id", post.getId());
@@ -70,6 +81,7 @@ implements ICommentContainer {
         for (Object[] obj : result) {
             commentList.add((Comment) obj[0]);
         }
+        em.close();
         return commentList;
         
     }

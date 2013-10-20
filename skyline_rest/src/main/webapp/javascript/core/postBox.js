@@ -10,10 +10,12 @@ PostBox.prototype = (function (){
     return {
         
         getAll: function() {
+            console.log("getAll");
             return $.getJSON(this.baseUri);
         },
 
         add: function( post ){
+            console.log("add Post");
             return $.ajax({
                 type: 'POST',
                 url: this.baseUri,
