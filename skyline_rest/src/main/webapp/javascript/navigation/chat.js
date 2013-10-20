@@ -4,7 +4,8 @@
  */   
     $(document).ready(function() {
         $("#aboutUrl").remove();
-    
         $(".menuItem").parent().removeClass("active");
         $("#chat").parent().addClass("active");
     });
+
+
