@@ -272,7 +272,6 @@ $(function() {
      * @returns {undefined}
      */
     function renderAddedPost(post) {
-        //        $('#postlist').append(htmlText);
         $('#postlist').prepend(convertPostToHTML(post));
     }
     /**
