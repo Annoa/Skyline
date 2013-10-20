@@ -3,8 +3,8 @@
  */
 $(document).ready(function() {
     
-    $("#contents").load("content/wall.html");
-    
+    $("#contents").load("/skyline_rest/content/wall.html");
+
     $("#tabs").tabs({
         beforeLoad: function(event, ui) {
             ui.jqXHR.error(function() {
@@ -16,7 +16,7 @@ $(document).ready(function() {
     });
     
     $("#wall").click(function(event) {
-        $("#contents").load("content/wall.html");
+        $("#contents").load("/skyline_rest/content/wall.html");
         resetActive();
         $("#wall").parent().addClass("active");
         
@@ -24,7 +24,7 @@ $(document).ready(function() {
     });
     
     $("#myPage").click(function(event) {
-        $("#contents").load("content/myPage.html");
+        $("#contents").load("/skyline_rest/content/myPage.html");
         resetActive();
         $("#myPage").parent().addClass("active");
         
@@ -32,14 +32,14 @@ $(document).ready(function() {
     });
     
     $("#members").click(function(event) {
-        $("#contents").load("content/members.html");
+        $("#contents").load("/skyline_rest/content/members.html");
         resetActive();
         $("#members").parent().addClass("active");
         
         event.preventDefault();
     });
     $("#login").click(function(event) {
-        $("#contents").load("author/pageLogin.html");
+        $("#contents").load("/skyline_rest/author/pageLogin.html");
         resetActive();
         $("#logout").parent().addClass("active");
         
@@ -47,14 +47,14 @@ $(document).ready(function() {
         event.preventDefault();
     });
      $("#logout").click(function(event) {
-        $("#contents").load("author/logout.html");
+        $("#contents").load("/skyline_rest/author/logout.html");
         resetActive();
         $("#logout").parent().addClass("active");
         
         
         event.preventDefault();
     });
-    
+
     
     function resetActive() {
         $(".menuItem").parent().removeClass("active");

@@ -25,7 +25,11 @@ $(function() {
         clearFormDialogData();
         $("#new-post").attr("hidden",'hidden');
         newPost.authorId = 1;
-        skyline.getPostBox().add(newPost).then(renderAddedPost(newPost));
+        //Creating a new post of the entered values
+        var def = skyline.getPostBox().add(newPost);
+        def.done(function(addedPost){
+            renderAddedPost(addedPost);
+        });
     });
 
     //Button: Cancel post form
@@ -266,6 +270,11 @@ $(function() {
                             comment.authorId = 1;
                             //******
                             $(tar).find(".comment-textarea").val("");
+
+//                            $("#new-post").attr("hidden",'hidden');
+//                            skyline_comments.getCommentBox().add(comment)
+//                                    .then($("#contents").load("/skyline_rest/content/wall.html"));
+
                             skyline_comments.getCommentBox().add(comment).done(function() {
                                 location.reload();
                             });
@@ -336,8 +345,7 @@ $(function() {
      * @returns {undefined}
      */
     function renderAddedPost(post) {
-        //        $('#postlist').append(htmlText);
-        $('#postlist').append(convertPostToHTML(post));
+        $('#postlist').prepend(convertPostToHTML(post));
     }
     /**
      * Function converting data from post into HTML-code.
