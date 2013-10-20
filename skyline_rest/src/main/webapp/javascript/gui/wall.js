@@ -34,12 +34,6 @@ $(function() {
             console.log(addedPost);
             renderAddedPost(addedPost);
         });
-          
-//          def.done(function(json){
-//             console.log(json); 
-//          });
-          
-          
     });
 
     //Button: Cancel post form
@@ -279,7 +273,7 @@ $(function() {
      */
     function renderAddedPost(post) {
         //        $('#postlist').append(htmlText);
-        $('#postlist').append(convertPostToHTML(post));
+        $('#postlist').prepend(convertPostToHTML(post));
     }
     /**
      * Function converting data from post into HTML-code.
