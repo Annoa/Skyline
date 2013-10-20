@@ -39,7 +39,7 @@ public class PostBoxResource {
     // Helper class used to build URI's. Injected by container
     @Context
     private UriInfo uriInfo;
-
+    
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAll() {

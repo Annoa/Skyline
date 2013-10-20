@@ -153,7 +153,7 @@ $(function() {
                             $(tar).find(".comment-textarea").val("");
                             $("#new-post").attr("hidden",'hidden');
                             skyline_comments.getCommentBox().add(comment)
-                                    .then($("#contents").load("content/wall.html"));
+                                    .then($("#contents").load("/skyline_rest/content/wall.html"));
                         });
                     $(tar).find(".comment-cancel-button")
                                 .button()

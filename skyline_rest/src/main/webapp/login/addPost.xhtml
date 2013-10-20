@@ -8,10 +8,24 @@ and open the template in the editor.
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
-      
+        <!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+        <script type="text/javascript" src="../lib/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="../lib/jquery-ui-1.10.2.custom.js"></script>
+        <script type="text/javascript" src="../javascript/gui/wall.js"></script>
+        <script type="text/javascript" src="../javascript/core/memberregistry.js"></script>
+        <script type="text/javascript" src="../javascript/core/postBox.js"></script>
+        <script type="text/javascript" src="../javascript/core/skyline_member.js"></script>
+        <script type="text/javascript" src="../javascript/core/skyline.js"></script> 
+        <script type="text/javascript" src="../javascript/core/comment.js"></script>
+        <!--script type="text/javascript" src="../javascript/gui/index.js"></script-->
+        <script type="text/javascript" src="../javascript/gui/addPost.js"></script>
    </h:head>
     <h:body>
-        <ui:include src="/WEB-INF/navigation.xhtml">problem loading navigation</ui:include>
-        <ui:include  src="/login/AddPost.html">problem loading authors</ui:include>
+        <ui:include src="/WEB-INF/navigation.xhtml">problem loading navigation</ui:include> 
+        <button id="write-post" class="btn">Write new post</button><br></br>
+        <div class="container">
+            <div id="add-post-content" class="container"></div>
+        </div>
+        
     </h:body>
 </html>

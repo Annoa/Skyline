@@ -8,19 +8,18 @@ and open the template in the editor.
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
-        <script type="text/javascript" src="javascript/core/comment.js"></script>
-        <script type="text/javascript" src="javascript/gui/wall.js"></script>
-        <script type="text/javascript" src="javascript/core/skyline_comments.js"></script>
-        <link href="resources/css/wall.css" rel="stylesheet" />
+        <script type="text/javascript" src="/skyline_rest/javascript/core/comment.js"></script>
+        <script type="text/javascript" src="/skyline_rest/javascript/gui/wall.js"></script>
+        <script type="text/javascript" src="/skyline_rest/javascript/core/skyline_comments.js"></script>
+        <link href="/skyline_rest/resources/css/wall.css" rel="stylesheet" />
         
     </head>
 
     <body>
-        <!--<button id="write-post" class="btn btn-default">Write new post</button><br><br>-->
-
-        <form action="login" method="post">
-            <input type="submit" value="write-post" class="btn btn-default"/><br>
-        </form>
+        <div id ="link-to-post">
+            <a class="menuItem" href="/skyline_rest/login/addPost.xhtml">addPost</a>
+        </div>
+        
 
         <!--button id="write-post" class="btn">Write new post</button><br><br-->
         <form id="new-post" class="write-post-form" hidden>   
