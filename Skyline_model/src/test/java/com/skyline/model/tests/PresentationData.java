@@ -22,7 +22,7 @@ import org.junit.BeforeClass;
  *
  * @author tomassellden
  */
-public class TestData {
+public class PresentationData {
 
     static IBlog blog;
     private final static String PU = "skyline_pu";
