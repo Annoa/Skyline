@@ -14,10 +14,12 @@ $(function() {
     function addMember() {
         var newMember = getFormDialogData();
         console.log(newMember);
-        skyline_member.getMemberRegistry().add(newMember);
-        skyline_member.getMemberRegistry().getCount().done(function(nMembers) {
-            console.log(nMembers.value);
+        skyline_member.getMemberRegistry().add(newMember).done(function(member) {
+            console.log(member);
         });
+//        skyline_member.getMemberRegistry().getCount().done(function(nMembers) {
+//            console.log(nMembers.value);
+//        });
     }
     function getFormDialogData() {
         var member = {};

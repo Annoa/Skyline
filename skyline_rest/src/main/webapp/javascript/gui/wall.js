@@ -123,7 +123,7 @@
                             comment.parentId = targetId;
                             //******
                             // Test AUTHOR!
-                            comment.authorId = 1;
+//                            comment.authorId = 1;
                             //******
                             
                             $(targetDiv).find(".comment-textarea").val("");
@@ -268,7 +268,7 @@
                             comment.parentId = -1;
                             //******
                             // Test AUTHOR!
-                            comment.authorId = 1;
+//                            comment.authorId = 1;
                             //******
                             $(tar).find(".comment-textarea").val("");
 
