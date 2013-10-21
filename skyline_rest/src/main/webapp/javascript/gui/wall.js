@@ -69,6 +69,13 @@
         
        
         function commentDraw(comments) {
+            if ($(comments).is(':empty')) {
+                $("[id=comment-button#"+post+"]").html("Hide comments");
+                $.cookie('post-comment-show_'+post, true);
+            } else {
+                $("[id=comment-button#"+post+"]").html("Show comments");
+                $.cookie('post-comment-show_'+post, false);
+            }
             if ($('[id="comments-post_' + post + '"]').is(':empty')) {
                 var even = true;
                 var htm = '';
@@ -121,10 +128,6 @@
                             comment.text = $(targetDiv).find(".comment-textarea").val();
                             comment.postId = post;
                             comment.parentId = targetId;
-                            //******
-                            // Test AUTHOR!
-//                            comment.authorId = 1;
-                            //******
                             
                             $(targetDiv).find(".comment-textarea").val("");
                             skyline_comments.getCommentBox().add(comment).done(function() {
@@ -230,15 +233,9 @@
             .click(function(){
                 var targetId = $(this).attr('id');
                 var target = targetId.substr(targetId.indexOf("#")+1);
-                var targetDiv = $('[id="comments-post_' + target + '"]')
+                var targetDiv = $('[id="comments-post_' + target + '"]');
                 if ($(targetDiv).is(':empty')) {
-                    renderComments(target);
-                    // If no comments where gotten we don't change name
-                    
-                    if ($(targetDiv).is(':empty')) {
-                        $(this).html("Hide comments");
-                        $.cookie('post-comment-show_'+target, true);
-                    }
+                    renderComments(target)
                 } else {
                     $(this).html("Show comments");
                     $(targetDiv).contents().remove();
