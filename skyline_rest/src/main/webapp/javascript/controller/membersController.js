@@ -1,8 +1,11 @@
 
 
 $(function(){
-    console.log("memberscontroller is running");
+    if(wallLoaderIdentifier==="favorites"){
+        console.log("memberscontroller is running");
+        console.log(skyline.getPostBox().getPostByFavorites());
+        skyline.getPostBox().getPostByFavorites().done(GUI.renderAllPosts);
+    }
     
 //    skyline_member.getMemberRegistry().getAll().done(GUI.renderAllPosts);
-//    skyline.getPostBox().getPostByFavorites(1).
 });
