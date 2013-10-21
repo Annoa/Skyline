@@ -26,4 +26,5 @@ public interface IPostContainer extends IDAO<Post, Long> {
     
     public List<Post> getRangeByTime(int start, int amount);
     
+    public List<Post> getPostsOfMemberFavorites(Member member, int start, int amount);
 }

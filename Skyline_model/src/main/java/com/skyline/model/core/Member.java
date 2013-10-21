@@ -15,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PreRemove;
 import javax.persistence.Temporal;
@@ -26,6 +27,7 @@ import javax.persistence.TemporalType;
  * @author tomassellden
  */
 @Entity
+@NamedQuery(name="Member.search", query="SELECT m FROM Member m WHERE m.name LIKE :string")
 public class Member extends AbstractEntity implements Serializable {
 
     private String name;

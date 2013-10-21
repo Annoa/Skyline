@@ -167,4 +167,17 @@ public class MemberResource {
         };
         return Response.ok(ge).build();
     }
+    
+    @GET
+    @Path("search")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response search(@QueryParam("string") String searchString) {
+        List<Member> resultList = memberBox.search(searchString);
+        List<MemberProxy> proxyList = new ArrayList<MemberProxy>();
+        for (Member m : resultList) {
+            proxyList.add(new MemberProxy(m));
+        }
+        GenericEntity<List<MemberProxy>> ge = new GenericEntity<List<MemberProxy>>(proxyList) {};
+        return Response.ok(ge).build();
+    }
 }

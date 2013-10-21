@@ -59,6 +59,13 @@ $(document).ready(function() {
     function resetActive() {
         $(".menuItem").parent().removeClass("active");
     };
+    
+    $(".typeahead").typeahead([
+        {
+            name: 'planets',
+            local: [ "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" ]
+        }
+        ]);
 });
 
 

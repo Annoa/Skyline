@@ -136,4 +136,39 @@ public class TestPostContainer {
         assertTrue(mr.getCount() == 0);
         
     }
+    
+    @Test
+    public void testGetPostsOfMemberFavorites() {
+        IPostContainer pc = blog.getPostContainer();
+        IMemberRegistry mr = blog.getMemberRegistry();
+        
+        Post post1 = new Post("Post", "Tester", null, null);
+        Post post2 = new Post("Post", "Tester", null, null);
+        Post post3 = new Post("Post", "Tester", null, null);
+        pc.add(post1);
+        pc.add(post2);
+        pc.add(post3);
+        
+        Member mem = new Member("Tomas");
+        Member mem1 = new Member("Krabban");
+        mr.add(mem);
+        mr.add(mem1);
+        mem.addPost(post1);
+        mem1.addPost(post2);
+        mem1.addPost(post3);
+        mr.update(mem);
+        mr.update(mem1);
+        
+        mem.addFavoriteMember(mem1);
+        mr.update(mem);
+        
+        List<Post> mem1Posts = pc.getPostsOfMemberFavorites(mem, 0, 2);
+        assertTrue(mem1Posts.contains(post2));
+        assertTrue(mem1Posts.contains(post3));
+        
+        mr.remove(mem.getId());
+        mr.remove(mem1.getId());
+        
+        assertTrue(mr.getCount() == 0);
+    }
 }

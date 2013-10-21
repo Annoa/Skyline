@@ -110,7 +110,6 @@ $(function() {
                     var targetDiv = $(this).parent().parent().find("[class^=add-commentbox-post_]").first();
                     if ($(targetDiv).is(":empty")) {
                         var htm = addCommentBoxWithParent(targetId);
-                        console.log($(targetDiv));
                         $(targetDiv).append(htm);
                         
                         $(targetDiv).find(".comment-save-button")
@@ -152,7 +151,7 @@ $(function() {
                     if ($(this).attr('class').indexOf('orangered') === -1) {
                         $(this).addClass('orangered');
                     }
-                    console.log("Vote on: id=" + commentId + ", positive=" + true);
+                    $(this).html($(this).html() * 1 + 1);
                     skyline_comments.getCommentBox().vote(commentId, true);
                 });
                 
@@ -162,12 +161,11 @@ $(function() {
                     if ($(this).attr('class').indexOf('periwinkle') === -1) {
                         $(this).addClass('periwinkle');
                     }
-                    console.log("Vote on: id=" + commentId + ", positive=" + false);
+                    $(this).html($(this).html() * 1 + 1);
                     skyline_comments.getCommentBox().vote(commentId, false); 
                 });
                 
                 $(postDiv).find('div.comment').each(function() {
-                    console.log(this);
                     var classText = $(this).attr('class');
                     var commentId = classText.substr(classText.indexOf("comment_")+8);
                     skyline_comments.getCommentBox().getAuthor(commentId).done(function(author) {
@@ -235,13 +233,15 @@ $(function() {
                 if ($(targetDiv).is(':empty')) {
                     renderComments(target);
                     // If no comments where gotten we don't change name
-                    if (!$(targetDiv).is(':empty')) {
+                    
+                    if ($(targetDiv).is(':empty')) {
                         $(this).html("Hide comments");
-                        
+                        $.cookie('post-comment-show_'+target, true);
                     }
                 } else {
                     $(this).html("Show comments");
                     $(targetDiv).contents().remove();
+                    $.cookie('post-comment-show_'+target, false);
                 }
 
             });
@@ -276,6 +276,7 @@ $(function() {
 //                                    .then($("#contents").load("/skyline_rest/content/wall.html"));
 
                             skyline_comments.getCommentBox().add(comment).done(function() {
+                                $.cookie('post-comment', true);
                                 location.reload();
                             });
                         });
@@ -299,6 +300,7 @@ $(function() {
             if ($(this).attr('class').indexOf('orangered') === -1) {
                 $(this).addClass('orangered')
             }
+            $(this).html($(this).html() * 1 + 1);
             skyline.getPostBox().vote(postId, true);
         });
         
@@ -308,6 +310,7 @@ $(function() {
             if ($(this).attr('class').indexOf('periwinkle') === -1) {
                 $(this).addClass('periwinkle')
             }
+            $(this).html($(this).html() * 1 + 1);
             skyline.getPostBox().vote(postId, false);
         });
         
@@ -320,7 +323,18 @@ $(function() {
             });     
         });
         
-        
+        /*
+         * This checks for cookies that say if 
+         * we should show comments or not on page reload
+         */
+        $("[id^=post_]").each(function() {
+            
+            var targetLi = $(this).attr('id');
+            var postId = targetLi.substr(targetLi.indexOf("_")+1);
+            if ($.cookie('post-comment-show_'+postId) === "true") {
+                $("#"+targetLi).find('[id=comment-button#'+postId+']').click();
+            };
+        });
         
         function addCommentBox(post) {
             var html = '<form id="add-commentbox-post_'+ post +'" class="write-post-form" >'
@@ -429,4 +443,5 @@ $(function() {
 //        // Show it
 //        myDialog.dialog("open");
 //    }
+
 });

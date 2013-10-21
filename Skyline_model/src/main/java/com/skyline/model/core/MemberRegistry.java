@@ -48,4 +48,11 @@ public class MemberRegistry extends AbstractDAO<Member, Long> implements IMember
         firstFavorites.retainAll(memberTwo.getFavoriteMembers());
         return firstFavorites;
     }
+    
+    public List<Member> search(String searchString) {
+        EntityManager em = super.getEntityManager();
+        TypedQuery<Member> query = em.createNamedQuery("Member.search", Member.class);
+        query.setParameter("string", "%"+searchString+"%");
+        return query.getResultList();
+    }
 }

@@ -9,6 +9,11 @@ var MemberRegistry = function(baseUri) {
 MemberRegistry.prototype = (function() {
 
     return {
+        
+        search: function(searchString) {
+            return $.getJSON(this.baseUri + "/search?searchString=" + searchString)
+        },
+        
         find: function(id) {
             return $.getJSON(this.baseUri + "/" + id);
         },

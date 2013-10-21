@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -251,5 +252,21 @@ public class PostBoxResource {
         } catch (IllegalArgumentException ie) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
+    }
+    
+    @GET
+    @Path("favorites")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getPostsForFavoritesOfMember(@Context HttpServletRequest req) {
+        Member member = (Member) req.getSession().getAttribute("USER");
+        if (member == null) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+        List<Post> favoritesPosts = postBox.getPostsOfMemberFavorites(member, 0, 50);
+        List<PostProxy> proxies = new ArrayList<PostProxy>();
+        for (Post post : favoritesPosts) {
+            proxies.add(new PostProxy(post));
+        }
+        return Response.ok(proxies).build();
     }
 }

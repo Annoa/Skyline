@@ -8,6 +8,7 @@ import com.skyline.model.core.BlogFactory;
 import com.skyline.model.core.IBlog;
 import com.skyline.model.core.IMemberRegistry;
 import com.skyline.model.core.Member;
+import java.util.List;
 import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -113,6 +114,29 @@ public class TestMemberContainer {
         assertEquals(null, mr.find(anno.getId()));
         assertEquals(null, mr.find(anton.getId()));
         
+    }
+    
+    @Test
+    public void testSearch() {
+        IMemberRegistry mr = blog.getMemberRegistry();
+        
+        Member mem = new Member("Anno");
+        mr.add(mem);
+        
+        String searchString = "An";
+        List<Member> result = mr.search(searchString);
+        assertTrue(result.contains(mem));
+        
+        searchString = "nn";
+        List<Member> result2 = mr.search(searchString);
+        assertTrue(result2.contains(mem));
+        
+        searchString = "ZZ";
+        List<Member> result3 = mr.search(searchString);
+        assertFalse(result3.contains(mem));
+        
+        mr.remove(mem.getId());
+        assertTrue(mr.getCount() == 0);
     }
 
 //    @Test
