@@ -7,6 +7,18 @@
     console.log("members running");
     
 
+    function renderFavoritesPosts(posts){
+        $("#fav-postlist").contents().remove();
+        console.log("in renderFavoritesPosts");
+        var html = '';
+        for(var j=0;j<posts.length;j++){
+            html += '';//ConvertPostToHtml
+        }
+        $("#fav-postlist").append(html);
+        
+        
+    }
+
     function renderMembers(members) {
         $("#contents").contents().remove();
         console.log("in rendermembers");
@@ -17,6 +29,7 @@
         });
     }
     memberroot.memberGUI = {
+        renderFavoritesPosts:renderFavoritesPosts,
         renderMembers:renderMembers
     };
     
