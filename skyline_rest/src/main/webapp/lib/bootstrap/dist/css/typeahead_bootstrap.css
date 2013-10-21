@@ -1,3 +1,6 @@
+body {
+    padding: 40px;
+}
 .twitter-typeahead .tt-query,
 .twitter-typeahead .tt-hint {
   margin-bottom: 0;
@@ -46,4 +49,14 @@
 
 .tt-suggestion p {
   margin: 0;
+}
+
+.twitter-typeahead .tt-hint {
+    display: block;
+    height: 34px;
+    padding: 5px 12px;
+    font-size: 14px;
+    line-height: 1.428571429;
+    border: 1px solid transparent;
+    color: rgb(230,230,230);
 }
