@@ -12,6 +12,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -35,6 +37,7 @@ import javax.ws.rs.core.UriInfo;
 @Path("members")
 public class MemberResource {
 
+    private final static Logger log = Logger.getAnonymousLogger();
     private IMemberRegistry memberBox = Blog.INSTANCE.getMembersRegistry();
     @Context
     private UriInfo uriInfo;
@@ -73,9 +76,11 @@ public class MemberResource {
         Member member = new Member(name);
         try {
             memberBox.add(member);
-            URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf("name")).build(member);
-            return Response.created(uri).build();
+//            URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf("name")).build(member);
+            MemberProxy proxy = new MemberProxy(memberBox.find(member.getId()));
+            return Response.ok(proxy).build();
         } catch (IllegalArgumentException e) {
+            log.log(Level.INFO, e.getLocalizedMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 
         }

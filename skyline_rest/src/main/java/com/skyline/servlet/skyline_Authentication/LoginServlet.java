@@ -60,6 +60,8 @@ public class LoginServlet extends HttpServlet {
          if (member != null) {
              Logger.getAnonymousLogger().log(Level.INFO, "member: is not null");
              request.getSession().setAttribute("USER", member);
+             Logger.getAnonymousLogger().log(Level.INFO, "Session is: " + request.getSession());
+             Logger.getAnonymousLogger().log(Level.INFO, "Member is: "+ member.getName());
              //response.sendRedirect("");
              
              request.getRequestDispatcher("home.xhtml").forward(request, response);

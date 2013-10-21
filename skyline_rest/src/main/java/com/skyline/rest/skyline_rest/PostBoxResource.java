@@ -100,16 +100,21 @@ public class PostBoxResource {
             @FormParam("bodyText") String bodyText,
             //@FormParam("PostPicture") byte[] postPicture,
             @FormParam("postVideo") String postVideo,
-            @FormParam("authorId") Long authorId) {
-        
+//            @FormParam("memberId") Long memberId) {
+            @Context HttpServletRequest req) {
+//        Member member = (Member) req.getAttribute("USER");
+//        log.log(Level.INFO, member.getName() + ", id: " + member.getId());
        /* byte[] postPic;
         if (postPicture!=null) {
             postPic = postPicture;
         } else {
             postPic = new byte[0];
         }*/
+        
+        Member session = (Member) req.getSession().getAttribute("USER");
+        Member author = memberRegistry.find(session.getId());
+        
         String postVid = (postVideo!=null) ? postVideo : "No video";
-        Member author = memberRegistry.find(authorId);
         Post p = new Post(title, bodyText, null, postVid);
         try {
             postBox.add(p);
