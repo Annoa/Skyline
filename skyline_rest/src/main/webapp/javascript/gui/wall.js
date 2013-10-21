@@ -5,56 +5,57 @@
  * 
  * @returns {undefined}
  */
-$(function() {
+(function($,root){
     
-    $("#aboutUrl2").remove();
-    //Clear the table
-    //    $('#posts tbody').remove();
-    skyline.getPostBox().getAll().done(renderAllPosts);
-
-    //Button add new post
-    $("#write-post")
-            .button()
-            .click(function() {
-        $("#new-post").removeAttr('hidden');
-    });
-    
-    //Button: Save post form
-    $("#save-post").button().click(function(){
-        var newPost = getFormDialogData();
-        clearFormDialogData();
-        $("#new-post").attr("hidden",'hidden');
-        newPost.authorId = 1;
-        //Creating a new post of the entered values
-        var def = skyline.getPostBox().add(newPost);
-        def.done(function(addedPost){
-            renderAddedPost(addedPost);
-        });
-    });
-
-    //Button: Cancel post form
-    $("#cancel-post").button().click(function(){
-        $("#new-post").attr("hidden",'hidden');
-    });
-    
-    function getFormDialogData() {
-        var post = {};
-        post.title = $("#ptitle").val();
-        // **
-        // Preserves rowbreaks for saving to database
-        // Also only allows two rowbreaks max in a row
-        var text = $("#ptext").val();
-        post.bodyText = text.replace(/\n/g, "<br />")
-        // **
-        post.postVideo = $("#pvideo").val();
-        return post;
-    }
-    
-    function clearFormDialogData() {
-        $("#add-edit-post #ptitle").val("");
-        $("#add-edit-post #ptext").val("");
-        $("#add-edit-post #pvideo").val("");
-    }
+//    $("#aboutUrl2").remove();
+//    //Clear the table
+//    //    $('#posts tbody').remove();
+//    console.log("walls.js javascript körs");
+//    skyline.getPostBox().getAll().done(renderAllPosts);
+//
+//    //Button add new post
+//    $("#write-post")
+//            .button()
+//            .click(function() {
+//        $("#new-post").removeAttr('hidden');
+//    });
+//    
+//    //Button: Save post form
+//    $("#save-post").button().click(function(){
+//        var newPost = getFormDialogData();
+//        clearFormDialogData();
+//        $("#new-post").attr("hidden",'hidden');
+//        newPost.authorId = 1;
+//        //Creating a new post of the entered values
+//        var def = skyline.getPostBox().add(newPost);
+//        def.done(function(addedPost){
+//            renderAddedPost(addedPost);
+//        });
+//    });
+//
+//    //Button: Cancel post form
+//    $("#cancel-post").button().click(function(){
+//        $("#new-post").attr("hidden",'hidden');
+//    });
+//    
+//    function getFormDialogData() {
+//        var post = {};
+//        post.title = $("#ptitle").val();
+//        // **
+//        // Preserves rowbreaks for saving to database
+//        // Also only allows two rowbreaks max in a row
+//        var text = $("#ptext").val();
+//        post.bodyText = text.replace(/\n/g, "<br />")
+//        // **
+//        post.postVideo = $("#pvideo").val();
+//        return post;
+//    }
+//    
+//    function clearFormDialogData() {
+//        $("#add-edit-post #ptitle").val("");
+//        $("#add-edit-post #ptext").val("");
+//        $("#add-edit-post #pvideo").val("");
+//    }
 
     /**
      * Function rendering comments of the posts and comments of the comments.
@@ -429,4 +430,12 @@ $(function() {
 //        // Show it
 //        myDialog.dialog("open");
 //    }
-});
+    root.GUI = {
+        renderComments: renderComments,
+        renderAllPosts: renderAllPosts,
+        renderAddedPost: renderAddedPost,
+        convertPostToHTML: convertPostToHTML,
+        convertToYouTubeEmbedLink: convertToYouTubeEmbedLink
+    };
+    
+})(jQuery, window);
