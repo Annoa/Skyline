@@ -13,12 +13,19 @@ MemberRegistry.prototype = (function() {
         search: function(searchString) {
             return $.getJSON(this.baseUri + "/search?searchString=" + searchString)
         },
+                
+        searchByName: function(searchString) {
+            return $.getJSON(this.baseUri + "/searchByName?searchString=" + searchString)
+        },
         
         find: function(id) {
             return $.getJSON(this.baseUri + "/" + id);
         },
         getAll: function() {
             return $.getJSON(this.baseUri);
+        },
+        getAllNamesOnly: function() {
+            return $.getJSON(this.baseUri + "/names");
         },
         add: function(member) {
             return $.ajax({

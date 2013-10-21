@@ -54,6 +54,20 @@ public class MemberResource {
         };
         return Response.ok(ge).build();
     }
+    
+    @GET
+    @Path("names")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getAllNamesOnly() {
+        List<Member> tmpList = memberBox.getRange(0, memberBox.getCount());
+        List<String> memberList = new ArrayList<String>();
+        for (Member m : tmpList) {
+            memberList.add(m.getName());
+        }
+        GenericEntity<List<String>> ge = new GenericEntity<List<String>>(memberList) {
+        };
+        return Response.ok(ge).build();
+    }
 
     @GET
     @Path("{id}")
@@ -183,6 +197,19 @@ public class MemberResource {
             proxyList.add(new MemberProxy(m));
         }
         GenericEntity<List<MemberProxy>> ge = new GenericEntity<List<MemberProxy>>(proxyList) {};
+        return Response.ok(ge).build();
+    }
+    
+    @GET
+    @Path("searchByName")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response searchByName(@QueryParam("string") String searchString) {
+        List<Member> resultList = memberBox.search(searchString);
+        List<String> proxyList = new ArrayList<String>();
+        for (Member m : resultList) {
+            proxyList.add(m.getName());
+        }
+        GenericEntity<List<String>> ge = new GenericEntity<List<String>>(proxyList) {};
         return Response.ok(ge).build();
     }
 }
