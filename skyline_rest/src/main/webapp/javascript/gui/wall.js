@@ -124,7 +124,7 @@
                             comment.parentId = targetId;
                             //******
                             // Test AUTHOR!
-                            comment.authorId = 1;
+                            //comment.authorId = 1;
                             //******
                             
                             $(targetDiv).find(".comment-textarea").val("");
@@ -258,17 +258,18 @@
                     $(targetDiv).append(add);
                     // If no comments where gotten we don't change name
                     var tar = "#add-commentbox-post_" + target;
+                    console.log($(tar).find(".comment-save-button"))
                     $(tar).find(".comment-save-button")
                                 .button()
                                 .click(function() {
                             var comment = {};
-                            
+                            console.log("hej");
                             comment.text = $(tar).find(".comment-textarea").val();
                             comment.postId = target;
                             comment.parentId = -1;
                             //******
                             // Test AUTHOR!
-                            comment.authorId = 1;
+                           // comment.authorId = 1;
                             //******
                             $(tar).find(".comment-textarea").val("");
 
