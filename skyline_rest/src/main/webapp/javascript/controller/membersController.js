@@ -1,6 +1,8 @@
 
 
 $(function(){
-    console.log("membersController is running");
-    skyline_member.getPostBox().getPostForFavoritesMembers().done(GUI.renderAllPosts);
+    console.log("memberscontroller is running");
+    
+//    skyline_member.getMemberRegistry().getAll().done(GUI.renderAllPosts);
+//    skyline.getPostBox().getPostByFavorites(1).
 });
