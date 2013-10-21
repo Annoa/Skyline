@@ -7,20 +7,20 @@ $(document).ready(function() {
     $("#aboutUrl2").remove();
     //Clear the table
     //    $('#posts tbody').remove();
-        console.log("wallsController javascript körs");
-        console.log(wallLoaderIdentifier);
         
-    if(wallLoaderIdentifier==="wall"){
+//    if(wallLoaderIdentifier==="wall"){
         console.log("Render all posts");
         skyline.getPostBox().getAll().done(GUI.renderAllPosts);
-    }
+//    }
     
 //    if(wallLoaderIdentifier==="favorites"){
-//        console.log("Render Favorite posts");
-//        console.log(skyline.getPostBox().getPostByFavorites());
-//        skyline.getPostBox().getPostByFavorites().done(GUI.renderAllPosts);
+        console.log("Render Favorite posts");
+        console.log(skyline.getPostBox().getPostByFavorites());
+        skyline.getPostBox().getPostByFavorites().done(GUI.renderAllPosts);
 //    }
 
+//        console.log("wallsController javascript körs");
+//        console.log(wallLoaderIdentifier);
     
     console.log("write post");
     console.log($("#write-post"))

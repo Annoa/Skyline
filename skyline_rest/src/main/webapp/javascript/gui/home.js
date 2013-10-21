@@ -1,8 +1,6 @@
 /**
  * Js for index page, the tabs
  */
-//if(wallLoaderIdentifier===undefined){
-//}
 
 $(document).ready(function() {
     
