@@ -217,6 +217,7 @@
      * @returns {undefined}
      */
     function renderAllPosts(post) {
+        console.log(post);
         $("#postlist").contents().remove();
         var htmlText = '';
         for(var i=0; i<post.length; i++){

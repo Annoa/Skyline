@@ -1,7 +1,10 @@
 /**
  * Js for index page, the tabs
  */
+
 $(document).ready(function() {
+    
+    wallLoaderIdentifier = "wall";
     
     $("#contents").load("/skyline_rest/content/wall.html");
 
@@ -16,6 +19,7 @@ $(document).ready(function() {
     });
     
     $("#wall").click(function(event) {
+        wallLoaderIdentifier = "wall";
         $("#contents").load("/skyline_rest/content/wall.html");
         resetActive();
         $("#wall").parent().addClass("active");
@@ -24,6 +28,7 @@ $(document).ready(function() {
     });
     
     $("#profile").click(function(event) {
+        wallLoaderIdentifier = "profile;"
         $("#contents").load("/skyline_rest/content/profile.html");
         resetActive();
         $("#profile").parent().addClass("active");
@@ -32,7 +37,8 @@ $(document).ready(function() {
     });
     
     $("#members").click(function(event) {
-        $("#contents").load("/skyline_rest/content/members.html");
+        wallLoaderIdentifier = "favorites";
+        $("#contents").load("/skyline_rest/content/wall.html");
         resetActive();
         $("#members").parent().addClass("active");
         

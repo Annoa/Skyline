@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 $(document).ready(function() {
+    console.log("addPost.js");
+    wallLoaderIdentifier = "add";
     $("#aboutUrl2").remove();
     $("#add-post-content").load("/skyline_rest/content/wall.html");
     resetActive();
