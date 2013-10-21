@@ -23,10 +23,10 @@ $(document).ready(function() {
         event.preventDefault();
     });
     
-    $("#myPage").click(function(event) {
-        $("#contents").load("/skyline_rest/content/myPage.html");
+    $("#profile").click(function(event) {
+        $("#contents").load("/skyline_rest/content/profile.html");
         resetActive();
-        $("#myPage").parent().addClass("active");
+        $("#profile").parent().addClass("active");
         
         event.preventDefault();
     });

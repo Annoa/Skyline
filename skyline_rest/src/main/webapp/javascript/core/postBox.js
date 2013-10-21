@@ -61,6 +61,9 @@ PostBox.prototype = (function (){
                 url: this.baseUri + "/" + post.id,
                 data: post
             });
+        },
+        getPostByFavorites: function ( memberId ){
+            return $.getJSON(this.baseUri + "/favorites/" + memberId);
         }
         //TODO
 //        getPostByMember: function ( post ) {

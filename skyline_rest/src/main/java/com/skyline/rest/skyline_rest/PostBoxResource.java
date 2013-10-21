@@ -158,7 +158,7 @@ public class PostBoxResource {
     @Path("{Id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response update(@PathParam("Id") Long id,
+    public Response update(@Context HttpServletRequest req, @PathParam("Id") Long id,
             @FormParam("title") String title,
             @FormParam("bodyText") String bodyText,
            // @FormParam("PostPicture") byte[] postPicture,
@@ -170,6 +170,10 @@ public class PostBoxResource {
         } else {
             postPic = new byte[0];
         }*/
+        Member member = (Member) req.getSession().getAttribute("USER");
+        if(member==null){
+            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+        }
         String postVid;
         if (postVideo!=null) {
             postVid = postVideo;
@@ -179,9 +183,13 @@ public class PostBoxResource {
         Post tempPost = postBox.find(id);
         VotingSystem voteSys = tempPost.getVotes();
         try {
-            
-            postBox.update(new Post(id, tempPost.getDate(), title, bodyText, null, postVid, voteSys));
-            return Response.ok().build();
+            if(member.getId()==id){
+                postBox.update(new Post(id, tempPost.getDate(), title, bodyText, null, postVid, voteSys));
+                return Response.ok().build();
+            }
+            else{
+                return Response.ok().build();
+            }
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }

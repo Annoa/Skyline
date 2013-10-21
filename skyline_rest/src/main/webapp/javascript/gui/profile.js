@@ -5,7 +5,7 @@
 
 $(function() {
     
-    console.log("member page running");
+    console.log("profile page running");
     
     skyline_member.getMemberRegistry().find(1).done(renderMember);
     
