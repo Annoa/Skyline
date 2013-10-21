@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -123,13 +124,19 @@ public class CommentResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addComment(@FormParam("authorId") Long authorId,
+    public Response addComment(//@FormParam("authorId") Long authorId,
+            @Context HttpServletRequest req,
             @FormParam("postId") Long postId,
             @FormParam("parentId") Long parentCommentId,
             @FormParam("text") String text) {
-        Member author = members.find(authorId);
+        
+         Member member = (Member) req.getSession().getAttribute("USER");
+        if (member == null) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+        }
+        //Member author = members.find(authorId);
         Post post = posts.find(postId);
-        log.log(Level.INFO, "Trying to add comment: Author=" + authorId + ", Post="+ postId +", Parent="+ parentCommentId +". text=" + text);
+        log.log(Level.INFO, "Trying to add comment: Author=" + member.getId() + ", Post="+ postId +", Parent="+ parentCommentId +". text=" + text);
         //TODO: Fix this constructor.
         Comment c = new Comment(text);
         comments.add(c);
@@ -140,13 +147,17 @@ public class CommentResource {
         }
         post.addComment(c);
         posts.update(post);
-        author.addComment(c);
-        members.update(author);
+        member.addComment(c);
+        members.update(member);
+        //author.addComment(c);
+        //members.update(author);
         try {
 //            URI uri = uriInfo.getAbsolutePathBuilder().path("").build();//c.getId().toString()).build();
 //            return Response.ok(uri).build();
-            return Response.created(uriInfo.getAbsolutePathBuilder()
-                .path(String.valueOf(c.getId())).build()).build();
+            CommentProxy commentProxy = new CommentProxy(c);
+            return Response.ok(commentProxy).build();
+          //  return Response.created(uriInfo.getAbsolutePathBuilder()
+            //    .path(String.valueOf(c.getId())).build()).build();
         } catch (IllegalArgumentException ie) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }

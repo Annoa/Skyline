@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -94,12 +95,11 @@ public class PostBoxResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_JSON})
-    public Response addPost(
+    public Response addPost(@Context HttpServletRequest req,
             @FormParam("title") String title,
             @FormParam("bodyText") String bodyText,
             //@FormParam("PostPicture") byte[] postPicture,
-            @FormParam("postVideo") String postVideo,
-            @FormParam("authorId") Long authorId) {
+            @FormParam("postVideo") String postVideo) {
         
        /* byte[] postPic;
         if (postPicture!=null) {
@@ -107,13 +107,19 @@ public class PostBoxResource {
         } else {
             postPic = new byte[0];
         }*/
+        Member member = (Member) req.getSession().getAttribute("USER");
+        if (member == null) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+        }
         String postVid = (postVideo!=null) ? postVideo : "No video";
-        Member author = memberRegistry.find(authorId);
+        //Member author = memberRegistry.find(authorId);
         Post p = new Post(title, bodyText, null, postVid);
         try {
             postBox.add(p);
-            author.addPost(p);
-            memberRegistry.update(author);
+            member.addPost(p);
+            memberRegistry.update(member);
+            //author.addPost(p);
+            //memberRegistry.update(author);
 
             PostProxy pp = new PostProxy(p);
             return Response.ok(pp).build();
