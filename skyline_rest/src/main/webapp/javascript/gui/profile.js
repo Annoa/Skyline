@@ -34,3 +34,7 @@ window.renderProfileForMember = function(member) {
         $("#member-contents #member-signUpDate").append(joinText + new Date(member.date));
     };
 };
+
+$(document).ready(function() {
+//   $(".glyphicon-star").tool 
+});

@@ -10,10 +10,6 @@ Possible extensions are: How-to-blog, The application, etc.
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <title>About Skyline</title>
-
-        <script type="text/javascript" src="../lib/jquery-1.9.1.js"></script>
-
-        <script type="text/javascript" src="../javascript/navigation/about.js"></script>
     </h:head>
     <h:body>
         <div class="container">
@@ -21,5 +17,6 @@ Possible extensions are: How-to-blog, The application, etc.
             <ui:include src="/WEB-INF/navigation.xhtml">problem loading navigation</ui:include>
             <ui:include  src="/about/authors.xhtml">problem loading authors</ui:include>
         </div>
+        <script type="text/javascript" src="/skyline_rest/javascript/navigation/about.js" />
     </h:body>
 </html>
