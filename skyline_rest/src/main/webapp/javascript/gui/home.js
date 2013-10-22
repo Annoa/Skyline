@@ -88,19 +88,22 @@ $(document).ready(function() {
                 GUI.renderAllPosts(posts);
             })
         });
-    });
+    });    
     
-    // This basically does the same as the above click listener but we split it into two since we would have to 
-    
-    
-    $("#members").click(function(event) {
-        wallLoaderIdentifier = "favorites";
-        $("#contents").load("/skyline_rest/content/wall.html");
+    $("#favorites").click(function(event) {
+        $("#controls").contents().remove();
         resetActive();
         $("#members").parent().addClass("active");
-        
+        $("#contents").load("/skyline_rest/content/wall.html", function() {
+            skyline.getPostBox().getPostByFavorites().done(function(posts) {
+                $.when(GUI.renderAllPosts(posts)).then(function() {
+                    console.log("Rendered posts and I am done!");
+                });
+            })
+        });
         event.preventDefault();
     });
+    
     $("#login").click(function(event) {
         $("#contents").load("/skyline_rest/author/pageLogin.html");
         resetActive();
