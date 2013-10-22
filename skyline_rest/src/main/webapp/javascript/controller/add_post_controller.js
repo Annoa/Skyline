@@ -16,7 +16,8 @@ $(document).ready(function() {
         console.log("Clicked save");
         var newPost = getFormDialogData();
         clearFormDialogData();
-        $("#new-post").attr("hidden",'hidden');
+        $("#new-post").toggle();
+        //$("#new-post").attr("hidden",'hidden');
         //Creating a new post of the entered values
         var def = skyline.getPostBox().add(newPost);
         def.done(function(addedPost){
@@ -26,6 +27,7 @@ $(document).ready(function() {
 
     //Button: Cancel post form
     $("#cancel-post").button().click(function(){
+        clearFormDialogData();
         $("#new-post").toggle();
     });
     
@@ -44,9 +46,9 @@ $(document).ready(function() {
     }
     
     function clearFormDialogData() {
-        $("#add-edit-post #ptitle").val("");
-        $("#add-edit-post #ptext").val("");
-        $("#add-edit-post #pvideo").val("");
-        $("#add-edit-post #ppicture").val("");
+        $("#ptitle").val("");
+        $("#ptext").val("");
+        $("#pvideo").val("");
+        $("#ppicture").val("");
     }
 });
