@@ -16,12 +16,18 @@ and open the template in the editor.
     <body>
         <form action="authorization" method="post" class="write-post-form">
             Username: <input type="text" name="username" /><br>
-            <input type="submit" value="submit" />
+            password <input type="password" name="password"/><br>
+            <input type="submit" value="submit" class="btn"/>
         </form>
         <div>
+            <br>
             <button id ="sign-in" class="btn">Become a member </button><br>
-            Wite a userName<input type="text" id="newMember"/>
         </div>
-
+        <div id ="add-a-member" hidden>
+            Write a username <input type="text" id="newMember" /><br>
+            Write a password <input type="password" name="password" id="member-password"/><br>
+            <input type="submit" value="submit" id="create-new-member" class="btn"/>
+        </div>
+        <div id="become-a-member-message" class="container"></div>
     </body>
 </html>

@@ -33,7 +33,7 @@ public class TestMemberContainer {
     public void testAddUpdateAndRemoveMember() {
         IMemberRegistry mr = blog.getMemberRegistry();
 
-        Member m1 = new Member("Anno");
+        Member m1 = new Member("Anno", "xxx");
         mr.add(m1);
         assertTrue(mr.getCount() == 1);
 
@@ -67,7 +67,7 @@ public class TestMemberContainer {
     @Test
     public void testAdd() {
         IMemberRegistry mr = blog.getMemberRegistry();
-        Member tomas = new Member("Tomas");
+        Member tomas = new Member("Tomas", "xxx");
         mr.add(tomas);
         assertTrue(mr.getCount() == 1);
         mr.remove(tomas.getId());
@@ -77,7 +77,7 @@ public class TestMemberContainer {
     @Test
     public void testGetByName() {
         IMemberRegistry mr = blog.getMemberRegistry();
-        Member tomas = new Member("Tomas");
+        Member tomas = new Member("Tomas", "xxx");
         mr.add(tomas);
         assertTrue(mr.getCount() == 1);
         mr.remove(mr.getMember("Tomas").getId());
@@ -87,9 +87,9 @@ public class TestMemberContainer {
     @Test
     public void testFavorites() {
         IMemberRegistry mr = blog.getMemberRegistry();
-        Member tomas = new Member("Tomas");
-        Member anton = new Member("Anton");
-        Member anno = new Member("Anno");
+        Member tomas = new Member("Tomas", "xxx");
+        Member anton = new Member("Anton", "xxx");
+        Member anno = new Member("Anno", "xxx");
         mr.add(tomas);
         mr.add(anton);
         mr.add(anno);
@@ -120,7 +120,7 @@ public class TestMemberContainer {
     public void testSearch() {
         IMemberRegistry mr = blog.getMemberRegistry();
         
-        Member mem = new Member("Anno");
+        Member mem = new Member("Anno", "xxx");
         mr.add(mem);
         
         String searchString = "An";

@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PreRemove;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 /**
  * A class representing a member
@@ -31,6 +32,8 @@ import javax.persistence.TemporalType;
 public class Member extends AbstractEntity implements Serializable {
 
     private String name;
+    @NotNull
+    private String password;
     @Temporal(TemporalType.DATE)
     private Date signUpDate;
     @ManyToMany(fetch=FetchType.LAZY)
@@ -54,7 +57,8 @@ public class Member extends AbstractEntity implements Serializable {
     public Member() {
     }
     
-    public Member(String name) {
+    public Member(String name, String password) {
+        this.password = password;
         this.signUpDate = new Date();
         this.name = name;
         this.posts = new HashSet<Post>();

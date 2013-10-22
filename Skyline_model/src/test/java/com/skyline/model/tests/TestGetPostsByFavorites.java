@@ -45,10 +45,10 @@ public class TestGetPostsByFavorites {
         pc.add(post3);
         
         //Create members
-        Member mem1 = new Member("Tomas");
-        Member mem2 = new Member("Krabban");
-        Member mem3 = new Member("Anton");
-        Member mem4 = new Member("Anno");
+        Member mem1 = new Member("Tomas", "xxx");
+        Member mem2 = new Member("Krabban", "xxx");
+        Member mem3 = new Member("Anton", "xxx");
+        Member mem4 = new Member("Anno", "xxx");
         mr.add(mem1);
         mr.add(mem2);
         mr.add(mem3);

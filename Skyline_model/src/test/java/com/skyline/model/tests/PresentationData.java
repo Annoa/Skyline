@@ -41,9 +41,9 @@ public class PresentationData {
         IMemberRegistry mr = blog.getMemberRegistry();
 
         //Members
-        Member blondb = new Member("Blondinbella");
-        Member kissie = new Member("Kissie");
-        Member leifGW = new Member("Leif G.W Persson");
+        Member blondb = new Member("Blondinbella", "xxx");
+        Member kissie = new Member("Kissie", "xxx");
+        Member leifGW = new Member("Leif G.W Persson", "xxx");
         
         mr.add(blondb);
         mr.add(kissie);
