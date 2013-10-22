@@ -241,4 +241,36 @@ public class MemberResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
+    
+    @POST
+    @Path("favorite")
+    public Response favoriteMember(@QueryParam("memberId") Long memberId,
+            @Context HttpServletRequest req) {
+        try {
+            Member member = memberBox.find(memberId);
+            Member session = (Member) req.getSession().getAttribute("USER");
+            Member user = memberBox.find(session.getId());
+            user.addFavoriteMember(member);
+            memberBox.update(user);
+            return Response.ok().build();
+        } catch (IllegalArgumentException ie) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    @POST
+    @Path("unfavorite")
+    public Response unFavoriteMember(@QueryParam("memberId") Long memberId,
+            @Context HttpServletRequest req) {
+        try {
+            Member member = memberBox.find(memberId);
+            Member session = (Member) req.getSession().getAttribute("USER");
+            Member user = memberBox.find(session.getId());
+            user.removeFavoriteMember(member);
+            memberBox.update(user);
+            return Response.ok().build();
+        } catch (IllegalArgumentException ie) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }

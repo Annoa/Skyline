@@ -104,6 +104,25 @@ $(document).ready(function() {
         event.preventDefault();
     });
     
+    loggedInMemberPage = function(memberId) {
+        $.when(memberPage(memberId)).then(function() {
+            // ** Adding favorite button. 
+            // Have to add here since it is hidden for non-logged in users
+            $('.glyphicon-star').show();
+            $('.glyphicon-star').hover(function() {
+                    $(this).toggleClass('yellow');
+                }, function() {
+                    $(this).toggleClass('yellow');
+            });
+
+            $('.glyphicon-star').click(function() {
+                $('.glyphicon-star').unbind('mouseenter mouseleave');
+            });
+        });
+        
+        
+    }
+    
     $("#login").click(function(event) {
         $("#contents").load("/skyline_rest/author/pageLogin.html");
         resetActive();
@@ -120,7 +139,8 @@ $(document).ready(function() {
         
         event.preventDefault();
     });
-
+    
+    
     
     function resetActive() {
         $(".menu-item").parent().removeClass("active");

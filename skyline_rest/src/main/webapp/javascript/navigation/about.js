@@ -1,7 +1,6 @@
 $(document).ready(function() {
     
     $(".menuItem").parent().removeClass("active");
-    
     $("#about").parent().addClass("active");
     
     $(".menu-item").click(function() {

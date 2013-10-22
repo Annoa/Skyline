@@ -70,10 +70,10 @@
         function commentDraw(comments) {
             
             if ($(comments).is(':empty')) {
-                $("[id=comment-button#"+post+"]").html("Hide comments");
+                $("[id=comment-button_"+post+"]").html("Hide comments");
                 $.cookie('post-comment-show_'+post, true);
             } else {
-                $("[id=comment-button#"+post+"]").html("Show comments");
+                $("[id=comment-button_"+post+"]").html("Show comments");
                 $.cookie('post-comment-show_'+post, false);
             }
             if ($('[id="comments-post_' + post + '"]').is(':empty')) {
@@ -131,7 +131,7 @@
                             
                             $(targetDiv).find(".comment-textarea").val("");
                             skyline.getCommentBox().add(comment).done(function() {
-//                                location.reload();
+                                $("#comment-button_"+post).click().click();
                             });
                         });
                         $(targetDiv).find(".comment-cancel-button")
@@ -229,11 +229,11 @@
         
         $('#postlist').append(htmlText);
         
-        $("[id^=comment-button#]")
+        $("[id^=comment-button_]")
             .button()
             .click(function(){
                 var targetId = $(this).attr('id');
-                var target = targetId.substr(targetId.indexOf("#")+1);
+                var target = targetId.substr(targetId.indexOf("_")+1);
                 var targetDiv = $('[id="comments-post_' + target + '"]');
                 if ($(targetDiv).is(':empty')) {
                     renderComments(target)
@@ -245,11 +245,11 @@
 
             });
             
-        $("[id^=comment-add-button#]")
+        $("[id^=comment-add-button_]")
             .button()
             .click(function() {
                 var targetId = $(this).attr('id');
-                var target = targetId.substr(targetId.indexOf("#")+1);
+                var target = targetId.substr(targetId.indexOf("_")+1);
                 var targetDiv = $('[id="add-commentbox-post_' + target + '"]')
                 if ($(targetDiv).is(':empty')) {
                     var add = addCommentBox(target);
@@ -278,6 +278,7 @@
                             skyline.getCommentBox().add(comment).done(function() {
                                 $.cookie('post-comment', true);
 //                                location.reload();
+                                $("#comment-button_"+target).click().click();
                             });
                         });
                     $(tar).find(".comment-cancel-button")
@@ -333,7 +334,7 @@
             var targetLi = $(this).attr('id');
             var postId = targetLi.substr(targetLi.indexOf("_")+1);
             if ($.cookie('post-comment-show_'+postId) === "true") {
-                $("#"+targetLi).find('[id=comment-button#'+postId+']').click();
+                $("#"+targetLi).find('[id=comment-button_'+postId+']').click();
             };
         });
         
@@ -383,8 +384,8 @@
                 + '<br>'
                 + '<p>Post ID: ' + post.id + '</p>'
                 + '<div class="btn-group btn-group-sm voting-div">'
-                + '<button id="comment-button#'+ post.id +'" class="btn btn-default">Show comments</button>'
-                + '<button id="comment-add-button#'+ post.id +'" class="btn btn-default">Reply</button>'
+                + '<button id="comment-button_'+ post.id +'" class="btn btn-default">Show comments</button>'
+                + '<button id="comment-add-button_'+ post.id +'" class="btn btn-default">Reply</button>'
                 + '<span class="voting-span">'
                 + '<span class="glyphicon glyphicon-arrow-up vote-up">' + post.upVotes + '</span>'
                 + '<span class="glyphicon glyphicon-arrow-down vote-down">' + post.downVotes + '</span>'

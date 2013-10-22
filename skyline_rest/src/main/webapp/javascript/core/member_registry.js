@@ -64,6 +64,20 @@ MemberRegistry.prototype = (function() {
                 
         getMemberByName: function(name) {
             return $.getJSON(this.baseUri + "/name/" + name);
+        },
+               
+        addToFavorites: function(memberId) {
+            return $.ajax({
+                type: 'POST',
+                url: this.baseUri + "/favorite?memberId=" + memberId
+            });
+        },
+                
+        unFavorite: function(memberId) {
+            return $.ajax({
+                type: 'POST',
+                url: this.baseUri + "/unfavorite?memberId=" + memberId
+            });
         }
     };
 

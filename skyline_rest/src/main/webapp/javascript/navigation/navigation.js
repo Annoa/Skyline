@@ -53,4 +53,43 @@ memberPage = function(memberId) {
             GUI.renderAllPosts(posts);
         });
     });
+    skyline.getMemberRegistry().getUser().done(function(member) {
+        if (member !== undefined) {
+            var $glyph = $('.glyphicon-star');
+            $glyph.show();
+            $glyph.hover(function() {
+                    $(this).toggleClass('yellow');
+                }, function() {
+                    $(this).toggleClass('yellow');
+            });
+
+            $glyph.click(adding);
+            
+            function adding() {
+                $glyph.unbind('mouseenter mouseleave');
+                $glyph.attr('class', "glyphicon glyphicon-star yellow");
+                var glyphId = $glyph.attr('id');
+                var memberId = glyphId.substr(glyphId.indexOf("mber_")+5);
+                skyline.getMemberRegistry().addToFavorites(memberId).done(function() {
+                    $glyph.unbind("click");
+                    $glyph.click(removing);
+                });
+            }
+            
+            function removing() {
+                $glyph.hover(function() {
+                        $(this).toggleClass('yellow');
+                    }, function() {
+                        $(this).toggleClass('yellow');
+                });
+                $glyph.attr('class', "glyphicon glyphicon-star yellow");
+                var glyphId = $glyph.attr('id');
+                var memberId = glyphId.substr(glyphId.indexOf("mber_")+5);
+                skyline.getMemberRegistry().unFavorite(memberId).done(function() {
+                    $glyph.unbind("click");
+                    $glyph.click(adding);
+                });
+            }
+        }
+    })
 };
