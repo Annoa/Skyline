@@ -57,26 +57,30 @@ memberPage = function(memberId) {
     skyline.getMemberRegistry().getUser().done(function(member) {
         if (member !== undefined) {
             var $glyph = $('.glyphicon-star');
-            skyline.getMemberRegistry().isFavorite(memberId).done(function(str) {
+            skyline.getMemberRegistry().isFavorite(memberId).done(function(isFavorite) {
                 
                 $glyph.show();
                 //I don't know... wat?...
                 //TODO: Alter color on star
-                if (str) {
+                if (isFavorite) { 
+                    $glyph.unbind('mouseenter mouseleave');
+                    $glyph.attr('class', "glyphicon glyphicon-star yellow");
                     $glyph.click(removing);
                 }
                 else {
+                    $glyph.hover(function() {
+                        $(this).attr('class', "glyphicon glyphicon-star yellow");
+                    }, function() {
+                        $(this).attr('class', "glyphicon glyphicon-star");
+                    });
+                    //$glyph.unbind('mouseenter mouseleave');
+                    $glyph.attr('class', "glyphicon glyphicon-star");
                     $glyph.click(adding);
                 }
 
             });
 
             function adding() {
-                $glyph.hover(function() {
-                    $(this).toggleClass('yellow');
-                }, function() {
-                    $(this).toggleClass('yellow');
-                });
                 $glyph.unbind('mouseenter mouseleave');
                 $glyph.attr('class', "glyphicon glyphicon-star yellow");
                 var glyphId = $glyph.attr('id');
