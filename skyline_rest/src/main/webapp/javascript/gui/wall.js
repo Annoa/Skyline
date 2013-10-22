@@ -67,7 +67,6 @@
         
         skyline.getCommentBox().getRootCommentsForPost(post).done(commentDraw);
         
-       
         function commentDraw(comments) {
             
             if ($(comments).is(':empty')) {

@@ -17,10 +17,13 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 
 /**
- *
+ * This is not a real test. It is just used to put testable values 
+ * into the database before trying out the REST-method 
+ * getPostsForFavoritesOfMember.
+ * 
  * @author epoxy
  */
-public class TestGetPostsByFavorites {
+public class TestDataForMethodGetPostsByFavorites {
 
     static IBlog blog;
     private final static String PU = "skyline_pu";
