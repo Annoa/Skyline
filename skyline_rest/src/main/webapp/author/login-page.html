@@ -11,18 +11,30 @@
     </head>
     <body>
         <form action="authorization" method="post" class="write-post-form">
-            Username: <input type="text" name="username" /><br>
-            password <input type="password" name="password"/><br>
-            <input type="submit" value="login" class="btn btn-default"/>
+            <div class="formgroup">
+                <label for="username-id">Username</label>
+                <input type="text" name="username" class="form-control" id="username-id" placeholder="username"/><br>
+            </div>    
+            <div class="formgroup">
+                <label for="username-password">password</label>
+                <input type="password" name="password" class="form-control" id="username-password" placeholder="password"/><br>
+            </div>
+            <button type="submit" class="btn btn-default">Login</button>
         </form>
         <div>
             <br>
-            <button id ="sign-in" class="btn btn-default">Become a member </button><br>
+            <button id ="sign-in" class="btn btn-default">Become a member</button><br>
         </div>
         <div id ="add-a-member" hidden>
-            Write a username <input type="text" id="new-member" /><br>
-            Write a password <input type="password" name="password" id="member-password"/><br>
-            <input type="submit" value="submit" id="create-new-member" class="btn btn-default"/>
+            <div class="formgroup">
+                <label for="new-member">Write a username</label>
+                <input type="text" class="form-control" id="new-member" placeholder="username"/><br>
+            </div>
+            <div class="formgroup">
+                <label for="member-password">Write a password</label>
+                <input type="password" name="password" class="form-control" id="member-password" placeholder="password"/><br>
+            </div>    
+            <button type="submit" id="create-new-member" class="btn btn-default">submit</button>
         </div>
         <div id="become-a-member-message" class="container"></div>
     </body>

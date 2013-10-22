@@ -65,7 +65,11 @@ MemberRegistry.prototype = (function() {
         getMemberByName: function(name) {
             return $.getJSON(this.baseUri + "/name/" + name);
         },
-               
+              
+        isFavorite:function(memberId) {
+            return $.getJSON(this.baseUri + "/isFavorite?memberId="+memberId);
+        },
+        
         addToFavorites: function(memberId) {
             return $.ajax({
                 type: 'POST',
