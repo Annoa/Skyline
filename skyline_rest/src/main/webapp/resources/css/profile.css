@@ -1,0 +1,9 @@
+.member-group {
+    float:left;
+}
+
+.favorite-group {
+    float:left;
+    margin: 1.5em  0em  0em  3em;
+    font-size: 1.5em;
+}

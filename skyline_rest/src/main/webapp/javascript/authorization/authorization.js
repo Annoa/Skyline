@@ -1,8 +1,3 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 $(function() {
     $("#sign-in")
             .button()
@@ -14,7 +9,7 @@ $(function() {
     function addMember() {
         var newMember = getFormDialogData();
         console.log(newMember);
-        skyline_member.getMemberRegistry().add(newMember).done(function(member) {
+        skyline.getMemberRegistry().add(newMember).done(function(member) {
             console.log(member);
         });
 //        skyline_member.getMemberRegistry().getCount().done(function(nMembers) {
@@ -23,7 +18,7 @@ $(function() {
     }
     function getFormDialogData() {
         var member = {};
-        member.name = $("#newMember").val();
+        member.name = $("#new-member").val();
         return member;
     }
 });

@@ -64,11 +64,12 @@
      * @returns {undefined}
      */
     function renderComments(post) {
-
-        skyline_comments.getCommentBox().getRootCommentsForPost(post).done(commentDraw);
+        
+        skyline.getCommentBox().getRootCommentsForPost(post).done(commentDraw);
         
        
         function commentDraw(comments) {
+            
             if ($(comments).is(':empty')) {
                 $("[id=comment-button#"+post+"]").html("Hide comments");
                 $.cookie('post-comment-show_'+post, true);
@@ -130,8 +131,8 @@
                             comment.parentId = targetId;
                             
                             $(targetDiv).find(".comment-textarea").val("");
-                            skyline_comments.getCommentBox().add(comment).done(function() {
-                                location.reload();
+                            skyline.getCommentBox().add(comment).done(function() {
+//                                location.reload();
                             });
                         });
                         $(targetDiv).find(".comment-cancel-button")
@@ -156,7 +157,7 @@
                         $(this).addClass('orangered');
                     }
                     $(this).html($(this).html() * 1 + 1);
-                    skyline_comments.getCommentBox().vote(commentId, true);
+                    skyline.getCommentBox().vote(commentId, true);
                 });
                 
                 $(postDiv).find('.vote-down').click(function() {
@@ -166,16 +167,16 @@
                         $(this).addClass('periwinkle');
                     }
                     $(this).html($(this).html() * 1 + 1);
-                    skyline_comments.getCommentBox().vote(commentId, false); 
+                    skyline.getCommentBox().vote(commentId, false); 
                 });
                 
                 $(postDiv).find('div.comment').each(function() {
                     var classText = $(this).attr('class');
                     var commentId = classText.substr(classText.indexOf("comment_")+8);
-                    skyline_comments.getCommentBox().getAuthor(commentId).done(function(author) {
+                    skyline.getCommentBox().getAuthor(commentId).done(function(author) {
                         // In order to find by the full class name we replace (all) spaces with dots
                         var realClassText = classText.replace(/ /g,'.');
-                        $(postDiv).find("."+realClassText).find('.author').first().append(author.name);
+                        $(postDiv).find("."+realClassText).find('.author').first().append('<a class="author-link" data-author-id="'+author.id+'" href="#">' + author.name + '</a>');
                     });
                 });
 //                $("[id^=post_]").find('.vote-up').click(function() {
@@ -219,11 +220,11 @@
      * @param {type} post
      * @returns {undefined}
      */
-    function renderAllPosts(post) {
+    function renderAllPosts(posts) {
         $("#postlist").contents().remove();
         var htmlText = '';
-        for(var i=0; i<post.length; i++){
-            htmlText += convertPostToHTML(post[i]);
+        for(var i=0; i<posts.length; i++){
+            htmlText += convertPostToHTML(posts[i]);
         }
         
         $('#postlist').append(htmlText);
@@ -270,12 +271,12 @@
                             $(tar).find(".comment-textarea").val("");
 
 //                            $("#new-post").attr("hidden",'hidden');
-//                            skyline_comments.getCommentBox().add(comment)
+//                            skyline.getCommentBox().add(comment)
 //                                    .then($("#contents").load("/skyline_rest/content/wall.html"));
 
-                            skyline_comments.getCommentBox().add(comment).done(function() {
+                            skyline.getCommentBox().add(comment).done(function() {
                                 $.cookie('post-comment', true);
-                                location.reload();
+//                                location.reload();
                             });
                         });
                     $(tar).find(".comment-cancel-button")
@@ -316,7 +317,7 @@
             var targetLi = $(this).attr('id');
             var postId = targetLi.substr(targetLi.indexOf("_")+1);
             skyline.getPostBox().getAuthor(postId).done(function(author) {
-                $("#post_"+postId).find('.author').html(author.name);
+                $("#post_"+postId).find('.author').html('<a class="author-link" data-author-id="'+author.id+'" href="#">' + author.name + '</a>');
 //                $("#"+targetLi).find('.author')//.first().append(author.name);
             });     
         });

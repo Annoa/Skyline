@@ -10,7 +10,10 @@ and open the template in the editor.
     </head>
     <body>
          <form action="authorization" method="post" class="write-post-form">
-            <input type="submit" value="logout" name="logout"/>
+            <div class="btn-group">
+                <label for="logout">Are you really sure you want to log out?</label>
+                <button class="btn btn-default" type="submit" name="logout">Log out</button>
+            </div>
         </form>
     </body>
 </html>

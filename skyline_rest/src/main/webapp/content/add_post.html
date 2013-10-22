@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+    </head>
+    <body>
+        <div class="container add_post_container">
+            <div class="col-lg-offset-2 col-lg-10">
+                <div class="form-group">
+                    <button class="btn btn-default" type="button" id="add-post-toggle" >Add post</button>
+                </div>
+            </div>
+            <form class="form-horizontal" id="new-post">   
+                <div class="form-group">
+                    <label for="ptitle" class="col-lg-2 control-label">Title</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="ptitle" class="form-control" placeholder="Enter title" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ptext" class="col-lg-2 control-label">Blog text</label>
+                    <div class="col-lg-10">
+                        <textarea id="ptext" class="form-control" placeholder="Enter blog text here..."/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pvideo" class="col-lg-2 control-label">Video link</label>
+                    <div class="col-lg-10">
+                        <input type="text" id="pvideo" class="form-control" placeholder="http://www.youtube.com/watch?v=.........." />
+                    </div>
+                </div>
+                <div class="col-lg-offset-2 col-lg-10">
+                    <div id="new-post-btn" class="btn-group">
+                        <button class="btn btn-default" type="button" id="save-post" >Save</button>
+                        <button class="btn btn-default" type="button" id="cancel-post"  >Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script type="text/javascript" src="javascript/controller/add_post_controller.js"/>
+    </body>
+</html>

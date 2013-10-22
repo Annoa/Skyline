@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
              Logger.getAnonymousLogger().log(Level.INFO, "Member is: "+ member.getName());
              //response.sendRedirect("");
              
-             request.getRequestDispatcher("home.xhtml").forward(request, response);
+             request.getRequestDispatcher("login/home.xhtml").forward(request, response);
          } else {
              request.getRequestDispatcher("index.xhtml").forward(request, response);
          }
