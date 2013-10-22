@@ -391,7 +391,6 @@
                 + videoLink
                 + '<br>'
                 + '<img src="' + pictureLink + '">'
-                + '<p>Post ID: ' + post.id + '</p>'
                 + '<div class="btn-group btn-group-sm voting-div">'
                 + '<button id="comment-button_'+ post.id +'" class="btn btn-default">Show comments</button>'
                 + '<button id="comment-add-button_'+ post.id +'" class="btn btn-default">Reply</button>'
