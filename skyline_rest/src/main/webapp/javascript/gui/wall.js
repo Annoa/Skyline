@@ -66,7 +66,6 @@
     function renderComments(post) {
 
         skyline_comments.getCommentBox().getRootCommentsForPost(post).done(commentDraw);
-        
        
         function commentDraw(comments) {
             if ($('[id="comments-post_' + post + '"]').is(':empty')) {
