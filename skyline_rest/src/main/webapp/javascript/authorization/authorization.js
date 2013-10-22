@@ -4,6 +4,7 @@
  */
 
 $(function() {
+    
     $("#sign-in")
             .button()
             .click(function() {
@@ -41,6 +42,7 @@ $(function() {
     function getFormDialogData() {
         var member = {};
         member.name = $("#newMember").val();
+        member.password = $("#member-password").val();    
         return member;
     }
 });

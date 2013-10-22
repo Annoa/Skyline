@@ -19,4 +19,6 @@ public interface IMemberRegistry extends IDAO<Member, Long> {
     public Set<Member> getMutualFavorites(Member memberOne, Member memberTwo);
     
     public List<Member> search(String searchString);
+    
+    public boolean validMember(String name, String password);
 }

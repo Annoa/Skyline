@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PreRemove;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 /**
  * A class representing a member
@@ -31,6 +32,7 @@ import javax.persistence.TemporalType;
 public class Member extends AbstractEntity implements Serializable {
 
     private String name;
+    @NotNull
     private String password;
     @Temporal(TemporalType.DATE)
     private Date signUpDate;
