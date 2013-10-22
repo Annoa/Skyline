@@ -20,16 +20,16 @@ $(document).ready(function() {
     
     $("#wall").parent().addClass('active');
     renderMainWall();
+    $("a.author-link").click(function(event) {});
     
     $("#wall").click(function(event) {
         $(".menu-item").parent().removeClass("active");
         $("#wall").parent().addClass('active');
         renderMainWall();
-    });
-    
-    $("a.author-link").click(function(event) {
         
     });
+    
+    
 }); 
 
 renderMainWall = function() {

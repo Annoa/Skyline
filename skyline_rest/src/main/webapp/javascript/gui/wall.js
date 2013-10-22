@@ -221,6 +221,7 @@
      * @returns {undefined}
      */
     function renderAllPosts(posts) {
+
         $("#postlist").contents().remove();
         var htmlText = '';
         for(var i=0; i<posts.length; i++){

@@ -19,26 +19,31 @@ Uses the two Beans AuthorBean and ViewAuthorBB.
         <link href="../resources/css/style.css" rel="stylesheet" />
     </head>
     <body>
-        <h:form class="panel" >
-
-            <div class="panel-title">Authors of Skyline</div>
-            <div class="btn-toolbar">
-                <div class="btn-group">
-                    <c:forEach var="a" items="#{about.authorRange}" >
-                        <h:commandButton class="btn" actionListener="#{viewAuthor.view(a.index)}" 
-                                         value="#{a.name}"/>
-                    </c:forEach>
+        <h:form>
+            <div class="jumbotron">
+                <h2>Authors of Skyline</h2>
+                <div class="btn-toolbar">
+                    <div class="btn-group">
+                        <c:forEach var="a" items="#{about.authorRange}" >
+                            <h:commandButton class="btn btn-default" 
+                                             actionListener="#{viewAuthor.view(a.index)}" 
+                                             value="#{a.name}"/>
+                        </c:forEach>
+                    </div>
+                    <div class="btn-group">
+                        <h:commandButton class="btn btn-default" 
+                                         actionListener="#{viewAuthor.setIsShort}" 
+                                         rendered="#{viewAuthor.name!=null}" 
+                                         value="#{viewAuthor.isShort ? 'Long Version' : 
+                                                  'Short version'}"/>
+                    </div>
                 </div>
-                <h:commandButton class="btn" actionListener="#{viewAuthor.setIsShort}" 
-                                 rendered="#{viewAuthor.name!=null}" 
-                                 value="#{viewAuthor.isShort ? 'Long Version' : 
-                                          'Short version'}"/>
+                <div>
+                    <h:outputText id="authortext" 
+                                  value="#{viewAuthor.isShort ?  viewAuthor.shortT :
+                                          viewAuthor.longT}"/>
+                </div>
             </div>
-            <div>
-                <h:outputText id="authortext" value="#{viewAuthor.isShort ?  viewAuthor.shortT :
-                                                       viewAuthor.longT}"/>
-            </div>
-
         </h:form>
     </body>
 </html>

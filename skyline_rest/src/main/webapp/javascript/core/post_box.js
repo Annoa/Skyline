@@ -70,8 +70,8 @@ PostBox.prototype = (function (){
                 data: post
             });
         },
-        getPostByFavorites: function ( memberId ){
-            return $.getJSON(this.baseUri + "/favorites/" + memberId);
+        getPostByFavorites: function ( ){
+            return $.getJSON(this.baseUri + "/favorites");
         }
         //TODO
 //        getPostByMember: function ( post ) {

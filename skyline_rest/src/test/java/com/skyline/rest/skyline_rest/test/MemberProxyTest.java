@@ -20,7 +20,7 @@ public class MemberProxyTest {
     @Test
     public void testMarchalMemberProxy() throws JAXBException {
         JAXBContext jc = JAXBContext.newInstance(MemberProxy.class);
-        Member m = new Member("testMember");
+        Member m = new Member("testMember", "xxx");
         MemberProxy mp = new MemberProxy(m);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.marshal(mp, System.out);

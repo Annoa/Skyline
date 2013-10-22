@@ -1,6 +1,7 @@
 /**
  * Js for index page, the tabs
  */
+
 $(document).ready(function() {
     /**
      * On document ready running
@@ -49,7 +50,6 @@ $(document).ready(function() {
     /**
      * Listeners and utilites
      */
-    
     $("#tabs").tabs({
         beforeLoad: function(event, ui) {
             ui.jqXHR.error(function() {
@@ -62,6 +62,14 @@ $(document).ready(function() {
     
     $("#wall").click(function(event) {
         loadWall();
+    });
+    
+    $("#profile").click(function(event) {
+        $("#contents").load("/skyline_rest/content/wall.html");
+        resetActive();
+        $("#wall").parent().addClass("active");
+        
+        event.preventDefault();
     });
     
     $("#profile").click(function(event) {
@@ -86,7 +94,8 @@ $(document).ready(function() {
     
     
     $("#members").click(function(event) {
-        $("#contents").load("/skyline_rest/content/members.html");
+        wallLoaderIdentifier = "favorites";
+        $("#contents").load("/skyline_rest/content/wall.html");
         resetActive();
         $("#members").parent().addClass("active");
         

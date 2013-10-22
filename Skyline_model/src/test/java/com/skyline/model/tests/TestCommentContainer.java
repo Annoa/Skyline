@@ -41,7 +41,7 @@ public class TestCommentContainer {
         IPostContainer pc = blog.getPostContainer();
         IMemberRegistry mr = blog.getMemberRegistry();
         
-        Member mem1 = new Member("Krobbe");
+        Member mem1 = new Member("Krobbe", "xxx");
         mr.add(mem1);
 
         Comment com1 = new Comment("This is the first comment");

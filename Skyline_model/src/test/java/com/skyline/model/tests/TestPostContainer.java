@@ -80,7 +80,7 @@ public class TestPostContainer {
         Post post1 = new Post("Post", "Tester", null, null);
         pc.add(post1);
         
-        Member mem = new Member("Tomas");
+        Member mem = new Member("Tomas", "xxx");
         mr.add(mem);
         mem.addPost(post1);
         mr.update(mem);
@@ -106,7 +106,7 @@ public class TestPostContainer {
         pc.add(post2);
         pc.add(post3);
         
-        Member mem = new Member("Tomas");
+        Member mem = new Member("Tomas", "xxx");
         mr.add(mem);
         mem.addPost(post1);
         mem.addPost(post2);
@@ -149,8 +149,8 @@ public class TestPostContainer {
         pc.add(post2);
         pc.add(post3);
         
-        Member mem = new Member("Tomas");
-        Member mem1 = new Member("Krabban");
+        Member mem = new Member("Tomas", "xxx");
+        Member mem1 = new Member("Krabban", "xxx");
         mr.add(mem);
         mr.add(mem1);
         mem.addPost(post1);

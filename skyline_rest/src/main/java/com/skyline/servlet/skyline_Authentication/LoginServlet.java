@@ -4,6 +4,7 @@
  */
 package com.skyline.servlet.skyline_Authentication;
 
+import com.skyline.model.core.IMemberRegistry;
 import com.skyline.model.core.Member;
 import com.skyline.rest.skyline_rest.Blog;
 import java.io.IOException;
@@ -37,9 +38,15 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         
+         
+        
          Logger.getAnonymousLogger().log(Level.INFO, "LoginServlet");
          
          String username = request.getParameter("username");
+         String password = request.getParameter("password");
+         Logger.getAnonymousLogger().log(Level.INFO, "password is " + password);
+         
          String logout = request.getParameter("logout");
          if (logout != null) {
              request.getSession().removeAttribute("USER");
@@ -47,23 +54,14 @@ public class LoginServlet extends HttpServlet {
              request.getRequestDispatcher("index.xhtml").forward(request, response);
              return;
          }
-         Member member;
-         try {
-             member = Blog.INSTANCE.getMembersRegistry().getMember(username);
-         } catch (NoResultException ex) {
-             member = null;
-         }
          
-        // Logger.getAnonymousLogger().log(Level.INFO, "member: " + member.toString());
-         
-         
-         if (member != null) {
-             Logger.getAnonymousLogger().log(Level.INFO, "member: is not null");
-             request.getSession().setAttribute("USER", member);
-             Logger.getAnonymousLogger().log(Level.INFO, "Session is: " + request.getSession());
-             Logger.getAnonymousLogger().log(Level.INFO, "Member is: "+ member.getName());
-             //response.sendRedirect("");
-             
+        IMemberRegistry memberBox = Blog.INSTANCE.getMembersRegistry();
+        if (memberBox.validMember(username, password)) {
+            Member member = memberBox.getMember(username);
+            Logger.getAnonymousLogger().log(Level.INFO, "member: is not null");
+            request.getSession().setAttribute("USER", member);
+            Logger.getAnonymousLogger().log(Level.INFO, "Session is: " + request.getSession());
+            Logger.getAnonymousLogger().log(Level.INFO, "Member is: "+ member.getName());   
              request.getRequestDispatcher("login/home.xhtml").forward(request, response);
          } else {
              request.getRequestDispatcher("index.xhtml").forward(request, response);

@@ -87,8 +87,9 @@ public class MemberResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response addMember(@FormParam("name") String name) {
-        Member member = new Member(name);
+    public Response addMember(@FormParam("name") String name,
+                              @FormParam("password") String password) {
+        Member member = new Member(name, password);
         try {
             memberBox.add(member);
 //            URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf("name")).build(member);

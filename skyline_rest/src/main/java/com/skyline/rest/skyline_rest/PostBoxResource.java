@@ -43,6 +43,11 @@ public class PostBoxResource {
     @Context
     private UriInfo uriInfo;
     
+    /**
+     * Method getting all posts.
+     * 
+     * @return 
+     */
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAll() {
@@ -61,9 +66,12 @@ public class PostBoxResource {
         return Response.ok(ge).build();
     }
 
-    //TODO
-    //Byta ut ID mot annan unik identifierare (typ sträng av membernamn+datum)
-    //Risk att det svämmar över av IDn annars
+    /**
+     * Method getting a specific post by its id.
+     * 
+     * @param id
+     * @return 
+     */
     @GET
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -128,6 +136,14 @@ public class PostBoxResource {
         }
     }
     
+    /**
+     * Method incrementing or decrementing the vote numbers of a post or 
+     * a comment.
+     * 
+     * @param postId
+     * @param positive
+     * @return 
+     */
     @POST
     @Path("vote")
     public Response vote(@QueryParam("postId") Long postId, @QueryParam("positive") boolean positive) {
@@ -147,6 +163,12 @@ public class PostBoxResource {
         }
     }
 
+    /**
+     * Method deleting a post by its id.
+     * 
+     * @param Id
+     * @return 
+     */
     @DELETE
     @Path("{Id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -159,6 +181,16 @@ public class PostBoxResource {
         }
     }
 
+    /**
+     * Method updating a post's values.
+     * 
+     * @param req
+     * @param id
+     * @param title
+     * @param bodyText
+     * @param postVideo
+     * @return 
+     */
     @PUT
     @Path("{Id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -200,6 +232,13 @@ public class PostBoxResource {
         }
     }
 
+    /**
+     * Method returning a chosen range of posts.
+     * 
+     * @param first
+     * @param last
+     * @return 
+     */
     @GET
     @Path("range")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -216,6 +255,11 @@ public class PostBoxResource {
         return Response.ok(ge).build();
     }
 
+    /**
+     * Method returning the number of posts on the wall.
+     * 
+     * @return 
+     */
     @GET
     @Path("count")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -262,6 +306,12 @@ public class PostBoxResource {
         return Response.ok(ge).build();
     }
     
+    /**
+     * Method returning all posts made by a chosen user.
+     * 
+     * @param postId
+     * @return 
+     */
     @GET
     @Path("author/{postId}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -277,6 +327,12 @@ public class PostBoxResource {
         }
     }
     
+    /**
+     * Method returning all posts made by the logged in user's favorite users.
+     * 
+     * @param req
+     * @return 
+     */
     @GET
     @Path("favorites")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
