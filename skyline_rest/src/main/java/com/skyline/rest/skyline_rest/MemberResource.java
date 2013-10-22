@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -212,5 +213,32 @@ public class MemberResource {
         }
         GenericEntity<List<String>> ge = new GenericEntity<List<String>>(proxyList) {};
         return Response.ok(ge).build();
+    }
+    
+    @GET
+    @Path("user")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getUser(@Context HttpServletRequest req) {
+        try {
+            Member session = (Member) req.getSession().getAttribute("USER");
+            Member user = memberBox.find(session.getId());
+            MemberProxy proxy = new MemberProxy(user);
+            return Response.ok(proxy).build();
+        } catch (IllegalArgumentException ie) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+    
+    @GET
+    @Path("name/{name}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getUserByName(@PathParam("name") String memberName) {
+        try {
+            Member member = memberBox.getMember(memberName);
+            MemberProxy proxy = new MemberProxy(member);
+            return Response.ok(proxy).build();
+        } catch (IllegalArgumentException ie) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

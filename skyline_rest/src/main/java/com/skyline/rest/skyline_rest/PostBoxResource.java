@@ -273,28 +273,38 @@ public class PostBoxResource {
      * @param memberId id of a member
      * @return GenericEntity<List<PostProxy>> list of all post a member have done
      */
-//    //TODO fixa så att man vet när en siffra betyder member och när den betyder post
-//    @GET
-//    @Path("postByMember")
-//    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-//    public Response getPostByMember(@QueryParam("memberId") Long memberId) {
-//        Member m = memberBox.find(memberId);
-//        //IPostRegistry postRegistry = new PostRegistry();
-//        List<Post> tmpPost = postBox.getRange(0, postBox.getCount());
-//        List<PostProxy> postList = new ArrayList<PostProxy>();
-//        for (Post p : tmpPost) {
-//            System.out.println(" " + p.toString());
-//            System.out.println(" " + p.getMember().getId() +  " = " + memberId);
-//            if (p.getMember().getId().equals(memberId)) {
-//                System.out.println(" " + p.getMember().getId() +  " = " + memberId);
-//                postList.add(new PostProxy(p));
-//            }
-//        }
-//        
-//        GenericEntity<List<PostProxy>> ge = new GenericEntity<List<PostProxy>>(postList) {
-//        };
-//        return Response.ok(ge).build();
-//    }
+    @GET
+    @Path("member/{memberId}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getPostsOfMemberByVotes(@PathParam("memberId") Long memberId) {
+        Member member = memberRegistry.find(memberId);
+        
+        List<Post> posts = postBox.getPostsOfMemberByVotes(member, 0, postBox.getCount());
+        List<PostProxy> postList = new ArrayList<PostProxy>();
+        for (Post post : posts) {
+            postList.add(new PostProxy(post));
+        }
+        GenericEntity<List<PostProxy>> ge = new GenericEntity<List<PostProxy>>(postList) {
+        };
+        return Response.ok(ge).build();
+    }
+    
+    @GET
+    @Path("member")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Response getPostsOfUserByVotes(@Context HttpServletRequest req) {
+        Member session = (Member) req.getSession().getAttribute("USER");
+        Member member = memberRegistry.find(session.getId());
+        
+        List<Post> posts = postBox.getPostsOfMemberByVotes(member, 0, postBox.getCount());
+        List<PostProxy> postList = new ArrayList<PostProxy>();
+        for (Post post : posts) {
+            postList.add(new PostProxy(post));
+        }
+        GenericEntity<List<PostProxy>> ge = new GenericEntity<List<PostProxy>>(postList) {
+        };
+        return Response.ok(ge).build();
+    }
     
     /**
      * Method returning all posts made by a chosen user.

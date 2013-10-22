@@ -24,6 +24,14 @@ PostBox.prototype = (function (){
             console.log("getAll");
             return $.getJSON(this.baseUri);
         },
+                
+        getPostsOfMemberByVotes: function(memberId) {
+            return $.getJSON(this.baseUri + "/member/" + memberId);
+        },
+                
+        getPostsOfUserByVotes: function() {
+            return $.getJSON(this.baseUri + "/member");
+        },
 
         add: function( post ){
             console.log("add Post");

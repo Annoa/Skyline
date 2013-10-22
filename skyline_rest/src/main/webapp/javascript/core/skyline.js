@@ -7,20 +7,24 @@ var skyline = (function(){
     var baseUri = "http://localhost:8080/skyline_rest/rs/";  
 //    var members = new MemberRegistry(baseUri + "members");
     var posts = new PostBox(baseUri + "posts");
+    var members = new MemberRegistry(baseUri + "members");
+    var comments = new CommentBox(baseUri + "comments/post");
     
     // etc ...
     
     return {
-        //need to change this doing this because 
-        //post returns exception!
         getPostBox : function(){
             console.log("inside getPostBox");
             return posts;
         },
-        //getMember..
-//        getMemberRegistry: function() {
-//            return members;
-//        },
+                
+        getCommentBox: function(){
+            return comments;
+        },
+                
+        getMemberRegistry: function() {
+            return members;
+        },
         
         getBaseUri : function(){
             return baseUri;

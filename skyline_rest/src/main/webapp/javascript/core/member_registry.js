@@ -56,6 +56,14 @@ MemberRegistry.prototype = (function() {
         },
         getCount: function() {
             return $.getJSON(this.baseUri + "/count");
+        },
+                
+        getUser: function() {
+            return $.getJSON(this.baseUri + "/user");
+        },
+                
+        getMemberByName: function(name) {
+            return $.getJSON(this.baseUri + "/name/" + name);
         }
     };
 
