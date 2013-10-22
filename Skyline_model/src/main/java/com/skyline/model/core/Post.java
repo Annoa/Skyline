@@ -58,8 +58,19 @@ public class Post extends AbstractEntity implements Serializable {
         this.createDate = new Date();
         this.title = title;
         this.bodyText = bodyText;
-        this.postPicture = postPicture;
-        this.postVideo = postVideo;
+        //Nullcheck needed to render correctly
+        if(postPicture==null){
+            this.postPicture="";
+        }
+        else{
+            this.postPicture = postPicture;
+        }
+        if(postVideo==null){
+            this.postVideo = "";
+        }
+        else{
+            this.postVideo = postVideo;
+        }
         this.votes = new VotingSystem();
     }
 
@@ -69,8 +80,19 @@ public class Post extends AbstractEntity implements Serializable {
         this.createDate = date;
         this.title = title;
         this.bodyText = bodyText;
-        this.postPicture = picture;
-        this.postVideo = video;
+        //Nullcheck needed to render video correct
+        if(postPicture==null){
+            this.postPicture="";
+        }
+        else{
+            this.postPicture = picture;
+        }
+        if(video==null){
+            this.postVideo = "";
+        }
+        else{
+            postVideo = video;
+        }
         this.votes = votingSystem;
     }
 

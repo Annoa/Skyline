@@ -373,6 +373,7 @@
         var d = new Date(post.date);
         var video = convertToYouTubeEmbedLink(post.postVideo);
         var videoLink = (video.length === 0) ? '' : '<p><iframe width="420" height="345" src="' + video + '">' +' </iframe>' + '</p>';
+        var pictureLink = post.postPicture;
         return '<li id="post_' + post.id + '" class="post">'
                 + '<h2 class="custom-title">' + post.title + '</h2>'
                 + '<p class="author"></p>'
@@ -382,6 +383,7 @@
                 + '<p class="custom-body-text">' + post.bodyText + '</p>' 
                 + videoLink
                 + '<br>'
+                + '<img src="' + pictureLink + '">'
                 + '<p>Post ID: ' + post.id + '</p>'
                 + '<div class="btn-group btn-group-sm voting-div">'
                 + '<button id="comment-button_'+ post.id +'" class="btn btn-default">Show comments</button>'

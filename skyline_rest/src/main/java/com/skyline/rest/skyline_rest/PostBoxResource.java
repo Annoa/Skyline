@@ -106,7 +106,7 @@ public class PostBoxResource {
     public Response addPost(
             @FormParam("title") String title,
             @FormParam("bodyText") String bodyText,
-            //@FormParam("PostPicture") byte[] postPicture,
+            @FormParam("postPicture") String postPicture,
             @FormParam("postVideo") String postVideo,
 //            @FormParam("memberId") Long memberId) {
             @Context HttpServletRequest req) {
@@ -122,8 +122,9 @@ public class PostBoxResource {
         Member session = (Member) req.getSession().getAttribute("USER");
         Member author = memberRegistry.find(session.getId());
         
+        String postPic = (postPicture!=null) ? postPicture : "";
         String postVid = (postVideo!=null) ? postVideo : "No video";
-        Post p = new Post(title, bodyText, null, postVid);
+        Post p = new Post(title, bodyText, postPic, postVid);
         try {
             postBox.add(p);
             author.addPost(p);

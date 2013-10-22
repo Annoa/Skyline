@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author tomassellden
  */
-@WebFilter(filterName = "AuthentificationFilter", urlPatterns = {"/login/*"})
+@WebFilter(filterName = "AuthentificationFilter", urlPatterns = {"/rs/posts/*", "/rs/comments/*"})
 public class AuthentificationFilter implements Filter {
 
     
@@ -55,18 +55,33 @@ public class AuthentificationFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-
-        Member member = (Member) req.getSession().getAttribute("USER");
-        if (member != null) {
-            Logger.getAnonymousLogger().log(Level.INFO, "Filter: member != null");
-            req.getSession().setAttribute("USER", member);
-            chain.doFilter(request, response);
+        if(req.getMethod().equalsIgnoreCase("POST")){
+            String s = req.getRequestURI();
+            Logger.getAnonymousLogger().log(Level.INFO, "s= " + s);
+            if ("/skyline_rest/rs/members".equals(s)) {
+                Logger.getAnonymousLogger().log(Level.INFO, "break");
+                chain.doFilter(request, response);
+                
+                Logger.getAnonymousLogger().log(Level.INFO, "this should not be shown");
+            }
+            Logger.getAnonymousLogger().log(Level.INFO, "url is: 3: " + req.getRequestURL());
+            Member member = (Member) req.getSession().getAttribute("USER");
+            if (member != null) {
+                Logger.getAnonymousLogger().log(Level.INFO, "Filter: member != null");
+                req.getSession().setAttribute("USER", member);
+                //chain.doFilter(request, response);
+            }
+            if (member == null) {
+                Logger.getAnonymousLogger().log(Level.INFO, "Filter: member == null");
+                //res.sendRedirect("/skyline_rest/index.xhtml");
+                //req.getRequestURI().
+                //req.getRequestDispatcher("/skyline_rest/index.xhtml");
+                res.sendRedirect("http://localhost:8080/skyline_rest/");
+                return;
+            }
         }
-        if (member == null) {
-            Logger.getAnonymousLogger().log(Level.INFO, "Filter: member == null");
-            res.sendRedirect("/skyline_rest/index.xhtml");
-        }
-    }
+        chain.doFilter(request, response);
+    }  
 
     /**
      * Destroy method for this filter
