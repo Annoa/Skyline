@@ -270,7 +270,8 @@
 //                            comment.authorId = 1;
                             //******
                             $(tar).find(".comment-textarea").val("");
-
+                            $("#add-commentbox-post_" + target).hide();
+                            
 //                            $("#new-post").attr("hidden",'hidden');
 //                            skyline.getCommentBox().add(comment)
 //                                    .then($("#contents").load("/skyline_rest/content/wall.html"));
@@ -283,6 +284,7 @@
                     $(tar).find(".comment-cancel-button")
                                 .button()
                                 .click(function() {
+                            $(tar).find(".comment-textarea").val("");
                             $("#add-commentbox-post_" + target).hide();
                         });
                 } else {
