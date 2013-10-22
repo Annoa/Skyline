@@ -169,15 +169,20 @@
                     skyline.getCommentBox().vote(commentId, false); 
                 });
                 
-                $(postDiv).find('div.comment').each(function() {
+                ($(postDiv).find('div.comment').each(function() {
                     var classText = $(this).attr('class');
                     var commentId = classText.substr(classText.indexOf("comment_")+8);
                     skyline.getCommentBox().getAuthor(commentId).done(function(author) {
                         // In order to find by the full class name we replace (all) spaces with dots
                         var realClassText = classText.replace(/ /g,'.');
                         $(postDiv).find("."+realClassText).find('.author').first().append('<a class="author-link" data-author-id="'+author.id+'" href="#">' + author.name + '</a>');
+                        $(postDiv).find("."+realClassText).find('.author-link').click(function() {
+                            memberPage($(this).data("author-id"));
+                        });
                     });
-                });
+                }))
+                
+                
 //                $("[id^=post_]").find('.vote-up').click(function() {
 //                    var postIdentifier = $(this).parents('li').attr('id');
 //                    var postId = postIdentifier.substr(postIdentifier.indexOf('#')+1);
@@ -321,7 +326,9 @@
             var postId = targetLi.substr(targetLi.indexOf("_")+1);
             skyline.getPostBox().getAuthor(postId).done(function(author) {
                 $("#post_"+postId).find('.author').html('<a class="author-link" data-author-id="'+author.id+'" href="#">' + author.name + '</a>');
-//                $("#"+targetLi).find('.author')//.first().append(author.name);
+                $("#post_"+postId).find('.author').find('.author-link').click(function() {
+                            memberPage($(this).data("author-id"));
+                });
             });     
         });
         
