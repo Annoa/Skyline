@@ -14,24 +14,25 @@ $(document).ready(function() {
     $(".search-submit-button").click(function(event) {
         var memberName = $(".typeahead").val();
         skyline.getMemberRegistry().getMemberByName(memberName).done(function(member) {
-           memberPage(member.id); 
+            memberPage(member.id);
         });
         event.preventDefault();
     });
-    
+
     $("#wall").parent().addClass('active');
     renderMainWall();
-    $("a.author-link").click(function(event) {});
-    
+    $("a.author-link").click(function(event) {
+    });
+
     $("#wall").click(function(event) {
         $(".menu-item").parent().removeClass("active");
         $("#wall").parent().addClass('active');
         renderMainWall();
-        
+
     });
-    
-    
-}); 
+
+
+});
 
 renderMainWall = function() {
     $("#contents").load("/skyline_rest/content/wall.html", function() {
@@ -56,35 +57,47 @@ memberPage = function(memberId) {
     skyline.getMemberRegistry().getUser().done(function(member) {
         if (member !== undefined) {
             var $glyph = $('.glyphicon-star');
-            $glyph.show();
-            $glyph.hover(function() {
+            skyline.getMemberRegistry().isFavorite(memberId).done(function(str) {
+                
+                $glyph.show();
+                //I don't know... wat?...
+                //TODO: Alter color on star
+                if (str) {
+                    $glyph.click(adding);
+                }
+                else {
+                    $glyph.click(removing);
+                }
+
+            });
+
+            function adding() {
+                $glyph.hover(function() {
                     $(this).toggleClass('yellow');
                 }, function() {
                     $(this).toggleClass('yellow');
-            });
-
-            $glyph.click(adding);
-            
-            function adding() {
+                });
                 $glyph.unbind('mouseenter mouseleave');
                 $glyph.attr('class', "glyphicon glyphicon-star yellow");
                 var glyphId = $glyph.attr('id');
-                var memberId = glyphId.substr(glyphId.indexOf("mber_")+5);
+                var memberId = glyphId.substr(glyphId.indexOf("mber_") + 5);
                 skyline.getMemberRegistry().addToFavorites(memberId).done(function() {
                     $glyph.unbind("click");
                     $glyph.click(removing);
                 });
             }
-            
+
             function removing() {
+                $glyph.attr('')
                 $glyph.hover(function() {
-                        $(this).toggleClass('yellow');
-                    }, function() {
-                        $(this).toggleClass('yellow');
+                    $(this).toggleClass('yellow');
+                }, function() {
+                    $(this).toggleClass('yellow');
                 });
+                //$glyph.unbind('mouseenter mouseleave');
                 $glyph.attr('class', "glyphicon glyphicon-star yellow");
                 var glyphId = $glyph.attr('id');
-                var memberId = glyphId.substr(glyphId.indexOf("mber_")+5);
+                var memberId = glyphId.substr(glyphId.indexOf("mber_") + 5);
                 skyline.getMemberRegistry().unFavorite(memberId).done(function() {
                     $glyph.unbind("click");
                     $glyph.click(adding);

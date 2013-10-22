@@ -241,6 +241,22 @@ public class MemberResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
+    @GET
+    @Path("isFavorite")
+    public Response isfavoriteMember(@QueryParam("memberId") Long memberId,
+            @Context HttpServletRequest req) {
+        try{
+            Member member = memberBox.find(memberId);
+            Member session = (Member) req.getSession().getAttribute("USER");
+            Member user = memberBox.find(session.getId());
+            if( user.getFavoriteMembers().contains(member))
+                return Response.ok("true").build();
+            return Response.ok("false").build();
+            
+        }catch(IllegalArgumentException ie){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
     
     @POST
     @Path("favorite")
