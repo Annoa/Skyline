@@ -124,6 +124,7 @@ $(document).ready(function() {
     }
     
     $("#login").click(function(event) {
+        $("#controls").contents().remove();
         $("#contents").load("/skyline_rest/author/pageLogin.html");
         resetActive();
         $("#logout").parent().addClass("active");
@@ -131,7 +132,9 @@ $(document).ready(function() {
         
         event.preventDefault();
     });
+    
      $("#logout").click(function(event) {
+        $("#controls").contents().remove();
         $("#contents").load("/skyline_rest/author/logout.html");
         resetActive();
         $("#logout").parent().addClass("active");
