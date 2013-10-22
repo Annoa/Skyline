@@ -41,8 +41,8 @@ public class TestDataForMethodGetPostsByFavorites {
         
         //Create posts
         Post post1 = new Post("Post1", "text1", null, null);
-        Post post2 = new Post("Post2", "text2", null, null);
-        Post post3 = new Post("Post3", "text3", null, null);
+        Post post2 = new Post("Post2", "text2", null, "https://www.youtube.com/watch?v=KHBfvuofU0I");
+        Post post3 = new Post("Post3", "text3", null, "https://www.youtube.com/watch?v=KHBfvuofU0I");
         pc.add(post1);
         pc.add(post2);
         pc.add(post3);

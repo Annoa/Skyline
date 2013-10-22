@@ -41,6 +41,7 @@ $(document).ready(function() {
         post.bodyText = text.replace(/\n/g, "<br />")
         // **
         post.postVideo = $("#pvideo").val();
+        post.postPicture = $("#ppicture").val();
         return post;
     }
     
@@ -48,5 +49,6 @@ $(document).ready(function() {
         $("#ptitle").val("");
         $("#ptext").val("");
         $("#pvideo").val("");
+        $("#ppicture").val("");
     }
 });
