@@ -63,10 +63,10 @@ memberPage = function(memberId) {
                 //I don't know... wat?...
                 //TODO: Alter color on star
                 if (str) {
-                    $glyph.click(adding);
+                    $glyph.click(removing);
                 }
                 else {
-                    $glyph.click(removing);
+                    $glyph.click(adding);
                 }
 
             });
@@ -88,7 +88,6 @@ memberPage = function(memberId) {
             }
 
             function removing() {
-                $glyph.attr('')
                 $glyph.hover(function() {
                     $(this).toggleClass('yellow');
                 }, function() {
