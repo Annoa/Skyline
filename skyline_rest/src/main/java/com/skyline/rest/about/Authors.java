@@ -20,9 +20,11 @@ public class Authors implements Serializable {
     }
 
     /**
+     * This data is considered a static part of the application. Could have been
+     * loaded from file but that would just be an unnecessary process since these
+     * Strings always are the same between patches.
      * Add information about yourself in this method to be mentioned in the
      * about section if you have contributed to the project Skyline
-     *
      * @return List of contributors
      */
     private List<Author> authorFactory() {
