@@ -11,11 +11,12 @@ $(".typeahead").typeahead([
 ]);
 
 $(document).ready(function() {
-    $(".search-submit-button").click(function() {
+    $(".search-submit-button").click(function(event) {
         var memberName = $(".typeahead").val();
         skyline.getMemberRegistry().getMemberByName(memberName).done(function(member) {
            memberPage(member.id); 
         });
+        event.preventDefault();
     });
     
     $("#wall").parent().addClass('active');
