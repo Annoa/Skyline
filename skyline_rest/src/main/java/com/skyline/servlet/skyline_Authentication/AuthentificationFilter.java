@@ -6,8 +6,6 @@ package com.skyline.servlet.skyline_Authentication;
 
 import com.skyline.model.core.Member;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;

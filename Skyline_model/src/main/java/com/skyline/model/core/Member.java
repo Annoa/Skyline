@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 /**
  * A class representing a member
  *
- * @author tomassellden
+ * @author tomassellden and Anno (JPA tags)
  */
 @Entity
 @NamedQuery(name = "Member.search", query = "SELECT m FROM Member m WHERE m.name LIKE :string")
@@ -46,10 +46,10 @@ public class Member extends AbstractEntity implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "favoriteMembers")
     private Set<Member> favoritedByMembers;
     @OneToMany(orphanRemoval = true, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name="MEMBER")
     private Set<Post> posts;
     @OneToMany(orphanRemoval = true, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(name="MEMBER")
     private Set<Comment> comments;
 
     public Member() {

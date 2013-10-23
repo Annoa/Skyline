@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 /**
  * Class representing a comment of a post.
  *
- * @author Gabriel
+ * @author Gabriel and Anno (JPA tags)
  */
 @Entity
 public class Comment extends AbstractEntity implements Comparable<Comment>, Serializable{

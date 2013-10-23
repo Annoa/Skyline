@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
  *
  * A container for accessing different comments
  * 
- * @author Gabriel
+ * @author Anno
  */
 public class CommentContainer extends AbstractDAO<Comment, Long>
 implements ICommentContainer {

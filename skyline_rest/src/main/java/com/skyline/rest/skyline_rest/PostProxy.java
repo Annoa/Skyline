@@ -4,7 +4,6 @@
  */
 package com.skyline.rest.skyline_rest;
 
-import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;

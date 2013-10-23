@@ -9,8 +9,6 @@ var skyline = (function(){
     var members = new MemberRegistry(baseUri + "members");
     var comments = new CommentBox(baseUri + "comments/post");
     
-    // etc ...
-    
     return {
         getPostBox : function(){
             return posts;

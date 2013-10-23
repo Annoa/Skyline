@@ -1,8 +1,8 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author annoa
  */
 
+// This sets the autocompletion in the searchfield to query using the AJAX uri.
 $(".typeahead").typeahead([
     {
         name: 'members',

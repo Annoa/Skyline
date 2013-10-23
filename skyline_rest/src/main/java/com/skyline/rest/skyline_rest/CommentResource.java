@@ -2,6 +2,8 @@ package com.skyline.rest.skyline_rest;
 
 import com.skyline.model.core.Comment;
 import com.skyline.model.core.ICommentContainer;
+import com.skyline.model.core.IMemberRegistry;
+import com.skyline.model.core.IPostContainer;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
 import com.skyline.model.core.VotingSystem;
@@ -27,14 +29,14 @@ import javax.ws.rs.core.Context;
 
 /**
  *
- * @author Gabriel
+ * @author Gabriel and Anno
  */
 @Path("comments/post")
 public class CommentResource {
 
-    private ICommentContainer comments = Blog.INSTANCE.getCommentContainer();
-    private IDAO<Member, Long> members = Blog.INSTANCE.getMembersRegistry();
-    private IDAO<Post, Long> posts = Blog.INSTANCE.getPostContainer();
+    private ICommentContainer comments = BlogAccess.INSTANCE.getCommentContainer();
+    private IMemberRegistry members = BlogAccess.INSTANCE.getMembersRegistry();
+    private IPostContainer posts = BlogAccess.INSTANCE.getPostContainer();
     @Context
     private UriInfo uriInfo;
 
