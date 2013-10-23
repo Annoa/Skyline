@@ -1,9 +1,10 @@
 /**
- * Wall.js is covering the view-part of everything that has to do 
- * with the wall. As you can see in the methods below this is for 
- * example things as rendering the posts and their comments.
+ * Wall.js is a utility class that is used whenever you 
+ * want a "Wall" and you call it mainly using renderAllPosts 
+ * and send in the posts you want to be rendered.
+ * This class handles all the rendering of posts and comments.
  * 
- * @author annoa and epoxy
+ * @author annoa (Comments and listeners for both) and epoxy (Posts)
  * 
  * @param $ JQuery
  * @param root window
