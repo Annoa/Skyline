@@ -39,14 +39,14 @@ import javax.ws.rs.core.UriInfo;
 public class MemberResource {
 
     private final static Logger log = Logger.getAnonymousLogger();
-    private IMemberRegistry memberBox = Blog.INSTANCE.getMembersRegistry();
+    private IMemberRegistry memberRegistry = BlogAccess.INSTANCE.getMembersRegistry();
     @Context
     private UriInfo uriInfo;
 
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAll() {
-        List<Member> tmpList = memberBox.getRange(0, memberBox.getCount());
+        List<Member> tmpList = memberRegistry.getRange(0, memberRegistry.getCount());
         List<MemberProxy> memberList = new ArrayList<MemberProxy>();
         for (Member m : tmpList) {
             memberList.add(new MemberProxy(m));
@@ -60,7 +60,7 @@ public class MemberResource {
     @Path("names")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAllNamesOnly() {
-        List<Member> tmpList = memberBox.getRange(0, memberBox.getCount());
+        List<Member> tmpList = memberRegistry.getRange(0, memberRegistry.getCount());
         List<String> memberList = new ArrayList<String>();
         for (Member m : tmpList) {
             memberList.add(m.getName());
@@ -76,7 +76,7 @@ public class MemberResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response find(@PathParam("id") Long id) {
         try {
-            Member m = memberBox.find(id);
+            Member m = memberRegistry.find(id);
             MemberProxy mp = new MemberProxy(m);
             return Response.ok(mp).build();
         } catch (IllegalArgumentException e) {
@@ -91,8 +91,8 @@ public class MemberResource {
                               @FormParam("password") String password) {
         Member member = new Member(name, password);
         try {
-            memberBox.add(member);
-            MemberProxy proxy = new MemberProxy(memberBox.find(member.getId()));
+            memberRegistry.add(member);
+            MemberProxy proxy = new MemberProxy(memberRegistry.find(member.getId()));
             return Response.ok(proxy).build();
         } catch (IllegalArgumentException e) {
             log.log(Level.INFO, e.getLocalizedMessage());
@@ -107,7 +107,7 @@ public class MemberResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response remove(@PathParam("Id") Long Id) {
         try {
-            memberBox.remove(Id);
+            memberRegistry.remove(Id);
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -121,8 +121,8 @@ public class MemberResource {
     public Response update(@PathParam("Id") Long id,
             @FormParam("name") String name) {
         try {
-            Member m = memberBox.find(id);
-            memberBox.update(new Member(id, m.getDate(), name, m.getPosts(), 
+            Member m = memberRegistry.find(id);
+            memberRegistry.update(new Member(id, m.getDate(), name, m.getPosts(), 
                     m.getComments(), m.getFavoriteMembers()));
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
@@ -136,7 +136,7 @@ public class MemberResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getRange(@QueryParam("first") int first,
             @QueryParam("last") int last) {
-        List<Member> tmpList = memberBox.getRange(first, last);
+        List<Member> tmpList = memberRegistry.getRange(first, last);
         List<MemberProxy> memberList = new ArrayList<MemberProxy>();
         for (Member m : tmpList) {
             memberList.add(new MemberProxy(m));
@@ -150,7 +150,7 @@ public class MemberResource {
     @Path("count")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getCount() {
-        Integer i = new Integer(memberBox.getCount());
+        Integer i = new Integer(memberRegistry.getCount());
         PrimitiveJSONWrapper<Integer> pj = new PrimitiveJSONWrapper<Integer>(i);
         return Response.ok(pj).build();
     }
@@ -159,7 +159,7 @@ public class MemberResource {
     @Path("favoriteMembers")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getFavoriteMembers(@QueryParam("memberId") Long memberId) {
-        Member member = memberBox.find(memberId);
+        Member member = memberRegistry.find(memberId);
         Set<Member> tmpList = member.getFavoriteMembers();
         List<MemberProxy> favoriteMembers = new ArrayList<MemberProxy>();
         for (Member m : tmpList) {
@@ -175,8 +175,8 @@ public class MemberResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getCommonFavorites(@QueryParam("memberId") Long memberId,
             @QueryParam("memberId2") long memberId2) {
-        Member member1 = memberBox.find(memberId);
-        Member member2 = memberBox.find(memberId2);
+        Member member1 = memberRegistry.find(memberId);
+        Member member2 = memberRegistry.find(memberId2);
         Set<Member> tmpCommonFriends = member1.getFavoriteMembers();
         tmpCommonFriends.retainAll(member2.getFavoriteMembers());
         List<MemberProxy> commonFriends = new ArrayList<MemberProxy>();
@@ -192,7 +192,7 @@ public class MemberResource {
     @Path("search")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response search(@QueryParam("string") String searchString) {
-        List<Member> resultList = memberBox.search(searchString);
+        List<Member> resultList = memberRegistry.search(searchString);
         List<MemberProxy> proxyList = new ArrayList<MemberProxy>();
         for (Member m : resultList) {
             proxyList.add(new MemberProxy(m));
@@ -205,7 +205,7 @@ public class MemberResource {
     @Path("searchByName")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response searchByName(@QueryParam("string") String searchString) {
-        List<Member> resultList = memberBox.search(searchString);
+        List<Member> resultList = memberRegistry.search(searchString);
         List<String> proxyList = new ArrayList<String>();
         for (Member m : resultList) {
             proxyList.add(m.getName());
@@ -220,7 +220,7 @@ public class MemberResource {
     public Response getUser(@Context HttpServletRequest req) {
         try {
             Member session = (Member) req.getSession().getAttribute("USER");
-            Member user = memberBox.find(session.getId());
+            Member user = memberRegistry.find(session.getId());
             MemberProxy proxy = new MemberProxy(user);
             return Response.ok(proxy).build();
         } catch (IllegalArgumentException ie) {
@@ -233,7 +233,7 @@ public class MemberResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getUserByName(@PathParam("name") String memberName) {
         try {
-            Member member = memberBox.getMember(memberName);
+            Member member = memberRegistry.getMember(memberName);
             MemberProxy proxy = new MemberProxy(member);
             return Response.ok(proxy).build();
         } catch (IllegalArgumentException ie) {
@@ -245,9 +245,9 @@ public class MemberResource {
     public Response isfavoriteMember(@QueryParam("memberId") Long memberId,
             @Context HttpServletRequest req) {
         try{
-            Member member = memberBox.find(memberId);
+            Member member = memberRegistry.find(memberId);
             Member session = (Member) req.getSession().getAttribute("USER");
-            Member user = memberBox.find(session.getId());
+            Member user = memberRegistry.find(session.getId());
             if( user.getFavoriteMembers().contains(member))
                 return Response.ok("true").build();
             return Response.ok("false").build();
@@ -262,11 +262,11 @@ public class MemberResource {
     public Response favoriteMember(@QueryParam("memberId") Long memberId,
             @Context HttpServletRequest req) {
         try {
-            Member member = memberBox.find(memberId);
+            Member member = memberRegistry.find(memberId);
             Member session = (Member) req.getSession().getAttribute("USER");
-            Member user = memberBox.find(session.getId());
+            Member user = memberRegistry.find(session.getId());
             user.addFavoriteMember(member);
-            memberBox.update(user);
+            memberRegistry.update(user);
             return Response.ok().build();
         } catch (IllegalArgumentException ie) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -278,11 +278,11 @@ public class MemberResource {
     public Response unFavoriteMember(@QueryParam("memberId") Long memberId,
             @Context HttpServletRequest req) {
         try {
-            Member member = memberBox.find(memberId);
+            Member member = memberRegistry.find(memberId);
             Member session = (Member) req.getSession().getAttribute("USER");
-            Member user = memberBox.find(session.getId());
+            Member user = memberRegistry.find(session.getId());
             user.removeFavoriteMember(member);
-            memberBox.update(user);
+            memberRegistry.update(user);
             return Response.ok().build();
         } catch (IllegalArgumentException ie) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

@@ -6,7 +6,7 @@ package com.skyline.servlet.skyline_Authentication;
 
 import com.skyline.model.core.IMemberRegistry;
 import com.skyline.model.core.Member;
-import com.skyline.rest.skyline_rest.Blog;
+import com.skyline.rest.skyline_rest.BlogAccess;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
              return;
          }
          
-        IMemberRegistry memberBox = Blog.INSTANCE.getMembersRegistry();
+        IMemberRegistry memberBox = BlogAccess.INSTANCE.getMembersRegistry();
         if (memberBox.validMember(username, password)) {
             Member member = memberBox.getMember(username);
             request.getSession().setAttribute("USER", member);
