@@ -3,7 +3,6 @@ $(document).ready(function() {
     $("#sign-in")
             .button()
             .click(function() {
-        console.log("authorization javascript körs");
         $("#add-a-member").show();
     });
     
