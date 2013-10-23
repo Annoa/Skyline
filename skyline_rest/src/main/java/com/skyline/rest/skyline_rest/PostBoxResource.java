@@ -108,9 +108,7 @@ public class PostBoxResource {
             @FormParam("postVideo") String postVideo,
             @Context HttpServletRequest req) {
         
-        Member session = (Member) req.getSession().getAttribute("USER");
-        Member author = memberRegistry.find(session.getId());
-        
+        Member author = (Member) req.getSession().getAttribute("USER");
         String postPic = (postPicture!=null) ? postPicture : "";
         String postVid = (postVideo!=null) ? postVideo : "No video";
         Post p = new Post(title, bodyText, postPic, postVid);
@@ -202,7 +200,7 @@ public class PostBoxResource {
         VotingSystem voteSys = tempPost.getVotes();
         try {
             if(member.getId()==id){
-                postBox.update(new Post(id, tempPost.getDate(), title, bodyText, null, postVid, voteSys));
+                postBox.update(new Post(id, tempPost.getDate(), title, bodyText, postPic, postVid, voteSys));
                 return Response.ok().build();
             }
             else{
