@@ -43,7 +43,6 @@ public class CommentProxy {
     }
     
 
-    //TODO: default value?
     @XmlElement(required = false)
     public Set<Comment> getChildComments() {
         return comment.getChildComments();
