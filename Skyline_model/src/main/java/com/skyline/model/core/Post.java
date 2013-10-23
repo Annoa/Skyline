@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
  * Class representing a post containing one or many contents such as body text,
  * picture and video.
  *
- * @author Epoxy and Anno
+ * @author AntonPalmqvist and Anno
  */
 @Entity
 public class Post extends AbstractEntity implements Serializable {

@@ -10,10 +10,7 @@ import com.skyline.model.core.IMemberRegistry;
 import com.skyline.model.core.IPostContainer;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
-import com.skyline.model.core.VotingSystem;
-import java.util.List;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 
 /**
@@ -22,7 +19,7 @@ import org.junit.BeforeClass;
  * calculating with many different values, such as the REST-method 
  * getPostsForFavoritesOfMember.
  * 
- * @author epoxy
+ * @author AntonPalmqvist
  */
 public class TestDataForMethods {
 

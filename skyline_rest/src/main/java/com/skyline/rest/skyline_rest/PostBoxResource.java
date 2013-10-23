@@ -31,7 +31,7 @@ import javax.ws.rs.core.UriInfo;
 /**
  * Wrapping the blog-model and handling calls towards it.
  *
- * @author Anton Palmqvist
+ * @author AntonPalmqvist
  */
 @Path("posts")
 public class PostBoxResource {
