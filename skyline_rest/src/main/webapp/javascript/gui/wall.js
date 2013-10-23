@@ -3,6 +3,9 @@
  * with the wall. As you can see in the methods below this is for 
  * example things as rendering the posts and their comments.
  * 
+ * @param $ JQuery
+ * @param root window
+ * 
  * @returns {undefined}
  */
 (function($,root){
@@ -12,7 +15,7 @@
     /**
      * Function rendering all posts on the wall.
      * 
-     * @param {type} post
+     * @param {type} posts
      * @returns {undefined}
      */
     function renderAllPosts(posts) {
@@ -32,7 +35,7 @@
                 var target = targetId.substr(targetId.indexOf("_")+1);
                 var targetDiv = $('[id="comments-post_' + target + '"]');
                 if ($(targetDiv).is(':empty')) {
-                    renderComments(target)
+                    renderComments(target);
                 } else {
                     $(this).html("Show comments");
                     $(targetDiv).contents().remove();
@@ -46,7 +49,7 @@
             .click(function() {
                 var targetId = $(this).attr('id');
                 var target = targetId.substr(targetId.indexOf("_")+1);
-                var targetDiv = $('[id="add-commentbox-post_' + target + '"]')
+                var targetDiv = $('[id="add-commentbox-post_' + target + '"]');
                 if ($(targetDiv).is(':empty')) {
                     var add = addCommentBox(target);
                     $(targetDiv).append(add);
@@ -88,7 +91,7 @@
             var postIdentifier = $(this).parents('li').attr('id');
             var postId = postIdentifier.substr(postIdentifier.indexOf('_')+1);
             if ($(this).attr('class').indexOf('orangered') === -1) {
-                $(this).addClass('orangered')
+                $(this).addClass('orangered');
             }
             $(this).html($(this).html() * 1 + 1);
             skyline.getPostBox().vote(postId, true);
@@ -98,7 +101,7 @@
             var postIdentifier = $(this).parents('li').attr('id');
             var postId = postIdentifier.substr(postIdentifier.indexOf('_')+1);
             if ($(this).attr('class').indexOf('periwinkle') === -1) {
-                $(this).addClass('periwinkle')
+                $(this).addClass('periwinkle');
             }
             $(this).html($(this).html() * 1 + 1);
             skyline.getPostBox().vote(postId, false);
@@ -336,7 +339,7 @@
      * @returns {String}
      */
     function convertToYouTubeEmbedLink (link) {
-        var videoSuffix = link.substring(link.length - 11, link.length)
+        var videoSuffix = link.substring(link.length - 11, link.length);
         if(link.search("youtube.com/watch")!==-1){
             return "http://www.youtube.com/embed/" + videoSuffix;
         }

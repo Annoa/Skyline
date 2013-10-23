@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
          String logout = request.getParameter("logout");
          if (logout != null) {
              request.getSession().removeAttribute("USER");
-             request.getRequestDispatcher("index.xhtml").forward(request, response);
+             response.sendRedirect("index.xhtml");
              return;
          }
          
@@ -51,9 +51,10 @@ public class LoginServlet extends HttpServlet {
         if (memberBox.validMember(username, password)) {
             Member member = memberBox.getMember(username);
             request.getSession().setAttribute("USER", member);
-             request.getRequestDispatcher("login/home.xhtml").forward(request, response);
+             //request.getRequestDispatcher("login/home.xhtml").forward(request, response);
+            response.sendRedirect("login/home.xhtml");
          } else {
-             request.getRequestDispatcher("index.xhtml").forward(request, response);
+             response.sendRedirect("index.xhtml");
          }
     }
 
