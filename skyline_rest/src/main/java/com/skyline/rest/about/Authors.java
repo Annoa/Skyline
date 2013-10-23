@@ -30,16 +30,16 @@ public class Authors implements Serializable {
     private List<Author> authorFactory() {
         List<Author> l = new ArrayList();
         String aST = "this is the short version about Anton";
-        String aLT = "this is the long version about Anton."+
+        String aLT = "this is the long version about Anton. "+
                 "As you can see the information has changed after pressing the 'Longer text'-button.";
         String gST = "this is the short version about Gabriel";
-        String gLT = "this is the long version about Gabriel."+
+        String gLT = "this is the long version about Gabriel. "+
                 "As you can see the information has changed after pressing the 'Longer text'-button.";
         String mST = "this is the short version about Mike";
-        String mLT = "this is the long version about Mike."+
+        String mLT = "this is the long version about Mike. "+
                 "As you can see the information has changed after pressing the 'Longer text'-button.";
         String tST = "this is the short version about Tomas";
-        String tLT = "this is the long version about Tomas."+
+        String tLT = "this is the long version about Tomas. "+
                 "As you can see the information has changed after pressing the 'Longer text'-button.";
         String aN = "Anton Palmqvist";
         String gN = "Gabriel Andersson";
