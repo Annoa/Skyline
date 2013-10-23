@@ -121,15 +121,9 @@ $(document).ready(function() {
         
     };
     
-    $("#login").click(function(event) {
-        $("#controls").contents().remove();
-        $("#contents").load("/skyline_rest/authorize/login.html");
-        resetActive();
-        $("#logout").parent().addClass("active");
-        event.preventDefault();
-    });
+    $("#login").attr("id", "logout");
     
-     $("#logout").click(function(event) {
+    $("#logout").click(function(event) {
         $("#controls").contents().remove();
         $("#contents").load("/skyline_rest/authorize/logout.html");
         resetActive();
