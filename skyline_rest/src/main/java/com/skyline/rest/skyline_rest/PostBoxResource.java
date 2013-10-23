@@ -32,9 +32,8 @@ import javax.ws.rs.core.UriInfo;
 @Path("posts")
 public class PostBoxResource {
 
-    private IPostContainer postBox = Blog.INSTANCE.getPostContainer();
-    private IMemberRegistry memberRegistry = Blog.INSTANCE.getMembersRegistry();
-    // Helper class used to build URI's. Injected by container
+    private IPostContainer postContainer = BlogAccess.INSTANCE.getPostContainer();
+    private IMemberRegistry memberRegistry = BlogAccess.INSTANCE.getMembersRegistry();
     
     /**
      * Method getting all posts.
@@ -44,7 +43,7 @@ public class PostBoxResource {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAll() {
-        List postList = postBox.getRangeByVotes(0, postBox.getCount());
+        List postList = postContainer.getRangeByVotes(0, postContainer.getCount());
         List<PostProxy> wrappedPostList = new ArrayList();
         for (int i = 0; i < postList.size(); i++) {
             Post p = (Post) postList.get(i);
@@ -69,7 +68,7 @@ public class PostBoxResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response find(@PathParam("id") Long id) {
         try {
-            Post p = postBox.find(id);
+            Post p = postContainer.find(id);
             PostProxy pp = new PostProxy(p);
             return Response.ok(pp).build();
         } catch (IllegalArgumentException e) {
@@ -105,7 +104,7 @@ public class PostBoxResource {
         String postVid = (postVideo!=null) ? postVideo : "No video";
         Post p = new Post(title, bodyText, postPic, postVid);
         try {
-            postBox.add(p);
+            postContainer.add(p);
             author.addPost(p);
             memberRegistry.update(author);
 
@@ -128,14 +127,14 @@ public class PostBoxResource {
     @Path("vote")
     public Response vote(@QueryParam("postId") Long postId, @QueryParam("positive") boolean positive) {
         try {
-            Post post = postBox.find(postId);
+            Post post = postContainer.find(postId);
             VotingSystem votes = post.getVotes();
             if (positive) {
                 votes.addUpVote();
             } else {
                 votes.addDownVote();
             }
-            postBox.update(post);
+            postContainer.update(post);
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -153,7 +152,7 @@ public class PostBoxResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response remove(@PathParam("Id") Long Id) {
         try {
-            postBox.remove(Id);
+            postContainer.remove(Id);
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -185,12 +184,12 @@ public class PostBoxResource {
         }
         String postPic = (postPicture!=null) ? postPicture : "";
         String postVid = (postVideo!=null) ? postVideo : "No video";
-        Post tempPost = postBox.find(id);
-        Member postAuthor = postBox.getAuthor(tempPost);
+        Post tempPost = postContainer.find(id);
+        Member postAuthor = postContainer.getAuthor(tempPost);
         VotingSystem voteSys = tempPost.getVotes();
         try {
             if(member.getId()==postAuthor.getId()){
-                postBox.update(new Post(id, tempPost.getDate(), title, bodyText, postPic, postVid, voteSys));
+                postContainer.update(new Post(id, tempPost.getDate(), title, bodyText, postPic, postVid, voteSys));
                 return Response.ok().build();
             }
             else{
@@ -214,7 +213,7 @@ public class PostBoxResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getRange(@QueryParam("first") int first,
             @QueryParam("last") int last) {
-        List<Post> tmpPosts = postBox.getRange(first, last);
+        List<Post> tmpPosts = postContainer.getRange(first, last);
         List<PostProxy> postList = new ArrayList<PostProxy>();
         for (Post post : tmpPosts) {
             postList.add(new PostProxy(post));
@@ -233,7 +232,7 @@ public class PostBoxResource {
     @Path("count")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getCount() {
-        Integer i = new Integer(postBox.getCount());
+        Integer i = new Integer(postContainer.getCount());
         PrimitiveJSONWrapper<Integer> pj = new PrimitiveJSONWrapper<Integer>(i);
         return Response.ok(pj).build();
     }
@@ -248,7 +247,7 @@ public class PostBoxResource {
     public Response getPostsOfMemberByVotes(@PathParam("memberId") Long memberId) {
         Member member = memberRegistry.find(memberId);
         
-        List<Post> posts = postBox.getPostsOfMemberByVotes(member, 0, postBox.getCount());
+        List<Post> posts = postContainer.getPostsOfMemberByVotes(member, 0, postContainer.getCount());
         List<PostProxy> postList = new ArrayList<PostProxy>();
         for (Post post : posts) {
             postList.add(new PostProxy(post));
@@ -265,7 +264,7 @@ public class PostBoxResource {
         Member session = (Member) req.getSession().getAttribute("USER");
         Member member = memberRegistry.find(session.getId());
         
-        List<Post> posts = postBox.getPostsOfMemberByVotes(member, 0, postBox.getCount());
+        List<Post> posts = postContainer.getPostsOfMemberByVotes(member, 0, postContainer.getCount());
         List<PostProxy> postList = new ArrayList<PostProxy>();
         for (Post post : posts) {
             postList.add(new PostProxy(post));
@@ -286,8 +285,8 @@ public class PostBoxResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAuthor(@PathParam("postId") Long postId) {
         try {
-            Post post = postBox.find(postId);
-            MemberProxy member = new MemberProxy(postBox.getAuthor(post));
+            Post post = postContainer.find(postId);
+            MemberProxy member = new MemberProxy(postContainer.getAuthor(post));
             return Response.ok(member).build();
         } catch (IllegalArgumentException ie) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -308,7 +307,7 @@ public class PostBoxResource {
         if (member == null) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
-        List<Post> favoritesPosts = postBox.getPostsOfMemberFavorites(member, 0, 50);
+        List<Post> favoritesPosts = postContainer.getPostsOfMemberFavorites(member, 0, 50);
         List<PostProxy> proxies = new ArrayList<PostProxy>();
         for (Post post : favoritesPosts) {
             proxies.add(new PostProxy(post));
