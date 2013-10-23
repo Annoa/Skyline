@@ -6,14 +6,6 @@
     <artifactId>Skyline_model</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-
-    <name>Skyline_model</name>
-    <url>http://maven.apache.org</url>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -56,6 +48,9 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <name>Skyline_model</name>
+    <url>http://maven.apache.org</url>
   
     <repositories>
         <repository>
@@ -64,11 +59,9 @@
             <layout>default</layout>
             <name>Repository for library Library[eclipselink]</name>
         </repository>
-        <repository>
-            <id>unknown-jars-temp-repo</id>
-            <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
-            <url>file:${project.basedir}/lib</url>
-        </repository>
     </repositories>
-  
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 </project>
