@@ -35,8 +35,6 @@ public class PostBoxResource {
     private IPostContainer postBox = Blog.INSTANCE.getPostContainer();
     private IMemberRegistry memberRegistry = Blog.INSTANCE.getMembersRegistry();
     // Helper class used to build URI's. Injected by container
-    @Context
-    private UriInfo uriInfo;
     
     /**
      * Method getting all posts.
