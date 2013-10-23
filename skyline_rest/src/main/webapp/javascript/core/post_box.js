@@ -54,8 +54,6 @@ PostBox.prototype = (function (){
         },
         
         getRange: function ( fst, max ){
-                            //TODO
-                            console.log("HAJ");
             return $.getJSON(this.baseUri + "/range?first=" + fst + "&last=" + max);
         },
 
@@ -73,9 +71,5 @@ PostBox.prototype = (function (){
         getPostByFavorites: function ( ){
             return $.getJSON(this.baseUri + "/favorites");
         }
-        //TODO
-//        getPostByMember: function ( post ) {
-//            
-//        }
     };
 }());

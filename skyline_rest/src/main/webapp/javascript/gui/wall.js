@@ -6,57 +6,142 @@
  * @returns {undefined}
  */
 (function($,root){
-    
-//    $("#aboutUrl2").remove();
-//    //Clear the table
-//    //    $('#posts tbody').remove();
-//    console.log("walls.js javascript körs");
-//    skyline.getPostBox().getAll().done(renderAllPosts);
-//
-//    //Button add new post
-//    $("#write-post")
-//            .button()
-//            .click(function() {
-//        $("#new-post").removeAttr('hidden');
-//    });
-//    
-//    //Button: Save post form
-//    $("#save-post").button().click(function(){
-//        var newPost = getFormDialogData();
-//        clearFormDialogData();
-//        $("#new-post").attr("hidden",'hidden');
-//        newPost.authorId = 1;
-//        //Creating a new post of the entered values
-//        var def = skyline.getPostBox().add(newPost);
-//        def.done(function(addedPost){
-//            renderAddedPost(addedPost);
-//        });
-//    });
-//
-//    //Button: Cancel post form
-//    $("#cancel-post").button().click(function(){
-//        $("#new-post").attr("hidden",'hidden');
-//    });
-//    
-//    function getFormDialogData() {
-//        var post = {};
-//        post.title = $("#ptitle").val();
-//        // **
-//        // Preserves rowbreaks for saving to database
-//        // Also only allows two rowbreaks max in a row
-//        var text = $("#ptext").val();
-//        post.bodyText = text.replace(/\n/g, "<br />")
-//        // **
-//        post.postVideo = $("#pvideo").val();
-//        return post;
-//    }
-//    
-//    function clearFormDialogData() {
-//        $("#add-edit-post #ptitle").val("");
-//        $("#add-edit-post #ptext").val("");
-//        $("#add-edit-post #pvideo").val("");
-//    }
 
+    
+    
+    /**
+     * Function rendering all posts on the wall.
+     * 
+     * @param {type} post
+     * @returns {undefined}
+     */
+    function renderAllPosts(posts) {
+
+        $("#postlist").contents().remove();
+        var htmlText = '';
+        for(var i=0; i<posts.length; i++){
+            htmlText += convertPostToHTML(posts[i]);
+        }
+        
+        $('#postlist').append(htmlText);
+        
+        $("[id^=comment-button_]")
+            .button()
+            .click(function(){
+                var targetId = $(this).attr('id');
+                var target = targetId.substr(targetId.indexOf("_")+1);
+                var targetDiv = $('[id="comments-post_' + target + '"]');
+                if ($(targetDiv).is(':empty')) {
+                    renderComments(target)
+                } else {
+                    $(this).html("Show comments");
+                    $(targetDiv).contents().remove();
+                    $.cookie('post-comment-show_'+target, false);
+                }
+
+            });
+            
+        $("[id^=comment-add-button_]")
+            .button()
+            .click(function() {
+                var targetId = $(this).attr('id');
+                var target = targetId.substr(targetId.indexOf("_")+1);
+                var targetDiv = $('[id="add-commentbox-post_' + target + '"]')
+                if ($(targetDiv).is(':empty')) {
+                    var add = addCommentBox(target);
+                    $(targetDiv).append(add);
+                    // If no comments where gotten we don't change name on the toggle-comments button
+                    var tar = "#add-commentbox-post_" + target;
+                    $(tar).find(".comment-save-button")
+                                .button()
+                                .click(function() {
+                            var comment = {};
+                            
+                            comment.text = $(tar).find(".comment-textarea").val();
+                            comment.postId = target;
+                            comment.parentId = -1;
+                            
+                            $(tar).find(".comment-textarea").val("");
+                            $("#add-commentbox-post_" + target).hide();
+                            
+                            skyline.getCommentBox().add(comment).done(function() {
+                                $.cookie('post-comment', true);
+                                $("#comment-button_"+target).click().click();
+                            });
+                        });
+                    $(tar).find(".comment-cancel-button")
+                                .button()
+                                .click(function() {
+                            $(tar).find(".comment-textarea").val("");
+                            $("#add-commentbox-post_" + target).hide();
+                        });
+                } else {
+                    if ($(targetDiv).is(':hidden')) {
+                        $(targetDiv).show();
+                    } else {
+                        $(targetDiv).hide();
+                    }
+                }
+            });
+            
+        $("[id^=post_]").find('.vote-up').click(function() {
+            var postIdentifier = $(this).parents('li').attr('id');
+            var postId = postIdentifier.substr(postIdentifier.indexOf('_')+1);
+            if ($(this).attr('class').indexOf('orangered') === -1) {
+                $(this).addClass('orangered')
+            }
+            $(this).html($(this).html() * 1 + 1);
+            skyline.getPostBox().vote(postId, true);
+        });
+        
+        $("[id^=post_]").find('.vote-down').click(function() {
+            var postIdentifier = $(this).parents('li').attr('id');
+            var postId = postIdentifier.substr(postIdentifier.indexOf('_')+1);
+            if ($(this).attr('class').indexOf('periwinkle') === -1) {
+                $(this).addClass('periwinkle')
+            }
+            $(this).html($(this).html() * 1 + 1);
+            skyline.getPostBox().vote(postId, false);
+        });
+        
+        $("[id^=post_]").each(function() {
+            var targetLi = $(this).attr('id');
+            var postId = targetLi.substr(targetLi.indexOf("_")+1);
+            skyline.getPostBox().getAuthor(postId).done(function(author) {
+                $("#post_"+postId).find('.author').html('<a class="author-link" data-author-id="'+author.id+'" href="#">' + author.name + '</a>');
+                $("#post_"+postId).find('.author').find('.author-link').click(function() {
+                            memberPage($(this).data("author-id"));
+                });
+            });     
+        });
+        
+        /*
+         * This checks for cookies that say if 
+         * we should show comments or not on page reload
+         */
+        $("[id^=post_]").each(function() {
+            
+            var targetLi = $(this).attr('id');
+            var postId = targetLi.substr(targetLi.indexOf("_")+1);
+            if ($.cookie('post-comment-show_'+postId) === "true") {
+                $("#"+targetLi).find('[id=comment-button_'+postId+']').click();
+            };
+        });
+        
+        function addCommentBox(post) {
+            var html = '<form id="add-commentbox-post_'+ post +'" class="write-post-form" >'
+                + '<div class="input-group">'
+                    +'<textarea class="form-control input-block-level comment-textarea" placeholder="Enter comment text here..."/>'
+                +'</div>'
+                +'<div class="btn-group-xs">'
+                    +'<button class="btn btn-default btn-success comment-save-button" type="button" >Save</button>'
+                    +'<button class="btn btn-default btn-danger comment-cancel-button" type="button" >Cancel</button>'
+                +'</div>'
+            +'</form>';
+            return html;
+        }
+    }   
+    
     /**
      * Function rendering comments of the posts and comments of the comments.
      * 
@@ -180,26 +265,7 @@
                             memberPage($(this).data("author-id"));
                         });
                     });
-                }))
-                
-                
-//                $("[id^=post_]").find('.vote-up').click(function() {
-//                    var postIdentifier = $(this).parents('li').attr('id');
-//                    var postId = postIdentifier.substr(postIdentifier.indexOf('#')+1);
-//                    if ($(this).attr('class').indexOf('orangered') === -1) {
-//                        $(this).addClass('orangered')
-//                    }
-//                    skyline.getPostBox().vote(postId, true);
-//                });
-//
-//                $("[id^=post_]").find('.vote-down').click(function() {
-//                    var postIdentifier = $(this).parents('li').attr('id');
-//                    var postId = postIdentifier.substr(postIdentifier.indexOf('#')+1);
-//                    if ($(this).attr('class').indexOf('periwinkle') === -1) {
-//                        $(this).addClass('periwinkle')
-//                    }
-//                    skyline.getPostBox().vote(postId, false);
-//                });
+                }));
                 
                 function addCommentBoxWithParent(parentComment) {
                     var commentHtml = '<form id="add-commentbox-post_'+ post +'-parent_' + parentComment + '" class="write-post-form" >'
@@ -217,147 +283,6 @@
             return false;
         }
     };
-    
-    /**
-     * Function rendering all posts on the wall.
-     * 
-     * @param {type} post
-     * @returns {undefined}
-     */
-    function renderAllPosts(posts) {
-
-        $("#postlist").contents().remove();
-        var htmlText = '';
-        for(var i=0; i<posts.length; i++){
-            htmlText += convertPostToHTML(posts[i]);
-        }
-        
-        $('#postlist').append(htmlText);
-        
-        $("[id^=comment-button_]")
-            .button()
-            .click(function(){
-                var targetId = $(this).attr('id');
-                var target = targetId.substr(targetId.indexOf("_")+1);
-                var targetDiv = $('[id="comments-post_' + target + '"]');
-                if ($(targetDiv).is(':empty')) {
-                    renderComments(target)
-                } else {
-                    $(this).html("Show comments");
-                    $(targetDiv).contents().remove();
-                    $.cookie('post-comment-show_'+target, false);
-                }
-
-            });
-            
-        $("[id^=comment-add-button_]")
-            .button()
-            .click(function() {
-                var targetId = $(this).attr('id');
-                var target = targetId.substr(targetId.indexOf("_")+1);
-                var targetDiv = $('[id="add-commentbox-post_' + target + '"]')
-                if ($(targetDiv).is(':empty')) {
-                    var add = addCommentBox(target);
-                    $(targetDiv).append(add);
-                    // If no comments where gotten we don't change name
-                    var tar = "#add-commentbox-post_" + target;
-                    $(tar).find(".comment-save-button")
-                                .button()
-                                .click(function() {
-                            var comment = {};
-                            
-                            comment.text = $(tar).find(".comment-textarea").val();
-                            comment.postId = target;
-                            comment.parentId = -1;
-                            //******
-                            // Test AUTHOR!
-//                            comment.authorId = 1;
-                            //******
-                            $(tar).find(".comment-textarea").val("");
-                            $("#add-commentbox-post_" + target).hide();
-                            
-//                            $("#new-post").attr("hidden",'hidden');
-//                            skyline.getCommentBox().add(comment)
-//                                    .then($("#contents").load("/skyline_rest/content/wall.html"));
-
-                            skyline.getCommentBox().add(comment).done(function() {
-                                $.cookie('post-comment', true);
-//                                location.reload();
-                                $("#comment-button_"+target).click().click();
-                            });
-                        });
-                    $(tar).find(".comment-cancel-button")
-                                .button()
-                                .click(function() {
-                            $(tar).find(".comment-textarea").val("");
-                            $("#add-commentbox-post_" + target).hide();
-                        });
-                } else {
-                    if ($(targetDiv).is(':hidden')) {
-                        $(targetDiv).show();
-                    } else {
-                        $(targetDiv).hide();
-                    }
-                }
-            });
-            
-        $("[id^=post_]").find('.vote-up').click(function() {
-            var postIdentifier = $(this).parents('li').attr('id');
-            var postId = postIdentifier.substr(postIdentifier.indexOf('_')+1);
-            if ($(this).attr('class').indexOf('orangered') === -1) {
-                $(this).addClass('orangered')
-            }
-            $(this).html($(this).html() * 1 + 1);
-            skyline.getPostBox().vote(postId, true);
-        });
-        
-        $("[id^=post_]").find('.vote-down').click(function() {
-            var postIdentifier = $(this).parents('li').attr('id');
-            var postId = postIdentifier.substr(postIdentifier.indexOf('_')+1);
-            if ($(this).attr('class').indexOf('periwinkle') === -1) {
-                $(this).addClass('periwinkle')
-            }
-            $(this).html($(this).html() * 1 + 1);
-            skyline.getPostBox().vote(postId, false);
-        });
-        
-        $("[id^=post_]").each(function() {
-            var targetLi = $(this).attr('id');
-            var postId = targetLi.substr(targetLi.indexOf("_")+1);
-            skyline.getPostBox().getAuthor(postId).done(function(author) {
-                $("#post_"+postId).find('.author').html('<a class="author-link" data-author-id="'+author.id+'" href="#">' + author.name + '</a>');
-                $("#post_"+postId).find('.author').find('.author-link').click(function() {
-                            memberPage($(this).data("author-id"));
-                });
-            });     
-        });
-        
-        /*
-         * This checks for cookies that say if 
-         * we should show comments or not on page reload
-         */
-        $("[id^=post_]").each(function() {
-            
-            var targetLi = $(this).attr('id');
-            var postId = targetLi.substr(targetLi.indexOf("_")+1);
-            if ($.cookie('post-comment-show_'+postId) === "true") {
-                $("#"+targetLi).find('[id=comment-button_'+postId+']').click();
-            };
-        });
-        
-        function addCommentBox(post) {
-            var html = '<form id="add-commentbox-post_'+ post +'" class="write-post-form" >'
-                + '<div class="input-group">'
-                    +'<textarea class="form-control input-block-level comment-textarea" placeholder="Enter comment text here..."/>'
-                +'</div>'
-                +'<div class="btn-group-xs">'
-                    +'<button class="btn btn-default btn-success comment-save-button" type="button" >Save</button>'
-                    +'<button class="btn btn-default btn-danger comment-cancel-button" type="button" >Cancel</button>'
-                +'</div>'
-            +'</form>';
-            return html;
-        }
-    }   
     
     /**
      * Function rendering the added post at the bottom of the existing 
@@ -411,48 +336,15 @@
      * @returns {String}
      */
     function convertToYouTubeEmbedLink (link) {
-//        console.log("convertToEmbed");
         var videoSuffix = link.substring(link.length - 11, link.length)
-//            console.log(link.search("youtube.com/watch?v=") + " <- Bad link if -1");
         if(link.search("youtube.com/watch")!==-1){
-//            console.log("Good link");
             return "http://www.youtube.com/embed/" + videoSuffix;
         }
         else{
-//            console.log("Bad link, retype as: www.youtube.com/watch?v=.....");
             return "";
-            
         }
     }
     
-//    function createWritePostDialog() {
-//
-//        // Use JQueryUI dialog
-//        
-//        //        clearFormDialogData();
-//        console.log("Formdata cleared");
-//        //        $("#dialog-form")
-//        var myDialog = $("#add-edit-post").dialog({
-//            autoOpen: false,
-//            modal: true,
-//            stack: true,
-//            title: "Write new post",
-//            buttons: {
-//                Save: function() {
-//                    var newPost = getFormDialogData();
-//                    console.log(newPost);
-//                    skyline.getPostBox().add(newPost).then(renderAddedPost(newPost));
-//                    $(this).dialog("close");
-////                    renderAddedPost(newPost);
-//                },
-//                Cancel: function() {
-//                    $(this).dialog("close");
-//                }
-//            }
-//        });
-//        // Show it
-//        myDialog.dialog("open");
-//    }
     root.GUI = {
         renderComments: renderComments,
         renderAllPosts: renderAllPosts,
