@@ -1,5 +1,5 @@
 Note
-Some test appends on HttpservletRequest and doesn´ work since we don´t send
+Some test appends on HttpservletRequest and doesn't work since we don't send
 any request with the curl test written here. 
 Methods that relies on HttpServletrequest is:
 
