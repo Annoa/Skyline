@@ -21,17 +21,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author tomassellden
+ * A filter that will be invoked every time we do an url invoke conatining 
+ * urlpatters /rs/posts/*, /rs/comments/*" but we only check if session attribute
+ * USER is not null if it is a POST invoke.
  */
 @WebFilter(filterName = "AuthentificationFilter", urlPatterns = {"/rs/posts/*", "/rs/comments/*"})
 public class AuthentificationFilter implements Filter {
 
     
-    
-    // The filter configuration object we are associated with.  If
-    // this value is null, this filter instance is not currently
-    // configured. 
-    private FilterConfig filterConfig = null;
-
     public AuthentificationFilter() {
     }
 
@@ -51,31 +48,18 @@ public class AuthentificationFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        Logger.getAnonymousLogger().log(Level.INFO, "doFilter");
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
+        
         if(req.getMethod().equalsIgnoreCase("POST")){
-            String s = req.getRequestURI();
-            Logger.getAnonymousLogger().log(Level.INFO, "s= " + s);
-            if ("/skyline_rest/rs/members".equals(s)) {
-                Logger.getAnonymousLogger().log(Level.INFO, "break");
-                chain.doFilter(request, response);
-                
-                Logger.getAnonymousLogger().log(Level.INFO, "this should not be shown");
-            }
-            Logger.getAnonymousLogger().log(Level.INFO, "url is: 3: " + req.getRequestURL());
+            
             Member member = (Member) req.getSession().getAttribute("USER");
             if (member != null) {
-                Logger.getAnonymousLogger().log(Level.INFO, "Filter: member != null");
                 req.getSession().setAttribute("USER", member);
-                //chain.doFilter(request, response);
+                chain.doFilter(request, response);
             }
             if (member == null) {
-                Logger.getAnonymousLogger().log(Level.INFO, "Filter: member == null");
-                //res.sendRedirect("/skyline_rest/index.xhtml");
-                //req.getRequestURI().
-                //req.getRequestDispatcher("/skyline_rest/index.xhtml");
                 res.sendRedirect("http://localhost:8080/skyline_rest/");
                 return;
             }

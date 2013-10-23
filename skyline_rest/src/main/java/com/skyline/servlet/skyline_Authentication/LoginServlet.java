@@ -8,10 +8,6 @@ import com.skyline.model.core.IMemberRegistry;
 import com.skyline.model.core.Member;
 import com.skyline.rest.skyline_rest.Blog;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author tomassellden
+ * A servlet that check if username and password exist in database and if it does
+ * set a session attribute "USER" so he will be enable to write comments and posts
  */
 
 @WebServlet(name = "ServletLogin", urlPatterns = {"/authorization/*"})
@@ -39,18 +37,12 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          
-         
-        
-         Logger.getAnonymousLogger().log(Level.INFO, "LoginServlet");
-         
          String username = request.getParameter("username");
          String password = request.getParameter("password");
-         Logger.getAnonymousLogger().log(Level.INFO, "password is " + password);
          
          String logout = request.getParameter("logout");
          if (logout != null) {
              request.getSession().removeAttribute("USER");
-             Logger.getAnonymousLogger().log(Level.INFO, "remove session USER attribute");
              request.getRequestDispatcher("index.xhtml").forward(request, response);
              return;
          }
@@ -58,10 +50,7 @@ public class LoginServlet extends HttpServlet {
         IMemberRegistry memberBox = Blog.INSTANCE.getMembersRegistry();
         if (memberBox.validMember(username, password)) {
             Member member = memberBox.getMember(username);
-            Logger.getAnonymousLogger().log(Level.INFO, "member: is not null");
             request.getSession().setAttribute("USER", member);
-            Logger.getAnonymousLogger().log(Level.INFO, "Session is: " + request.getSession());
-            Logger.getAnonymousLogger().log(Level.INFO, "Member is: "+ member.getName());   
              request.getRequestDispatcher("login/home.xhtml").forward(request, response);
          } else {
              request.getRequestDispatcher("index.xhtml").forward(request, response);
