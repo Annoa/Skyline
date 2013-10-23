@@ -9,20 +9,13 @@
             <!-- If customizing messages -->
         </message-bundle>
     </application>
-    <!-- Main menu on all pages -->
+    <!-- Using faces to reach the about section. Just to implement one instance 
+    of this method-->
     <navigation-rule>
         <from-view-id>*</from-view-id> 
         <navigation-case>
-            <from-outcome>blog</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>about</from-outcome>
             <to-view-id>/about/mainabout.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>chat</from-outcome>
-            <to-view-id>/chat/chat.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
