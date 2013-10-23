@@ -14,16 +14,18 @@ import org.junit.Test;
 
 /**
  *
- * @author hajo modified by tomassellden
+ * @author hajo modified by AntonPalmqvist
  */
 public class PostProxtTest {
     
     @Test
     public void testMarchalPostProxy() throws JAXBException {
         JAXBContext jc = JAXBContext.newInstance(PostProxy.class);
-        Member m = new Post("member");
-        BodyText bt = new BodyText("test post");
-        PostProxy pp = new PostProxy(new Post(m, "testTitle", "test text", null, null));
+        Post testPost = new Post("A nice little text", 
+                "This is a text I wrote when I was travelling in Australia.", 
+                "http://www.hdwallpapersinn.com/wp-content/uploads/2012/06/sunset.jpg", 
+                "http://www.youtube.com/watch?v=RnqAXuLZlaE");
+        PostProxy pp = new PostProxy(testPost);
         Marshaller marshaller = jc.createMarshaller();
         marshaller.marshal(pp, System.out);
     }
