@@ -22,9 +22,8 @@ asyncTest("MemberRegistry.count", function() {
 });
 
 asyncTest("MemberRegistry.getRange", function() {
-    var deferred = skyline_member.getMemberRegistry().
+    var deferred = skyline.getgetMemberRegistry().
     deferred.done(function(members) {
-        console.log(members.length);
         ok(members.length === 2, "Test passed");
         //ok( true, "Test passed");
         start();
