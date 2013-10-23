@@ -5,8 +5,6 @@ import com.skyline.model.core.IPostContainer;
 import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
 import com.skyline.model.core.VotingSystem;
-import com.skyline.model.utils.IDAO;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -108,16 +106,7 @@ public class PostBoxResource {
             @FormParam("bodyText") String bodyText,
             @FormParam("postPicture") String postPicture,
             @FormParam("postVideo") String postVideo,
-//            @FormParam("memberId") Long memberId) {
             @Context HttpServletRequest req) {
-//        Member member = (Member) req.getAttribute("USER");
-//        log.log(Level.INFO, member.getName() + ", id: " + member.getId());
-       /* byte[] postPic;
-        if (postPicture!=null) {
-            postPic = postPicture;
-        } else {
-            postPic = new byte[0];
-        }*/
         
         Member session = (Member) req.getSession().getAttribute("USER");
         Member author = memberRegistry.find(session.getId());
@@ -199,25 +188,16 @@ public class PostBoxResource {
     public Response update(@Context HttpServletRequest req, @PathParam("Id") Long id,
             @FormParam("title") String title,
             @FormParam("bodyText") String bodyText,
-           // @FormParam("PostPicture") byte[] postPicture,
+            @FormParam("PostPicture") String postPicture,
             @FormParam("postVideo") String postVideo) {
-//        Member mWhoWroteThePost = memberBox.find(idMember);
-        /*byte[] postPic;
-        if (postPicture!=null) {
-            postPic = postPicture;
-        } else {
-            postPic = new byte[0];
-        }*/
+        //TODO mer lik add?
+        //Check that the user is logged in
         Member member = (Member) req.getSession().getAttribute("USER");
         if(member==null){
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
-        String postVid;
-        if (postVideo!=null) {
-            postVid = postVideo;
-        } else {
-            postVid = "No video";
-        }
+        String postPic = (postPicture!=null) ? postPicture : "";
+        String postVid = (postVideo!=null) ? postVideo : "No video";
         Post tempPost = postBox.find(id);
         VotingSystem voteSys = tempPost.getVotes();
         try {
