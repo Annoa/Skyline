@@ -13,16 +13,8 @@
     <navigation-rule>
         <from-view-id>*</from-view-id> 
         <navigation-case>
-            <from-outcome>blog</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
             <from-outcome>about</from-outcome>
             <to-view-id>/about/mainabout.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>chat</from-outcome>
-            <to-view-id>/chat/chat.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
