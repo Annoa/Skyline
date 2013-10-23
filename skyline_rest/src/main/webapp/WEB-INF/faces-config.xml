@@ -9,7 +9,8 @@
             <!-- If customizing messages -->
         </message-bundle>
     </application>
-    <!-- Main menu on all pages -->
+    <!-- Using faces to reach the about section. Just to implement one instance 
+    of this method-->
     <navigation-rule>
         <from-view-id>*</from-view-id> 
         <navigation-case>
