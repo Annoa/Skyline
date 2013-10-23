@@ -4,7 +4,7 @@
  */
 package com.skyline.model.tests;
 
-import com.skyline.model.core.BlogFactory;
+import com.skyline.model.core.Blog;
 import com.skyline.model.core.Comment;
 import com.skyline.model.core.IBlog;
 import com.skyline.model.core.ICommentContainer;
@@ -32,7 +32,7 @@ public class TestCommentContainer {
 
     @BeforeClass
     public static void beforeClass() {
-        blog = BlogFactory.getBlog(TEST_PU);
+        blog = new Blog(TEST_PU);
     }
 
     @Test

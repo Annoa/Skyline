@@ -4,7 +4,6 @@
  */
 package com.skyline.rest.skyline_rest;
 
-import com.skyline.model.core.BlogFactory;
 import com.skyline.model.core.IBlog;
 import com.skyline.model.core.ICommentContainer;
 import com.skyline.model.core.IMemberRegistry;
@@ -20,7 +19,7 @@ public enum Blog {
     private final IBlog blog;
 
     private Blog() {
-        blog = BlogFactory.getBlog("skyline_pu");
+        blog = new com.skyline.model.core.Blog("skyline_pu");
     }
 
     public IMemberRegistry getMembersRegistry() {

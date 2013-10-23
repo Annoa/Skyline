@@ -4,7 +4,7 @@
  */
 package com.skyline.model.tests;
 
-import com.skyline.model.core.BlogFactory;
+import com.skyline.model.core.Blog;
 import com.skyline.model.core.IBlog;
 import com.skyline.model.core.IMemberRegistry;
 import com.skyline.model.core.IPostContainer;
@@ -28,7 +28,7 @@ public class TestPostContainer {
 
     @BeforeClass
     public static void beforeClass() {
-        blog = BlogFactory.getBlog(TEST_PU);
+        blog = new Blog(TEST_PU);
     }
     
     @Test
