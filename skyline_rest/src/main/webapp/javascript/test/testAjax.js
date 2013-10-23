@@ -1,5 +1,6 @@
 /* 
  *  Test basic AJAX call using JQuery
+ *  author hajo
  */
 
 // Possible test with curl first 
