@@ -4,16 +4,11 @@
  */
 package com.skyline.rest.skyline_rest;
 
-import com.skyline.model.core.IBlog;
 import com.skyline.model.core.IMemberRegistry;
 import com.skyline.model.core.Member;
-import com.skyline.model.utils.IDAO;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -29,7 +24,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 
 /**
  *
@@ -38,10 +32,8 @@ import javax.ws.rs.core.UriInfo;
 @Path("members")
 public class MemberResource {
 
-    private final static Logger log = Logger.getAnonymousLogger();
     private IMemberRegistry memberBox = Blog.INSTANCE.getMembersRegistry();
     @Context
-    private UriInfo uriInfo;
 
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -95,7 +87,6 @@ public class MemberResource {
             MemberProxy proxy = new MemberProxy(memberBox.find(member.getId()));
             return Response.ok(proxy).build();
         } catch (IllegalArgumentException e) {
-            log.log(Level.INFO, e.getLocalizedMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 
         }
