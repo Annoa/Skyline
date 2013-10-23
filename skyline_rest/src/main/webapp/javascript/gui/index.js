@@ -7,7 +7,7 @@ $(document).ready(function() {
         $(".menu-item").parent().removeClass('active');
         $("#controls").contents().remove();
         $("#login").parent().addClass('active');
-        $("#contents").load("/skyline_rest/author/login-page.html");
+        $("#contents").load("/skyline_rest/authorize/login.html");
     });
     
     $("#wall").click(function() {
