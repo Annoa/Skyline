@@ -27,6 +27,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
+ * Wrapping the blog-model and handling member-related calls towards it.
+ * 
  * @author tomassellden
  */
 @Path("members")
