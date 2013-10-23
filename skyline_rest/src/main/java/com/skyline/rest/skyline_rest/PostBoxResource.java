@@ -7,8 +7,6 @@ import com.skyline.model.core.Post;
 import com.skyline.model.core.VotingSystem;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -34,7 +32,6 @@ import javax.ws.rs.core.UriInfo;
 @Path("posts")
 public class PostBoxResource {
 
-    private final static Logger log = Logger.getAnonymousLogger();
     private IPostContainer postBox = Blog.INSTANCE.getPostContainer();
     private IMemberRegistry memberRegistry = Blog.INSTANCE.getMembersRegistry();
     // Helper class used to build URI's. Injected by container
@@ -143,7 +140,6 @@ public class PostBoxResource {
             postBox.update(post);
             return Response.ok().build();
         } catch (IllegalArgumentException e) {
-            log.log(Level.WARNING, e.getLocalizedMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
