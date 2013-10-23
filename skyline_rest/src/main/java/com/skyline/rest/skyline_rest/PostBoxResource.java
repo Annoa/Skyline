@@ -73,7 +73,6 @@ public class PostBoxResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response find(@PathParam("id") Long id) {
-        log.log(Level.INFO, "Find" + id);
         try {
             Post p = postBox.find(id);
             PostProxy pp = new PostProxy(p);
@@ -293,9 +292,7 @@ public class PostBoxResource {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getAuthor(@PathParam("postId") Long postId) {
         try {
-            log.log(Level.INFO, "Inside getAuthor");
             Post post = postBox.find(postId);
-            log.log(Level.INFO, "After post");
             MemberProxy member = new MemberProxy(postBox.getAuthor(post));
             return Response.ok(member).build();
         } catch (IllegalArgumentException ie) {
