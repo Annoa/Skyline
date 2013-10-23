@@ -1,23 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skyline.model.core;
 
 /**
  * public interface for the Blog
+ *
  * @author tomassellden
  */
 public interface IBlog {
-    /**
-     * 
-     * @return a member
-     */
-    public IMemberRegistry getMemberRegistry();
-    
-    public IPostContainer getPostContainer();
-    
-    public ICommentContainer getCommentContainer();
 
-    
+    public IMemberRegistry getMemberRegistry();
+
+    public IPostContainer getPostContainer();
+
+    public ICommentContainer getCommentContainer();
 }
