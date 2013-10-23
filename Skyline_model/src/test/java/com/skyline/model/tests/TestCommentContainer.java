@@ -22,7 +22,7 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author tomassellden
+ * @author Anno
  */
 public class TestCommentContainer {
 

@@ -3,10 +3,10 @@
  * with the wall. As you can see in the methods below this is for 
  * example things as rendering the posts and their comments.
  * 
+ * @author annoa and epoxy
+ * 
  * @param $ JQuery
  * @param root window
- * 
- * @returns {undefined}
  */
 (function($,root){
 
@@ -15,7 +15,7 @@
     /**
      * Function rendering all posts on the wall.
      * 
-     * @param {type} posts
+     * @param {object} posts
      * @returns {undefined}
      */
     function renderAllPosts(posts) {
@@ -28,6 +28,9 @@
         
         $('#postlist').append(htmlText);
         
+        /*
+         * Listener that is set here because it is set after creation of posts
+         */
         $("[id^=comment-button_]")
             .button()
             .click(function(){
@@ -43,7 +46,9 @@
                 }
 
             });
-            
+        /*
+         * Listener that is set here because it is set after creation of posts
+         */
         $("[id^=comment-add-button_]")
             .button()
             .click(function() {
@@ -87,6 +92,9 @@
                 }
             });
             
+        /*
+         * Listener that is set here because it is set after creation of posts
+         */
         $("[id^=post_]").find('.vote-up').click(function() {
             var postIdentifier = $(this).parents('li').attr('id');
             var postId = postIdentifier.substr(postIdentifier.indexOf('_')+1);
@@ -97,6 +105,9 @@
             skyline.getPostBox().vote(postId, true);
         });
         
+        /*
+         * Listener that is set here because it is set after creation of posts
+         */
         $("[id^=post_]").find('.vote-down').click(function() {
             var postIdentifier = $(this).parents('li').attr('id');
             var postId = postIdentifier.substr(postIdentifier.indexOf('_')+1);
@@ -107,6 +118,9 @@
             skyline.getPostBox().vote(postId, false);
         });
         
+        /*
+         * Listener that is set here because it is set after creation of posts
+         */
         $("[id^=post_]").each(function() {
             var targetLi = $(this).attr('id');
             var postId = targetLi.substr(targetLi.indexOf("_")+1);
@@ -147,9 +161,10 @@
     
     /**
      * Function rendering comments of the posts and comments of the comments.
+     * The function adds the root comments from the database, and then
+     * recursively adds their children and adds listeners at the right moment.
      * 
-     * @param {type} post
-     * @returns {undefined}
+     * @param {long} post, a single posts id.
      */
     function renderComments(post) {
         
@@ -219,6 +234,7 @@
                             
                             $(targetDiv).find(".comment-textarea").val("");
                             skyline.getCommentBox().add(comment).done(function() {
+                                // "Refreshes" the comments
                                 $("#comment-button_"+post).click().click();
                             });
                         });
@@ -237,6 +253,10 @@
                     }
                 });
                 
+               /*
+                * Listener that is set here because it 
+                * is set after creation of comments
+                */
                 $(postDiv).find('.vote-up').click(function() {
                     var commentIdentifier = $(this).parent().parent().attr('class');
                     var commentId = commentIdentifier.substr(commentIdentifier.indexOf('comment_')+7+1);
@@ -247,6 +267,10 @@
                     skyline.getCommentBox().vote(commentId, true);
                 });
                 
+               /*
+                * Listener that is set here because it 
+                * is set after creation of comments
+                */
                 $(postDiv).find('.vote-down').click(function() {
                    var commentIdentifier = $(this).parent().parent().attr('class');
                     var commentId = commentIdentifier.substr(commentIdentifier.indexOf('comment_')+7+1);
@@ -256,7 +280,11 @@
                     $(this).html($(this).html() * 1 + 1);
                     skyline.getCommentBox().vote(commentId, false); 
                 });
-                
+
+               /*
+                * Listener that is set here because it 
+                * is set after creation of comments
+                */
                 ($(postDiv).find('div.comment').each(function() {
                     var classText = $(this).attr('class');
                     var commentId = classText.substr(classText.indexOf("comment_")+8);
@@ -293,7 +321,6 @@
      * all the posts on the wall.
      * 
      * @param {type} post
-     * @returns {undefined}
      */
     function renderAddedPost(post) {
         $('#postlist').prepend(convertPostToHTML(post));

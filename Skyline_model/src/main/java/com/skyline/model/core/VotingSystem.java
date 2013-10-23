@@ -60,7 +60,7 @@ public class VotingSystem implements Comparable<Object>, Serializable {
 
     /**
      *
-     * @return 1 if self is greater
+     * @return 1 if self's vote difference is greater, 0 if equals and -1 if lesser
      */
     public int compareTo(Object o) {
         if (o instanceof VotingSystem) {

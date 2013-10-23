@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author tomassellden and AntonPalmqvist
+ * @author Anno and AntonPalmqvist
  */
 public class TestPostContainer {
 

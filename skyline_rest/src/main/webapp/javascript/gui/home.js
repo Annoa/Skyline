@@ -1,11 +1,10 @@
 /**
  * Js for index page, the tabs
+ * 
+ * @author annoa
  */
 
 $(document).ready(function() {
-    /**
-     * On document ready running
-     */
     
     $("#wall").parent().addClass('active');
     
@@ -59,18 +58,12 @@ $(document).ready(function() {
         }
     });
     
+    // Loading wall when clicking "Wall"
     $("#wall").click(function(event) {
         loadWall();
     });
     
-    $("#profile").click(function(event) {
-        $("#contents").load("/skyline_rest/content/wall.html");
-        resetActive();
-        $("#wall").parent().addClass("active");
-        
-        event.preventDefault();
-    });
-    
+    // Loading a memberpage for the logged in user
     $("#profile").click(function(event) {
         resetActive();
         $("#profile").parent().addClass("active");
@@ -89,6 +82,7 @@ $(document).ready(function() {
         });
     });    
     
+    // Loading a wall only for the favorites of the user
     $("#favorites").click(function(event) {
         $("#controls").contents().remove();
         resetActive();
@@ -102,27 +96,10 @@ $(document).ready(function() {
         event.preventDefault();
     });
     
-    loggedInMemberPage = function(memberId) {
-        $.when(memberPage(memberId)).then(function() {
-            // ** Adding favorite button. 
-            // Have to add here since it is hidden for non-logged in users
-            $('.glyphicon-star').show();
-            $('.glyphicon-star').hover(function() {
-                    $(this).toggleClass('yellow');
-                }, function() {
-                    $(this).toggleClass('yellow');
-            });
-
-            $('.glyphicon-star').click(function() {
-                $('.glyphicon-star').unbind('mouseenter mouseleave');
-            });
-        });
-        
-        
-    };
-    
+    // Swapping the ID of the login/logout button
     $("#login").attr("id", "logout");
     
+    // Show the logout dialog
     $("#logout").click(function(event) {
         $("#controls").contents().remove();
         $("#contents").load("/skyline_rest/authorize/logout.html");
@@ -131,8 +108,7 @@ $(document).ready(function() {
         event.preventDefault();
     });
     
-    
-    
+    // Resets the "clicked" style of all navigation buttons
     function resetActive() {
         $(".menu-item").parent().removeClass("active");
     };

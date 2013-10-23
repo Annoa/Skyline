@@ -9,7 +9,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author tomassellden
+ * @author Anno
  */
 public class MemberRegistry extends AbstractDAO<Member, Long> implements IMemberRegistry {
 

@@ -1,3 +1,8 @@
+/**
+ * @author annoa
+ */
+
+
 window.renderProfileForMember = function(member) {
     
     skyline.getMemberRegistry().find(member.id).done(function(member) {
