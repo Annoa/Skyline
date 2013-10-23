@@ -1,7 +1,3 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 $(document).ready(function() {
     $("#new-post").toggle();
     //Button add new post
