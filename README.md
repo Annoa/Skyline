@@ -4,8 +4,9 @@ The project git for the web applications course DAT076, fall semester 2013. Our 
 
 =======
 <b>The development team consists of:</b><br>
+-------
 
-epoxy = Anton Palmqvist<br>
-tomsel = Tomas Selldén<br>
-annoa = Mike Phoohad<br>
-krabban91 = Gabriel Andersson
+epoxy = Anton Palmqvist			palmqvist.anton@gmail.com<br>
+tomsel = Tomas Selldén			selldentomas@gmail.com<br>
+annoa = Mike Phoohad			anno.tao@gmail.com<br>
+krabban91 = Gabriel Andersson		anderssongabriel665@gmail.com
