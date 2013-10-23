@@ -57,7 +57,8 @@ public class AuthentificationFilter implements Filter {
             Member member = (Member) req.getSession().getAttribute("USER");
             if (member != null) {
                 req.getSession().setAttribute("USER", member);
-                chain.doFilter(request, response);
+                Logger.getAnonymousLogger().log(Level.INFO,"what");
+                
             }
             if (member == null) {
                 res.sendRedirect("http://localhost:8080/skyline_rest/");
