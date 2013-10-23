@@ -3,13 +3,10 @@
     <head>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!--<script type="text/javascript" src="/skyline_rest/lib/jquery-1.9.1.js"></script>
-        <script type="text/javascript" src="/skyline_rest/lib/jquery-ui-1.10.2.custom.js"></script>-->
         <script type="text/javascript" src="/skyline_rest/javascript/authorization/authorization.js"></script>
-        <!--<script type="text/javascript" src="/skyline_rest/javascript/core/memberregistry.js"></script>
-        <script type="text/javascript" src="/skyline_rest/javascript/core/skyline_member.js"></script>-->
     </head>
     <body>
+        <!-- Login form -->
         <form action="authorization" method="post" class="write-post-form">
             <div class="formgroup">
                 <label for="username-id">Username</label>
@@ -25,6 +22,7 @@
             <br>
             <button id ="sign-in" class="btn btn-default">Become a member</button><br>
         </div>
+        <!-- Become a member form -->
         <div id ="add-a-member" hidden>
             <div class="formgroup">
                 <label for="new-member">Write a username</label>
@@ -36,6 +34,7 @@
             </div>    
             <button type="submit" id="create-new-member" class="btn btn-default">submit</button>
         </div>
+        <!-- Messaging field -->
         <div id="become-a-member-message" class="container"></div>
     </body>
 </html>
