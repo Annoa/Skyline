@@ -23,7 +23,6 @@ import javax.persistence.TemporalType;
 @Entity
 public class Comment extends AbstractEntity implements Comparable<Comment>, Serializable{
 
-//    private Post post;
     @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
     @JoinColumn(name="PARENTCOMMENT", referencedColumnName="ID")
     private Set<Comment> childComments;
@@ -31,7 +30,6 @@ public class Comment extends AbstractEntity implements Comparable<Comment>, Seri
     private String commentText;
     @Temporal(TemporalType.DATE)
     private Date commentDate;
-//    private Member author;
     @Embedded
     private VotingSystem votes;
 
@@ -39,7 +37,7 @@ public class Comment extends AbstractEntity implements Comparable<Comment>, Seri
     }
 
     /**
-     * @param childComments == null, if top-level
+     * Used to create a new comment in database
      */
     public Comment(String commentText) {
         this.childComments = new HashSet<Comment>();
@@ -48,6 +46,10 @@ public class Comment extends AbstractEntity implements Comparable<Comment>, Seri
         this.votes = new VotingSystem();
     }
 
+    /**
+     * Used to update a comment in database
+     * @param childComments is empty, if it has no children
+     */
     public Comment(Long id, Set<Comment> childComments, String commentText,
             Date date, VotingSystem votes) {
         super(id);

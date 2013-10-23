@@ -1,15 +1,11 @@
 package com.skyline.model.core;
 
 import com.skyline.model.utils.AbstractDAO;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PreRemove;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
@@ -37,8 +33,8 @@ public class MemberRegistry extends AbstractDAO<Member, Long> implements IMember
      *
      * @param memberOne
      * @param memberTwo
-     * @return a List containing common favoritesmembers or null if they don´t
-     * have any common favoritemembers
+     * @return a set containing common favorite members or an empty set if they don´t
+     * have any common favorite members
      */
     public Set<Member> getMutualFavorites(Member memberOne, Member memberTwo) {
         Set<Member> firstFavorites = memberOne.getFavoriteMembers();        
@@ -58,7 +54,7 @@ public class MemberRegistry extends AbstractDAO<Member, Long> implements IMember
         query.setParameter("name", name);
         query.setParameter("password", password);
         try {
-        Member result = query.getSingleResult();
+        query.getSingleResult();
         } catch(NoResultException e) {
             return false;
         }

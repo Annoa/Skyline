@@ -8,6 +8,8 @@ import javax.persistence.TypedQuery;
 
 /**
  *
+ * A container for accessing different comments
+ * 
  * @author Gabriel
  */
 public class CommentContainer extends AbstractDAO<Comment, Long>
