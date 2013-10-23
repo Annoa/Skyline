@@ -60,8 +60,6 @@ memberPage = function(memberId) {
             skyline.getMemberRegistry().isFavorite(memberId).done(function(isFavorite) {
                 
                 $glyph.show();
-                //I don't know... wat?...
-                //TODO: Alter color on star
                 if (isFavorite) { 
                     $glyph.unbind('mouseenter mouseleave');
                     $glyph.attr('class', "glyphicon glyphicon-star yellow");
@@ -73,7 +71,6 @@ memberPage = function(memberId) {
                     }, function() {
                         $(this).attr('class', "glyphicon glyphicon-star");
                     });
-                    //$glyph.unbind('mouseenter mouseleave');
                     $glyph.attr('class', "glyphicon glyphicon-star");
                     $glyph.click(adding);
                 }
@@ -97,7 +94,6 @@ memberPage = function(memberId) {
                 }, function() {
                     $(this).toggleClass('yellow');
                 });
-                //$glyph.unbind('mouseenter mouseleave');
                 $glyph.attr('class', "glyphicon glyphicon-star yellow");
                 var glyphId = $glyph.attr('id');
                 var memberId = glyphId.substr(glyphId.indexOf("mber_") + 5);
@@ -107,5 +103,5 @@ memberPage = function(memberId) {
                 });
             }
         }
-    })
+    });
 };

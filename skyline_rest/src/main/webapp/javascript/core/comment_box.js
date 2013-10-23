@@ -61,9 +61,5 @@ CommentBox.prototype = (function() {
                 data: post
             });
         }
-        //TODO
-//        getPostByMember: function ( post ) {
-//            
-//        }
     };
 }());
