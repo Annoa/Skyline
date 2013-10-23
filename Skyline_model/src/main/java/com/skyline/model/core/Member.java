@@ -32,6 +32,10 @@ public class Member extends AbstractEntity implements Serializable {
     private String password;
     @Temporal(TemporalType.DATE)
     private Date signUpDate;
+    /*
+     * Using a bi-directional ManyToMany-relationship here since it is the best 
+     * solution since the entity is referencing another entity of the same type
+     */
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "FAV_MEM",

@@ -138,30 +138,4 @@ public class TestMemberContainer {
         mr.remove(mem.getId());
         assertTrue(mr.getCount() == 0);
     }
-
-//    @Test
-//    public void getAllMembers() {
-//        int count = blog.getMemberRegistry().getCount();
-//        List<Member> allMembers = blog.getMemberRegistry().getRange(0, count);
-//        assertTrue(allMembers.size() == 4);
-//    }
-
-//    @Test
-//    public void getFavoriteFriendsOfTomas() {
-//        Member m = blog.getMemberRegistry().getMember("Tomas");
-//        System.out.println("member m is equal to" + m.toString());
-//        List<Member> tomasFavoriteFriends = m.getFavoriteMembers();
-//        assertTrue(tomasFavoriteFriends.size() == 3);
-//    }
-//
-//    @Test
-//    public void getFavoriteFriendsByIntersection() {
-//        Member anton = blog.getMemberRegistry().getMember("Anton");
-//        Member tomas = blog.getMemberRegistry().getMember("Tomas");
-//        List<Member> commonFriends = blog.getMemberRegistry().getMutualFriendsberByIntersection(tomas, anton);
-//        assertTrue(commonFriends.size() == 1);
-//        Member cf = commonFriends.get(0);
-//        assertTrue(cf.getName().equals("Krabban"));
-//
-//    }
 }

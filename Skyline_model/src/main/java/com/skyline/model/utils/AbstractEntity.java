@@ -11,7 +11,6 @@ import javax.persistence.MappedSuperclass;
  * Base class for all entities (later to be stored in database), 
  * Product, Order, etc
  * @author hajo
- * 
  * @modified by anno
  */
 

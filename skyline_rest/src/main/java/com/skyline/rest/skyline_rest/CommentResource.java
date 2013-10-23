@@ -43,7 +43,6 @@ public class CommentResource {
     @Context
     private UriInfo uriInfo;
 
-    //TODO: Is it FormParam or PathParam?
     @GET
     @Path("all")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -125,7 +124,6 @@ public class CommentResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response addComment(
-//            @FormParam("authorId") Long authorId,
             @Context HttpServletRequest req,
             @FormParam("postId") Long postId,
             @FormParam("parentId") Long parentCommentId,
@@ -133,8 +131,6 @@ public class CommentResource {
         Member session = (Member) req.getSession().getAttribute("USER");
         Member author = members.find(session.getId());
         Post post = posts.find(postId);
-//        log.log(Level.INFO, "Trying to add comment: Author=" + authorId + ", Post="+ postId +", Parent="+ parentCommentId +". text=" + text);
-        //TODO: Fix this constructor.
         Comment c = new Comment(text);
         comments.add(c);
         if (parentCommentId != -1) {
@@ -147,8 +143,6 @@ public class CommentResource {
         author.addComment(c);
         members.update(author);
         try {
-//            URI uri = uriInfo.getAbsolutePathBuilder().path("").build();//c.getId().toString()).build();
-//            return Response.ok(uri).build();
             return Response.created(uriInfo.getAbsolutePathBuilder()
                 .path(String.valueOf(c.getId())).build()).build();
         } catch (IllegalArgumentException ie) {
@@ -168,7 +162,6 @@ public class CommentResource {
         }
     }
 
-    //TODO: If we implement votingsystem, add a method or add params. (method preferred)
     @PUT
     @Path("{Id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
