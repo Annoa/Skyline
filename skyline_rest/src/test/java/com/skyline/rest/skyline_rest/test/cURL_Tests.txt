@@ -1,3 +1,24 @@
+Note
+Some test appends on HttpservletRequest and doesn´ work since we don´t send
+any request with the curl test written here. 
+Methods that relies on HttpServletrequest is:
+
+PostBoxResource
+1: addPost
+2: update
+3: getPostsOfUserByVotes
+4: getPostsForFavoritesOfMember
+
+MemberResource
+1: getUser
+2: isfavoriteMember
+3: favoriteMember
+4: unFavoriteMember
+
+CommentResource
+1: addComment
+
+
 cURL-tests for the HTTP-calls to the blog-model (via PostBoxResource) 
 
 1.
@@ -94,8 +115,9 @@ curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/mem
 curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/members/commonFavoriteMembers?memberId={memberId}&memberId2={memberId}"
 
 
-#_______________________________________________
-# Comments
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+cURL-tests for the HTTP-calls to the blog-model (via CommentResource) 
 
 1.
 Getting all comments

@@ -59,8 +59,6 @@ public class PostBoxResource {
 
         GenericEntity<List<PostProxy>> ge = new GenericEntity<List<PostProxy>>(wrappedPostList) {
         };
-        //log.log(Level.INFO, "getAll", new Object[]{null, null});
-//        return null;
         return Response.ok(ge).build();
     }
 

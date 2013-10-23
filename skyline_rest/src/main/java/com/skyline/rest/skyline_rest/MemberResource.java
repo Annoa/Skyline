@@ -92,7 +92,6 @@ public class MemberResource {
         Member member = new Member(name, password);
         try {
             memberBox.add(member);
-//            URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf("name")).build(member);
             MemberProxy proxy = new MemberProxy(memberBox.find(member.getId()));
             return Response.ok(proxy).build();
         } catch (IllegalArgumentException e) {
