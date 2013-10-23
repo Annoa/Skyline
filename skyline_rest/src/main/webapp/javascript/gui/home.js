@@ -20,7 +20,7 @@ $(document).ready(function() {
     $login.click(function() {
         $(".menu-item").parent().removeClass('active');
         $login.parent().addClass('active');
-        $("#contents").load("/skyline_rest/author/logout.html")
+        $("#contents").load("/skyline_rest/authorize/logout.html")
     });
     
     $.when(loadWall()).then(function() {
@@ -123,7 +123,7 @@ $(document).ready(function() {
     
     $("#login").click(function(event) {
         $("#controls").contents().remove();
-        $("#contents").load("/skyline_rest/author/pageLogin.html");
+        $("#contents").load("/skyline_rest/authorize/login.html");
         resetActive();
         $("#logout").parent().addClass("active");
         event.preventDefault();
@@ -131,7 +131,7 @@ $(document).ready(function() {
     
      $("#logout").click(function(event) {
         $("#controls").contents().remove();
-        $("#contents").load("/skyline_rest/author/logout.html");
+        $("#contents").load("/skyline_rest/authorize/logout.html");
         resetActive();
         $("#logout").parent().addClass("active");
         event.preventDefault();
