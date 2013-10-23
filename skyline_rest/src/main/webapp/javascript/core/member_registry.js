@@ -28,7 +28,6 @@ MemberRegistry.prototype = (function() {
             return $.getJSON(this.baseUri + "/names");
         },
         add: function(member) {
-            console.log(member);
             return $.ajax({
                 type: 'POST',
                 datatype: 'json',

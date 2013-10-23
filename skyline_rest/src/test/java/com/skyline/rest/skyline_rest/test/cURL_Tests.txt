@@ -1,7 +1,9 @@
+cURL-tests:
+
 Note
-Some test appends on HttpservletRequest and doesn´ work since we don´t send
+Some test appends on HttpservletRequest and doesn't work since we don't send
 any request with the curl test written here. 
-Methods that relies on HttpServletrequest is:
+Methods that relies on HttpServletrequest are:
 
 PostBoxResource
 1: addPost
@@ -40,7 +42,7 @@ curl -v -H "Accept: application/json" http://localhost:8080/skyline_rest/rs/post
 
 # *** POST (create) ***
 curl -v -X POST http://localhost:8080/skyline_rest/rs/posts/ --data "title=Post Title example&bodyText=This is a text. Bla bla bla...&PostVideo=www.video.com"
-//OK!
+//OK! (when http-servlet is not )
 
 # *** DELETE (delete) ***
 curl -v -X DELETE http://localhost:8080/skyline_rest/rs/posts/{idNumber}
@@ -54,7 +56,7 @@ curl -v -X PUT http://localhost:8080/skyline_rest/rs/posts/{idNumber} --data "ti
 
 # Query parameters. NOTE: Must quote URI. Will get list (with possible 0 elements)
 curl -v -H "Accept: application/json" "http://localhost:8080/skyline_rest/rs/posts/range?first=0&last=2"
-OK!
+OK! (when the filter is not used)
 
 # Get primitive type
 curl -v http://localhost:8080/skyline_rest/rs/posts/count

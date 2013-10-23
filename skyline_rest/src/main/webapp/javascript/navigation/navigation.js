@@ -37,9 +37,7 @@ $(document).ready(function() {
 renderMainWall = function() {
     $("#contents").load("/skyline_rest/content/wall.html", function() {
         skyline.getPostBox().getAll().done(function(posts) {
-            $.when(GUI.renderAllPosts(posts)).then(function() {
-                console.log("Rendered posts and I am done!");
-            });
+            GUI.renderAllPosts(posts)
         });
     });
 };

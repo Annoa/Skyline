@@ -4,7 +4,7 @@
  */
 $(document).ready(function() {
     $("#new-post").toggle();
-//Button add new post
+    //Button add new post
     $("#add-post-toggle")
             .button()
             .click(function() {
@@ -13,11 +13,9 @@ $(document).ready(function() {
     
     //Button: Save post form
     $("#save-post").button().click(function(){
-        console.log("Clicked save");
         var newPost = getFormDialogData();
         clearFormDialogData();
         $("#new-post").toggle();
-        //$("#new-post").attr("hidden",'hidden');
         //Creating a new post of the entered values
         var def = skyline.getPostBox().add(newPost);
         def.done(function(addedPost){
@@ -38,7 +36,7 @@ $(document).ready(function() {
         // Preserves rowbreaks for saving to database
         // Also only allows two rowbreaks max in a row
         var text = $("#ptext").val();
-        post.bodyText = text.replace(/\n/g, "<br />")
+        post.bodyText = text.replace(/\n/g, "<br />");
         // **
         post.postVideo = $("#pvideo").val();
         post.postPicture = $("#ppicture").val();

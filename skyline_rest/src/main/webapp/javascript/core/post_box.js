@@ -21,7 +21,6 @@ PostBox.prototype = (function (){
         },
         
         getAll: function() {
-            console.log("getAll");
             return $.getJSON(this.baseUri);
         },
                 
@@ -34,7 +33,6 @@ PostBox.prototype = (function (){
         },
 
         add: function( post ){
-            console.log("add Post");
             return $.ajax({
                 type: 'POST',
                 url: this.baseUri,

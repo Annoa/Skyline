@@ -15,12 +15,12 @@ $(document).ready(function() {
     $("#navbar-main").append(home_navigation);
     
     // Change function of "Log in"-button to "Log out"
-    var $login = $("#login")
+    var $login = $("#login");
     $login.html("Log out");
     $login.click(function() {
         $(".menu-item").parent().removeClass('active');
         $login.parent().addClass('active');
-        $("#contents").load("/skyline_rest/authorize/logout.html")
+        $("#contents").load("/skyline_rest/authorize/logout.html");
     });
     
     $.when(loadWall()).then(function() {
@@ -42,7 +42,7 @@ $(document).ready(function() {
             skyline.getPostBox().getAll().done(function(posts) {
                 $.when(GUI.renderAllPosts(posts)).then(function() {
                 });
-            })
+            });
         });
     }
     
@@ -121,15 +121,9 @@ $(document).ready(function() {
         
     };
     
-    $("#login").click(function(event) {
-        $("#controls").contents().remove();
-        $("#contents").load("/skyline_rest/authorize/login.html");
-        resetActive();
-        $("#logout").parent().addClass("active");
-        event.preventDefault();
-    });
+    $("#login").attr("id", "logout");
     
-     $("#logout").click(function(event) {
+    $("#logout").click(function(event) {
         $("#controls").contents().remove();
         $("#contents").load("/skyline_rest/authorize/logout.html");
         resetActive();
