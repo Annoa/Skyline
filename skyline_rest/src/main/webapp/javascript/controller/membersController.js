@@ -1,5 +1,3 @@
-
-
 $(function(){
 //    if(wallLoaderIdentifier==="favorites"){
         console.log("memberscontroller is running");
