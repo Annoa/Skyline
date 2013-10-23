@@ -6,11 +6,8 @@ import com.skyline.model.core.Member;
 import com.skyline.model.core.Post;
 import com.skyline.model.core.VotingSystem;
 import com.skyline.model.utils.IDAO;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -27,7 +24,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Context;
-import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -36,7 +32,6 @@ import org.codehaus.jettison.json.JSONObject;
 @Path("comments/post")
 public class CommentResource {
 
-    private final static Logger log = Logger.getAnonymousLogger();
     private ICommentContainer comments = Blog.INSTANCE.getCommentContainer();
     private IDAO<Member, Long> members = Blog.INSTANCE.getMembersRegistry();
     private IDAO<Post, Long> posts = Blog.INSTANCE.getPostContainer();
