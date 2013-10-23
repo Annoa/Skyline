@@ -1,3 +1,7 @@
+/**
+ * @author annoa
+ */
+
 $(document).ready(function() {
     
     $(".menuItem").parent().removeClass("active");

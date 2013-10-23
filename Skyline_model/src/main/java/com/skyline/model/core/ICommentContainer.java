@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * public interface for the CommentContainer
  * 
- * @author Gabriel
+ * @author Gabriel and Anno
  */
 public interface ICommentContainer extends IDAO<Comment, Long> {
 

@@ -29,7 +29,7 @@ import javax.ws.rs.core.Context;
 
 /**
  *
- * @author Gabriel
+ * @author Gabriel and Anno
  */
 @Path("comments/post")
 public class CommentResource {

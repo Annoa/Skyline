@@ -1,5 +1,6 @@
 /**
- * Js for index page, the tabs
+ * Js for index page
+ * @author annoa
  */
 $(document).ready(function() {
     

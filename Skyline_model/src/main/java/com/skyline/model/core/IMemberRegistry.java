@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * public interface for the MemberRegistry
  * 
- * @author tomassellden
+ * @author tomassellden and Anno
  */
 public interface IMemberRegistry extends IDAO<Member, Long> {
     

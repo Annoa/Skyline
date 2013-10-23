@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Interface for a database access object
  *
- * @author anno
+ * @author hajo
  */
 public interface IDAO<T, K> {
     public void add(T t);

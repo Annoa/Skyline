@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * public interface for the PostContainer
- * @author tomassellden
+ * @author tomassellden and Anno
  */
 public interface IPostContainer extends IDAO<Post, Long> {
     

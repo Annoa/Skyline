@@ -5,10 +5,7 @@
 package com.skyline.rest.skyline_rest;
 
 import com.skyline.model.core.Comment;
-import com.skyline.model.core.Member;
-import com.skyline.model.core.Post;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
