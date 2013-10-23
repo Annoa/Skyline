@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skyline.rest.skyline_rest;
 
 import com.skyline.model.core.Blog;
@@ -11,7 +7,8 @@ import com.skyline.model.core.IMemberRegistry;
 import com.skyline.model.core.IPostContainer;
 
 /**
- *
+ * Class to give the web application access to the model.
+ * 
  * @author hajo modified by tomassellden
  */
 public enum BlogAccess {

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skyline.rest.skyline_rest;
 
 import com.skyline.model.core.Post;
@@ -12,7 +8,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * * Need this because translation from XML to JSON
+ * Need this because translation from XML to JSON
+ * 
  * @author tomassellden
  */
 @XmlRootElement(name = "Post")

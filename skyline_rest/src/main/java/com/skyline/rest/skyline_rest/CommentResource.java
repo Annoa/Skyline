@@ -28,7 +28,8 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Context;
 
 /**
- *
+ * Wrapping the blog-model and handling comment-related calls towards it.
+ * 
  * @author Gabriel and Anno
  */
 @Path("comments/post")

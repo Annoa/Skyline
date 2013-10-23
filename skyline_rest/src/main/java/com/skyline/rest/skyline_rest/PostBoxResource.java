@@ -24,7 +24,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
- * Wrapping the blog-model and handling calls towards it.
+ * Wrapping the blog-model and handling post-related calls towards it.
  *
  * @author AntonPalmqvist
  */

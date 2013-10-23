@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.skyline.servlet.skyline_Authentication;
 
 import com.skyline.model.core.Member;
