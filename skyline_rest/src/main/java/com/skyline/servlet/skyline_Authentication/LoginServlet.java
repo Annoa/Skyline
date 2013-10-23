@@ -8,6 +8,8 @@ import com.skyline.model.core.IMemberRegistry;
 import com.skyline.model.core.Member;
 import com.skyline.rest.skyline_rest.BlogAccess;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,11 +41,12 @@ public class LoginServlet extends HttpServlet {
          
          String username = request.getParameter("username");
          String password = request.getParameter("password");
-         
+         Logger.getAnonymousLogger().log(Level.INFO, "que");
          String logout = request.getParameter("logout");
          if (logout != null) {
+             Logger.getAnonymousLogger().log(Level.INFO, "what");
              request.getSession().removeAttribute("USER");
-             response.sendRedirect("index.xhtml");
+             response.sendRedirect("/skyline_rest/index.xhtml");
              return;
          }
          
@@ -52,9 +55,9 @@ public class LoginServlet extends HttpServlet {
             Member member = memberBox.getMember(username);
             request.getSession().setAttribute("USER", member);
              //request.getRequestDispatcher("login/home.xhtml").forward(request, response);
-            response.sendRedirect("login/home.xhtml");
+            response.sendRedirect("/skyline_rest/home.xhtml");
          } else {
-             response.sendRedirect("index.xhtml");
+             response.sendRedirect("/skyline_rest/index.xhtml");
          }
     }
 
