@@ -188,28 +188,26 @@ public class PostBoxResource {
             @FormParam("bodyText") String bodyText,
             @FormParam("PostPicture") String postPicture,
             @FormParam("postVideo") String postVideo) {
-        //TODO mer lik add?
-        //Check that the user is logged in
         Member member = (Member) req.getSession().getAttribute("USER");
-//        if(member==null){
-//            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
-//        }
-//        String postPic = (postPicture!=null) ? postPicture : "";
-//        String postVid = (postVideo!=null) ? postVideo : "No video";
-//        Post tempPost = postBox.find(id);
-//        VotingSystem voteSys = tempPost.getVotes();
-//        try {
-//            if(member.getId()==id){
-//                postBox.update(new Post(id, tempPost.getDate(), title, bodyText, postPic, postVid, voteSys));
-//                return Response.ok().build();
-//            }
-//            else{
-//                return Response.ok().build();
-//            }
-//        } catch (IllegalArgumentException e) {
-//            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-//        }
-        return Response.ok().build();
+        if(member==null){
+            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+        }
+        String postPic = (postPicture!=null) ? postPicture : "";
+        String postVid = (postVideo!=null) ? postVideo : "No video";
+        Post tempPost = postBox.find(id);
+        Member postAuthor = postBox.getAuthor(tempPost);
+        VotingSystem voteSys = tempPost.getVotes();
+        try {
+            if(member.getId()==postAuthor.getId()){
+                postBox.update(new Post(id, tempPost.getDate(), title, bodyText, postPic, postVid, voteSys));
+                return Response.ok().build();
+            }
+            else{
+                return Response.ok().build();
+            }
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     /**

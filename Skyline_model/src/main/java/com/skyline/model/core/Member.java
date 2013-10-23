@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
  * @author tomassellden
  */
 @Entity
-@NamedQuery(name="Member.search", query="SELECT m FROM Member m WHERE m.name LIKE :string")
+@NamedQuery(name = "Member.search", query = "SELECT m FROM Member m WHERE m.name LIKE :string")
 public class Member extends AbstractEntity implements Serializable {
 
     private String name;
@@ -32,27 +32,28 @@ public class Member extends AbstractEntity implements Serializable {
     private String password;
     @Temporal(TemporalType.DATE)
     private Date signUpDate;
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name="FAV_MEM",
-            joinColumns={@JoinColumn(name="MEM_ID", referencedColumnName="ID")}
-            ,inverseJoinColumns={@JoinColumn(name="FAVMEM_ID", referencedColumnName="ID")}
-            )
+            name = "FAV_MEM",
+            joinColumns = {
+        @JoinColumn(name = "MEM_ID", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "FAVMEM_ID", referencedColumnName = "ID")})
     private Set<Member> favoriteMembers;
-    
-    @ManyToMany(fetch=FetchType.LAZY, mappedBy= "favoriteMembers")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "favoriteMembers")
     private Set<Member> favoritedByMembers;
-    
-    @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn
     private Set<Post> posts;
-    @OneToMany (orphanRemoval=true, cascade={CascadeType.ALL}, fetch=FetchType.LAZY)
+    @OneToMany(orphanRemoval = true, cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn
     private Set<Comment> comments;
 
     public Member() {
     }
-    
+
+    /**
+     * Used to create a new member in database
+     */
     public Member(String name, String password) {
         this.password = password;
         this.signUpDate = new Date();
@@ -63,7 +64,11 @@ public class Member extends AbstractEntity implements Serializable {
         this.favoritedByMembers = new HashSet<Member>();
     }
 
-    public Member(Long id, Date date, String name, Set<Post> posts, 
+    /**
+     *
+     * Used to update a member in database
+     */
+    public Member(Long id, Date date, String name, Set<Post> posts,
             Set<Comment> comments, Set<Member> favoriteMembers) {
         super(id);
         this.signUpDate = date;
@@ -80,27 +85,27 @@ public class Member extends AbstractEntity implements Serializable {
     public Date getDate() {
         return signUpDate;
     }
-    
+
     public Set<Post> getPosts() {
         return posts;
     }
-    
+
     public Set<Comment> getComments() {
         return comments;
     }
-    
+
     public void addPost(Post post) {
         this.posts.add(post);
     }
-    
+
     public void removePost(Post post) {
         this.posts.remove(post);
     }
-    
+
     public boolean addComment(Comment comment) {
         return this.comments.add(comment);
     }
-    
+
     public void removeComment(Comment comment) {
         this.comments.remove(comment);
     }
@@ -113,7 +118,7 @@ public class Member extends AbstractEntity implements Serializable {
         member.favoritedByMembers.add(this);
         return this.favoriteMembers.add(member);
     }
-    
+
     public boolean removeFavoriteMember(Member member) {
         member.favoritedByMembers.remove(this);
         return this.favoriteMembers.remove(member);
@@ -122,16 +127,16 @@ public class Member extends AbstractEntity implements Serializable {
     public Set<Member> getFavoritedByMembers() {
         return favoritedByMembers;
     }
-    
+
     @PreRemove
     private void removeFavoritesFromMembers() {
         for (Member member : favoritedByMembers) {
             member.removeFavoriteMember(this);
         }
     }
-    
+
+    @Override
     public String toString() {
         return "Member = { id = " + getId() + " name = " + name + "}";
     }
-    
 }

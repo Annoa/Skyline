@@ -9,11 +9,6 @@ import java.util.List;
  */
 public interface IPostContainer extends IDAO<Post, Long> {
     
-//    public Member getMemberByPost(Post post);
-//        
-//    
-//    public List<Post> getAllPostByMember(Post post);
-    
     public Member getAuthor(Post post);
     
     public List<Post> getPostsOfMemberByVotes(Member member, int start, int amount);

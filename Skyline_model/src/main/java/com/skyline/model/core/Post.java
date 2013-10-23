@@ -49,6 +49,9 @@ public class Post extends AbstractEntity implements Serializable {
     public Post() {
     }
 
+    /**
+     * Used to create a new post in database
+     */
     public Post(String title, String bodyText, String postPicture, 
             String postVideo) {
         this.createDate = new Date();
@@ -70,6 +73,9 @@ public class Post extends AbstractEntity implements Serializable {
         this.votes = new VotingSystem();
     }
 
+    /**
+     * Used to update a post in database
+     */
     public Post(Long id, Date date, String title, String bodyText, 
             String picture, String video, VotingSystem votingSystem) {
         super(id);

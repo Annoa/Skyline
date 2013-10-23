@@ -11,11 +11,11 @@ MemberRegistry.prototype = (function() {
     return {
         
         search: function(searchString) {
-            return $.getJSON(this.baseUri + "/search?searchString=" + searchString)
+            return $.getJSON(this.baseUri + "/search?searchString=" + searchString);
         },
                 
         searchByName: function(searchString) {
-            return $.getJSON(this.baseUri + "/searchByName?searchString=" + searchString)
+            return $.getJSON(this.baseUri + "/searchByName?searchString=" + searchString);
         },
         
         find: function(id) {

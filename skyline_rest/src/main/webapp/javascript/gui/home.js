@@ -41,7 +41,6 @@ $(document).ready(function() {
         $("#contents").load("/skyline_rest/content/wall.html", function() {
             skyline.getPostBox().getAll().done(function(posts) {
                 $.when(GUI.renderAllPosts(posts)).then(function() {
-                    console.log("Rendered posts and I am done!");
                 });
             })
         });
@@ -79,14 +78,14 @@ $(document).ready(function() {
         
         $("#controls").load("/skyline_rest/content/profile.html", function() {
             skyline.getMemberRegistry().getUser().done(function(user) {
-                renderProfileForMember(user); // Declared in profile.js (which is loaded in profile.html
-            })
+                renderProfileForMember(user); // Declared in profile.js (which is loaded in profile.html)
+            });
         });
         
         $("#contents").load("/skyline_rest/content/wall.html", function() {
             skyline.getPostBox().getPostsOfUserByVotes().done(function(posts) {
                 GUI.renderAllPosts(posts);
-            })
+            });
         });
     });    
     
@@ -97,9 +96,8 @@ $(document).ready(function() {
         $("#contents").load("/skyline_rest/content/wall.html", function() {
             skyline.getPostBox().getPostByFavorites().done(function(posts) {
                 $.when(GUI.renderAllPosts(posts)).then(function() {
-                    console.log("Rendered posts and I am done!");
                 });
-            })
+            });
         });
         event.preventDefault();
     });
@@ -121,15 +119,13 @@ $(document).ready(function() {
         });
         
         
-    }
+    };
     
     $("#login").click(function(event) {
         $("#controls").contents().remove();
         $("#contents").load("/skyline_rest/author/pageLogin.html");
         resetActive();
         $("#logout").parent().addClass("active");
-        
-        
         event.preventDefault();
     });
     
@@ -138,8 +134,6 @@ $(document).ready(function() {
         $("#contents").load("/skyline_rest/author/logout.html");
         resetActive();
         $("#logout").parent().addClass("active");
-        
-        
         event.preventDefault();
     });
     
@@ -148,13 +142,6 @@ $(document).ready(function() {
     function resetActive() {
         $(".menu-item").parent().removeClass("active");
     };
-    
-//    $(".typeahead").typeahead([
-//        {
-//            name: 'planets',
-//            remote: '/skyline_rest/rs/members/searchByName?string=%QUERY'
-//        }
-//        ]);
 });
 
 

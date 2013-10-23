@@ -5,7 +5,6 @@ $(document).ready(function() {
             .click(function() {
         console.log("authorization javascript körs");
         $("#add-a-member").show();
-                //addMember();
     });
     
     $("#create-new-member").
@@ -13,11 +12,9 @@ $(document).ready(function() {
             .click(function() {
         $("#become-a-member-message").contents().remove();
         var newMember = getFormDialogData();
-        console.log(newMember);
         skyline.getMemberRegistry().getAll().done(function(members) {
             for (var i = 0; i<members.length; i++) {
                 if (members[i].name === newMember.name) {
-                    console.log("not a valid member");
                     var html = "<H2>" + newMember.name + "</H2>\n\
                                 <br>\n\
                                 <p> not a valid user name </p>";
@@ -26,7 +23,6 @@ $(document).ready(function() {
                     
                 }
             }
-            console.log("create new member");
             skyline.getMemberRegistry().add(newMember);
             var html = "<H3> Congratulations </H3><H1> " + newMember.name + "</H1> \n\
                         <br> \n\
