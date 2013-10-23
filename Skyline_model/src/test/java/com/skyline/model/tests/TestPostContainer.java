@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 
 /**
  *
- * @author tomassellden
+ * @author tomassellden and AntonPalmqvist
  */
 public class TestPostContainer {
 
@@ -32,12 +32,26 @@ public class TestPostContainer {
     }
     
     @Test
+    public void testBasics() {
+        IPostContainer pc = blog.getPostContainer();
+        assertTrue(pc.getCount() == 0);
+        Post testPost = new Post("A nice little text", 
+                "This is a text I wrote when I was travelling in Australia.", 
+                "http://www.hdwallpapersinn.com/wp-content/uploads/2012/06/sunset.jpg", 
+                "http://www.youtube.com/watch?v=RnqAXuLZlaE");
+        pc.add(testPost);
+        assertTrue(pc.getCount() == 1);
+        pc.remove(testPost.getId());
+        assertTrue(pc.getCount() == 0);
+    }
+    
+    @Test
     public void testGetRange() {
         IPostContainer pc = blog.getPostContainer();
         
         Post post1 = new Post("Post", "Tester", null, null);
-        Post post2 = new Post("Post2", "Allla", null, null);
-        Post post3 = new Post("Post3", "allaa", null, null);
+        Post post2 = new Post("Post2", "Tester2", null, null);
+        Post post3 = new Post("Post3", "Tester3", null, null);
         pc.add(post1);
         pc.add(post2);
         pc.add(post3);

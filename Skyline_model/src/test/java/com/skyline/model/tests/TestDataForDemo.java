@@ -21,7 +21,7 @@ import org.junit.BeforeClass;
  * 
  * @author AntonPalmqvist
  */
-public class TestDataForMethods {
+public class TestDataForDemo {
 
     static IBlog blog;
     private final static String PU = "skyline_pu";
