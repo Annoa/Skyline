@@ -36,7 +36,7 @@ $(document).ready(function() {
         // Preserves rowbreaks for saving to database
         // Also only allows two rowbreaks max in a row
         var text = $("#ptext").val();
-        post.bodyText = text.replace(/\n/g, "<br />")
+        post.bodyText = text.replace(/\n/g, "<br />");
         // **
         post.postVideo = $("#pvideo").val();
         post.postPicture = $("#ppicture").val();

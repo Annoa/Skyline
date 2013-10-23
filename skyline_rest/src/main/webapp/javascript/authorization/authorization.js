@@ -25,7 +25,7 @@ $(document).ready(function() {
             skyline.getMemberRegistry().add(newMember);
             var html = "<H3> Congratulations </H3><H1> " + newMember.name + "</H1> \n\
                         <br> \n\
-                        <p> You are now a member of Skyline!</p>"
+                        <p> You are now a member of Skyline!</p>";
             $("#become-a-member-message").append(html);
         });
    
